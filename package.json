@@ -1,0 +1,15 @@
+{
+  "name": "jestr",
+  "version": "0.0.1",
+  "main": "index.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "clear && jest"
+  },
+  "author": "jauntyjocularjay",
+  "license": "MIT",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
