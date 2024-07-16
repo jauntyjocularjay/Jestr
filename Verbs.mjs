@@ -1,70 +1,57 @@
-function throwsAnError(bool=true){
-    if(bool){
-        return 'successfully threw an error:' 
-    } else{
-        return 'did NOT throw an error:'
-    }
-}
+
+let counter = 0
 
 function getCounter(){
     counter++
     return `Test ${counter} -`
 }
 
+function throwsAnError(bool=true){
+    bool
+        ? 'successfully threw an error'
+        : 'did NOT throw an error'
+}
+
 function contains(bool=true){
-    if(bool){
-        return 'contains'
-    } else {
-        return 'does NOT contain'
-    }
+    bool
+        ? 'contains'
+        : 'does NOT contain'
 }
 
 function did(bool=true){
-    if(bool){
-        return 'did'
-    } else {
-        return 'did NOT'
-    }
+    bool
+        ? 'did'
+        : 'did NOT'
 }
 
 function does(bool=true){
-    if(bool){
-        return 'does'
-    } else {
-        return 'does NOT'
-    }
+    bool
+        ? 'does'
+        : 'does NOT'
 }
 
 function have(bool){
-    if(bool){
-        return 'have'
-    } else {
-        return  'NOT have'
-    }
+    bool
+        ? 'have'
+        : 'NOT have'
 }
 
 function has(bool){
-    if(bool){
-        return 'has'
-    } else {
-        return 'does NOT have'
-    }
+    bool
+        ? 'has'
+        : 'does NOT have'
 }
 
 function is(bool){
-    if(bool){
-        return 'is'
-    } else {
-        return 'is NOT'
-    }
+    bool
+        ? 'is'
+        : 'is NOT'
 }
 
 function matches(bool){
-    if(bool){
-        return 'matches'
-    } else {
-        return 'does not match'
-    }
+    bool
+        ? 'matches'
+        : 'does not match'
 }
 
 function recognizes(bool){

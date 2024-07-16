@@ -4,7 +4,7 @@ const {
     expects,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
-
+    
 } = require('../Jestr.cjs')
 const {
     getCounter,
