@@ -29,9 +29,7 @@ const expects = {
      *      A boolean that 
      * @returns passing/failing
      */
-        const types = ['number', 'object']
-        console.log('subject:', subject)
-        console.log('target:', target)
+        const types = ['number', 'object', 'null']
 
         if(SubjectTargetAre(subject, target, types)){
             throw new SubjectTargetSuitabilityError(
@@ -41,7 +39,7 @@ const expects = {
                 target
             )
         } else {
-            const description = `${getCounter()} '${subjectAlias}' ${matches(bool)} '${targetAlias}'`
+            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
 
             test(description, () => {
                 bool
@@ -49,6 +47,15 @@ const expects = {
                     : expect(subject).not.toBe(target)
             })
         }
+    },
+    valueToBeNull: (subjectAlias='subject', subject, bool=true) => {
+        const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
+
+        test(description, () => {
+            bool
+                ? expect(subject).toBeNull()
+                : expect(subject).not.toBeNull()
+        })
     },
     objectToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
     /**
@@ -83,8 +90,8 @@ const expects = {
      */
         const types = ['number']
 
-        if(subjectTargetAre(subject, target, types)){
-            const description = `${getCounter()} '${subjectAlias}' ${matches(bool)} '${targetAlias}'`
+        if(SubjectTargetAre(subject, target, types)){
+            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
 
             test(description, () => {
                 bool && Number.isInteger(subject) && Number.isInteger(target)
@@ -103,16 +110,15 @@ const expects = {
                 target )
         }
     },
-    toThrow: (functionAlias='function alias',funct, errorAlias='error alias', error=Error(), bool=true) => {
+    toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
     /**
      * @stub
      */
-        throw new StubError()
-        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${error}'`
+        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
-                ? expect(() => { funct()}).toThrow()
-                : expect(() => { funct()}).not.toThrow()
+                ? expect(() => { funct()}).toThrow(error)
+                : expect(() => { funct()}).not.toThrow(error)
         })
     }
 }
@@ -141,34 +147,39 @@ class SubjectTargetSuitabilityError extends TypeError {
 
 function SubjectTargetAre(subject, target, types=[]){
 /**
- * @todo decide if I want to implement a { bool } paramater
- * @param {*} subject 
- * @param {*} target 
- * @param {[]<string>} types 
+ * @param {*} subject
+ * @param {*} target
+ * @param {[]<string>} types
  * @returns { boolean } result of the test
  */
     let result = false
 
+    // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
     if((subject === null || target === null) &&
         types.indexOf('null') !== -1
     ){
-        return true
+        result = true
     }
 
     types.forEach(type => {
-        if(typeof subject == type ||
-            typeof target == type
+        // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
+        if( subject === null || target === null) {
+            return
+        } else if(typeof subject === type ||
+            typeof target === type
         ){
-            return true
+            result = true
         }
     })
 
-    return false
+    return result
 }
 
 module.exports = {
     // for testing
     SubjectTargetAre,
+    SubjectTargetSuitabilityError,
+
 
     // For use
     expects,

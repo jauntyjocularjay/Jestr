@@ -3,9 +3,9 @@ let counter = 0
 
 function throwsAnError(bool=true){
     if(bool){
-        return 'successfully threw an error:' 
+        return 'successfully threw an error'
     } else{
-        return 'did NOT throw an error:'
+        return 'did NOT throw an error'
     }
 }
 
