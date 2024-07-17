@@ -33,6 +33,7 @@ const expects = {
 
         if(SubjectTargetAre(subject, target, types)){
 
+            // Added recommendation block here because this is the most generalized version of this expectation
             let append = 'consider using '
             if(subject === null){
                 append += 'expects.valueToBeNull()'
