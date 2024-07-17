@@ -6,39 +6,31 @@ const {
     SubjectTargetSuitabilityError,
     
 } = require('../Jestr.cjs')
-const {
-    getCounter,
-    throwsAnError,
-    contains,
-    did,
-    does,
-    have,
-    has,
-    is,
-    matches,
-    recognizes
-} = require('../Verbs.cjs')
 
-
+// describe('', () => {
+//     test('', () => {
+//         expect.toString.test
+//     })
+// })
 
 
 function HelperTests(){
     let result
 
     result = SubjectTargetAre(true, false, ['boolean'])
-    expects.valuesToBe('subject: true, target: false', result, 'boolean', true)
+    expects.valueToBe('subject: true, target: false', result, 'boolean', true)
     
     result = SubjectTargetAre(1, 1.2, ['number'])
-    expects.valuesToBe('subject: 1, target: 1.2', result, '{type: "number"}', true)
+    expects.valueToBe('subject: 1, target: 1.2', result, '{type: "number"}', true)
     
     result = SubjectTargetAre('string', 'anotherString', ['number'])
-    expects.valuesToBe('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
+    expects.valueToBe('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
 }
 
 function ValueToBeTests(){
-    expects.valuesToBe()
-    expects.valuesToBe('true', true, 'true', true)
-    expects.valuesToBe('true', true, 'false', false, false)
+    expects.valueToBe()
+    expects.valueToBe('true', true, 'true', true)
+    expects.valueToBe('true', true, 'false', false, false)
     expects.valueToBeNull('null', null)
     expects.valueToBeNull('true', true, false)
 }
@@ -47,7 +39,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject is a number', 
         () => {
-            expects.valuesToBe('1', 1) 
+            expects.valueToBe('1', 1) 
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -56,7 +48,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valuesToBe('2', 2, '3', 3, false)
+            expects.valueToBe('2', 2, '3', 3, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -65,7 +57,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valuesToBe('4', 4, '5', 5, false)
+            expects.valueToBe('4', 4, '5', 5, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -74,7 +66,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valuesToBe('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
+            expects.valueToBe('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -83,7 +75,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'expects.valueToBe has a null subject', 
         () => {
-            expects.valuesToBe('null', null, 'null', null)
+            expects.valueToBe('null', null, 'null', null)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -92,7 +84,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'expects.valueToBe has a null subject', 
         () => {
-            expects.valuesToBe('undefined', undefined, 'null', null, false)
+            expects.valueToBe('undefined', undefined, 'null', null, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -101,7 +93,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'expects.valueToBe has a null subject', 
         () => {
-            expects.valuesToBe('1', 1, null, null, false)
+            expects.valueToBe('1', 1, null, null, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError

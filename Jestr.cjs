@@ -9,13 +9,13 @@ const {
     is,
     matches,
     recognizes
-} = require('./Verbs.cjs')
+} = require('./module/verbs/Verbs.cjs')
 const {expect, test} = require('@jest/globals')
 
 
 
 const expects = {
-    valuesToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+    valueToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
     /**
      * @param { string } subjectAlias 
      *      The alias of the subject to display in the description
@@ -141,8 +141,13 @@ class SubjectTargetSuitabilityError extends TypeError {
             `${testName} does not accept accept subject/targets of ` + 
             `these types: [${types}] \n` + 
             `Subject: ${subject} \n` +
-            `Target: ${target} \n`)
+            `Target: ${target} \n`
+        )
     }
+
+    // recommendation(subject){
+    //     if(subject === null)
+    // }
 }
 
 function SubjectTargetAre(subject, target, types=[]){
