@@ -1,6 +1,0 @@
-[submodule "git"]
-	path = git
-	url = https://github.com/jauntyjocularjay/kwikgit.git
-[submodule "module/jestr"]
-	path = module/jestr
-	url = https://github.com/jauntyjocularjay/jestr.git
