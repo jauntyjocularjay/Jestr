@@ -46,7 +46,8 @@ const expects = {
                 'expects.valuesToMatch()',
                 types,
                 subject,
-                target
+                target,
+                append
             )
         } else {
             const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
