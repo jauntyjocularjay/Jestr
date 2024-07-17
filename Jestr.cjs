@@ -133,7 +133,7 @@ const expects = {
                 ? expect(() => { funct()}).toThrow(error)
                 : expect(() => { funct()}).not.toThrow(error)
         })
-    }
+    },
 }
 
 class StubError extends Error {
