@@ -122,6 +122,7 @@ const expects = {
                 target )
         }
     },
+    stringContains: () => { throw new StubError()},
     toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
     /**
      * @stub
