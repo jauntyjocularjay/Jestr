@@ -9,13 +9,13 @@ const {
     is,
     matches,
     recognizes
-} = require('./Verbs.cjs')
+} = require('./module/verbs/Verbs.cjs')
 const {expect, test} = require('@jest/globals')
 
 
 
 const expects = {
-    valuesToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+    valueToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
     /**
      * @param { string } subjectAlias 
      *      The alias of the subject to display in the description
@@ -32,11 +32,23 @@ const expects = {
         const types = ['number', 'object', 'null']
 
         if(SubjectTargetAre(subject, target, types)){
+
+            // Added recommendation block here because this is the most generalized version of this expectation
+            let append = 'consider using '
+            if(subject === null){
+                append += 'expects.valueToBeNull()'
+            } else if (typeof subject === 'number') {
+                append += 'expects.numberToBe()'
+            } else if (typeof subject === 'object'){
+                append += 'expects.objectToBe()'
+            }
+
             throw new SubjectTargetSuitabilityError(
                 'expects.valuesToMatch()',
                 types,
                 subject,
-                target
+                target,
+                append
             )
         } else {
             const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
@@ -110,6 +122,7 @@ const expects = {
                 target )
         }
     },
+    stringContains: () => { throw new StubError()},
     toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
     /**
      * @stub
@@ -120,7 +133,7 @@ const expects = {
                 ? expect(() => { funct()}).toThrow(error)
                 : expect(() => { funct()}).not.toThrow(error)
         })
-    }
+    },
 }
 
 class StubError extends Error {
@@ -136,13 +149,19 @@ class SubjectTargetSuitabilityError extends TypeError {
 /**
  * @class Error explains why a value was rejected due to data type mismatch.
  */
-    constructor(testName, types=[], subject, target){
+    constructor(testName, types=[], subject, target, append=''){
         super(
             `${testName} does not accept accept subject/targets of ` + 
             `these types: [${types}] \n` + 
             `Subject: ${subject} \n` +
-            `Target: ${target} \n`)
+            `Target: ${target} \n` + 
+            append
+        )
     }
+
+    // recommendation(subject){
+    //     if(subject === null)
+    // }
 }
 
 function SubjectTargetAre(subject, target, types=[]){
