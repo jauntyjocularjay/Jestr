@@ -14,6 +14,15 @@ const {
 // })
 
 
+
+
+
+
+function DynamicTests() {
+    const booleans = [ true, true, true ]
+    booleans.forEach(bool => { expects.valueToBe(bool, bool, 'true', true) })
+}
+
 function HelperTests(){
     let result
 
@@ -105,4 +114,6 @@ describe('Jestr', () => {
     describe('Helper functions', () => {HelperTests()})
     describe('expect.valuesToBe', () => {ValueToBeTests()})
     describe('expect.toThrowError', () => {ThrowsErrorTests()})
+    describe('Dynamic Tests demo', () => {DynamicTests()})
+    
 })
