@@ -33,119 +33,179 @@ const {expect, test} = require('@jest/globals')
 //     }
 // }
 
+const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
+
 const expects = {
-    valueToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
-    /**
-     * @param { string } subjectAlias 
-     *      The alias of the subject to display in the description
-     * @param { string } subject
-     *      This non-number, non-object value of testing
-     * @param { string } targetAlias 
-     *      The alias of the target to display in the description
-     * @param { string } target
-     *      The non-number, non-object value the subject is tested against
-     * @param { boolean } bool
-     *      A boolean that 
-     * @returns passing/failing
-     */
-        const types = ['number', 'object', 'null']
+    toBe: {
+        value: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        /**
+         * @param { string } subjectAlias 
+         *      The alias of the subject to display in the description
+         * @param { string } subject
+         *      This non-number, non-object value of testing
+         * @param { string } targetAlias 
+         *      The alias of the target to display in the description
+         * @param { string } target
+         *      The non-number, non-object value the subject is tested against
+         * @param { boolean } bool
+         *      A boolean that 
+         * @returns passing/failing
+         */
+            const types = ['number', 'object', 'null']
 
-        if(SubjectTargetAre(subject, target, types)){
+            if(SubjectTargetAre(subject, target, types)){
 
-            // Added recommendation block here because this is the most generalized version of this expectation
-            let append = 'consider using '
-            if(subject === null){
-                append += 'expects.valueToBeNull()'
-            } else if (typeof subject === 'number') {
-                append += 'expects.numberToBe()'
-            } else if (typeof subject === 'object'){
-                append += 'expects.objectToBe()'
+                // Added recommendation block here because this is the most generalized version of this expectation
+                let append = 'consider using '
+                if(subject === null){
+                    append += 'expects.valueToBeNull()'
+                } else if (typeof subject === 'number') {
+                    append += 'expects.numberToBe()'
+                } else if (typeof subject === 'object'){
+                    append += 'expects.objectToBe()'
+                }
+
+                throw new SubjectTargetSuitabilityError(
+                    'expects.valuesToMatch()',
+                    types,
+                    subject,
+                    target,
+                    append
+                )
+            } else {
+                const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
+
+                test(description, () => {
+                    bool
+                        ? expect(subject).toBe(target)
+                        : expect(subject).not.toBe(target)
+                })
             }
-
-            throw new SubjectTargetSuitabilityError(
-                'expects.valuesToMatch()',
-                types,
-                subject,
-                target,
-                append
-            )
-        } else {
-            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
+        },
+        null: (subjectAlias='subject', subject, bool=true) => {
+            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
 
             test(description, () => {
                 bool
-                    ? expect(subject).toBe(target)
-                    : expect(subject).not.toBe(target)
+                    ? expect(subject).toBeNull()
+                    : expect(subject).not.toBeNull()
             })
-        }
-    },
-    valueToBeNull: (subjectAlias='subject', subject, bool=true) => {
-        const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
+        },
+        object: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        /**
+         * @param { string } subjectAlias 
+         *      The alias of the subject to display in the description
+         * @param { string } subject
+         *      This object value of testing
+         * @param { string } targetAlias 
+         *      The alias of the target to display in the description
+         * @param { string } target
+         *      The object value the subject is tested against
+         * @param { boolean } bool
+         *      A boolean that 
+         * @returns passing/failing
+         */
+            throw new StubError('expects.objectToBe()')
+        },
+        number: () => (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        /**
+         * @todo test
+         * @param { string } subjectAlias 
+         *      The alias of the subject to display in the description
+         * @param { string } subject
+         *      The Number value of testing
+         * @param { string } targetAlias 
+         *      The alias of the target to display in the description
+         * @param { string } target
+         *      The Number value the subject is tested against
+         * @param { boolean } bool
+         *      A boolean that 
+         * @returns passing/failing
+         */
+            const types = ['number']
 
-        test(description, () => {
-            bool
-                ? expect(subject).toBeNull()
-                : expect(subject).not.toBeNull()
-        })
-    },
-    objectToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
-    /**
-     * @param { string } subjectAlias 
-     *      The alias of the subject to display in the description
-     * @param { string } subject
-     *      This object value of testing
-     * @param { string } targetAlias 
-     *      The alias of the target to display in the description
-     * @param { string } target
-     *      The object value the subject is tested against
-     * @param { boolean } bool
-     *      A boolean that 
-     * @returns passing/failing
-     */
-        throw new StubError('expects.objectToBe()')
-    },
-    numberToBe: () => (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
-    /**
-     * @todo test
-     * @param { string } subjectAlias 
-     *      The alias of the subject to display in the description
-     * @param { string } subject
-     *      The Number value of testing
-     * @param { string } targetAlias 
-     *      The alias of the target to display in the description
-     * @param { string } target
-     *      The Number value the subject is tested against
-     * @param { boolean } bool
-     *      A boolean that 
-     * @returns passing/failing
-     */
-        const types = ['number']
+            if(SubjectTargetAre(subject, target, types)){
+                const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
 
-        if(SubjectTargetAre(subject, target, types)){
-            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
+                test(description, () => {
+                    bool && Number.isInteger(subject) && Number.isInteger(target)
+                        ? expect(subject).toBe(target)
+                        : expect(subject).not.toBe(target)
+
+                    bool && (!Number.isInteger(subject) && !Number.isInteger(target))
+                        ? expect(subject * 1.0).toBe(target * 1.0)
+                        : expect(subject * 1.0).not.toBe(target * 1.0)
+                })
+            } else {
+                throw new SubjectTargetSuitabilityError(
+                    'expects.valuesToMatch()',
+                    types,
+                    subject, 
+                    target )
+            }
+        },
+        truthy: (subject, bool=true) => {
+
+            let alias = ''
+            if(subject === undefined){
+                alias='undefined'
+            } else if(subject === null){
+                alias='null'
+            } else if(subject === ''){
+                alias='""'
+            } else if(Array.isArray(subject)){
+                alias = `[ ${subject} ]`
+            } else {
+                alias=subject.toString()
+            }
+
+            const description = `${getCounter()} ${alias} ${is(bool)} truthy`
 
             test(description, () => {
-                bool && Number.isInteger(subject) && Number.isInteger(target)
-                    ? expect(subject).toBe(target)
-                    : expect(subject).not.toBe(target)
-
-                bool && (!Number.isInteger(subject) && !Number.isInteger(target))
-                    ? expect(subject * 1.0).toBe(target * 1.0)
-                    : expect(subject * 1.0).not.toBe(target * 1.0)
+                bool
+                    ? expect(subject).toBeTruthy()
+                    : expect(subject).not.toBeTruthy()
             })
-        } else {
-            throw new SubjectTargetSuitabilityError(
-                'expects.valuesToMatch()',
-                types,
-                subject, 
-                target )
-        }
+        },
     },
-    stringContains: () => { throw new StubError()},
+    array: {
+        /**
+         * @todo test
+         */
+        toContain: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+            if(Array.isArray(target)){
+                const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
+
+                test(description, () => {
+                    bool
+                        ? expect(target).toContain(subject)
+                        : expect(target).not.toContain(subject)
+                })
+            } else {
+                throw new SubjectTargetSuitabilityError('expects.array.toContain()', TestableTypes.filter((type) => type !== 'array'), subject, target)
+            }
+        },
+        toContainEqual: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+            /**
+             * @todo test
+             */
+            if(Array.isArray(target)){
+                const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
+
+                test(description, () => {
+                    bool
+                        ? expect(target).toContainEqual(subject)
+                        : expect(target).not.toContainEqual(subject)
+                })
+            } else {
+                throw new SubjectTargetSuitabilityError('expects.array.toContainEqual()', TestableTypes.filter((type) => type !== 'array'), subject, target)
+            }
+        },
+    },
+    string: {
+        contains: () => { throw new StubError()},
+    },
     toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
-    /**
-     * @stub
-     */
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
@@ -153,29 +213,9 @@ const expects = {
                 : expect(() => { funct()}).not.toThrow(error)
         })
     },
-    toBeTruthy: (subject, bool=true) => {
 
-        let alias = ''
-        if(subject === undefined){
-            alias='undefined'
-        } else if(subject === null){
-            alias='null'
-        } else if(subject === ''){
-            alias='""'
-        } else if(Array.isArray(subject)){
-            alias = `[ ${subject} ]`
-        } else {
-            alias=subject.toString()
-        }
 
-        const description = `${getCounter()} ${alias} ${is(bool)} truthy`
 
-        test(description, () => {
-            bool
-                ? expect(subject).toBeTruthy()
-                : expect(subject).not.toBeTruthy()
-        })
-    }
 }
 
 class StubError extends Error {
@@ -195,8 +235,8 @@ class SubjectTargetSuitabilityError extends TypeError {
         super(
             `${testName} does not accept accept subject/targets of ` + 
             `these types: [${types}] \n` + 
-            `Subject: ${subject} \n` +
-            `Target: ${target} \n` + 
+            `typeof Subject: ${typeof subject} \n` +
+            `typeof Target: ${typeof target} \n` + 
             append
         )
     }

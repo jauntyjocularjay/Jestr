@@ -4,8 +4,8 @@ const {
     expects,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
-    
 } = require('../Jestr.cjs')
+const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 
 // describe('', () => {
 //     test('', () => {
@@ -14,49 +14,114 @@ const {
 // })
 
 
-
 function HelperTests(){
     let result
 
     result = SubjectTargetAre(true, false, ['boolean'])
-    expects.valueToBe('subject: true, target: false', result, 'boolean', true)
+    expects.toBe.value('subject: true, target: false', result, 'boolean', true)
     
     result = SubjectTargetAre(1, 1.2, ['number'])
-    expects.valueToBe('subject: 1, target: 1.2', result, '{type: "number"}', true)
+    expects.toBe.value('subject: 1, target: 1.2', result, '{type: "number"}', true)
     
     result = SubjectTargetAre('string', 'anotherString', ['number'])
-    expects.valueToBe('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
+    expects.toBe.value('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
 }
 
 function ToBeTests(){
-    ValueToBeTests()
-    ToBeNullTests()
-    TruthyTests()
+    describe('value()', () => {ToBeValueTests()})
+    describe('null()', () => {ToBeNullTests()})
+    describe('truthy()', () => {ToBeTruthyTests()})
 }
 
-function ValueToBeTests(){
-    expects.valueToBe()
-    expects.valueToBe('true', true, 'true', true)
-    expects.valueToBe('true', true, 'false', false, false)
+function ToBeValueTests(){
+    expects.toBe.value()
+    expects.toBe.value('true', true, 'true', true)
+    expects.toBe.value('true', true, 'false', false, false)
 }
 
 function ToBeNullTests(){
-    expects.valueToBeNull('null', null)
-    expects.valueToBeNull('true', true, false)
+    const nulled = null
+    const notNulled = true
+
+    expects.toBe.null('null', null)
+    expects.toBe.null('true', true, false)
+    expects.toBe.null('Nulled variable', nulled)
+    expects.toBe.null('Not Nulled variable', notNulled, false)
 }
 
-function TruthyTests() {
+function ToBeTruthyTests() {
     const truthy = [ true, {}, {alias: 'value'}, [0], []]
     const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
-    truthy.forEach(value => { expects.toBeTruthy(value) })
-    falsy.forEach(value => { expects.toBeTruthy(value, false) })
+    truthy.forEach(value => { expects.toBe.truthy(value) })
+    falsy.forEach(value => { expects.toBe.truthy(value, false) })
+}
+
+function ArrayTests() {
+    const albumsArray = ['Bleach','Nevermind', 'In Utero']
+    const albumsObj = {0:'Bleach', 1:'Nevermind', 2:'In Utero'}
+    const nevermind = 'Nevermind'
+    const unplugged = 'Unplugged in New York'
+
+    describe('.toContain()', () => {
+        expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
+        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)    
+    })
+
+    describe('.toContainEqual()', () => {
+        expects.array.toContainEqual(nevermind, nevermind, 'Albums by Nirvana', albumsArray)
+        expects.array.toContainEqual('albumsObj', albumsObj,'Album by Nirvana', albumsArray, false)
+        expects.array.toContainEqual('albumsObj', Object.values(albumsObj)[0],'Album by Nirvana', albumsArray)
+        expects.array.toContainEqual('albumsObj', Object.values(albumsObj)[8],'Album by Nirvana', albumsArray, false)
+        expects.array.toContainEqual('albumsObj', albumsObj,'Album by Nirvana', albumsArray, false)
+    
+        let myBeverages1 = [
+            {
+                delicious: true,
+                sour: false,
+                salty: false
+            },
+            {
+                delicious: true,
+                sour: true,
+                salty: true
+            }
+        ]
+        
+        const myBeverage = {
+          delicious: true,
+          sour: false
+        }
+        
+        expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages1, false)
+    
+        let myBeverages2 = [
+            {
+                delicious: true,
+                sour: false
+            },
+            {
+                delicious: true,
+                sour: true,
+                salty: true
+            }
+        ]
+        
+        expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2)
+    
+        myBeverages2 = {
+            0: myBeverages2[0],
+            1: myBeverages2[1]
+        }
+    
+        expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
+    })
 }
 
 function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject is a number', 
         () => {
-            expects.valueToBe('1', 1) 
+            expects.toBe.value('1', 1) 
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -65,7 +130,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valueToBe('2', 2, '3', 3, false)
+            expects.toBe.value('2', 2, '3', 3, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -74,7 +139,7 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valueToBe('4', 4, '5', 5, false)
+            expects.toBe.value('4', 4, '5', 5, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -83,34 +148,34 @@ function ThrowsErrorTests(){
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
-            expects.valueToBe('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
+            expects.toBe.value('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
     )
 
     expects.toThrow(
-        'expects.valueToBe has a null subject', 
+        'expects.toBe.value has a null subject', 
         () => {
-            expects.valueToBe('null', null, 'null', null)
+            expects.toBe.value('null', null, 'null', null)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
     )
 
     expects.toThrow(
-        'expects.valueToBe has a null subject', 
+        'expects.toBe.value has a null subject', 
         () => {
-            expects.valueToBe('undefined', undefined, 'null', null, false)
+            expects.toBe.value('undefined', undefined, 'null', null, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
     )
 
     expects.toThrow(
-        'expects.valueToBe has a null subject', 
+        'expects.toBe.value has a null subject', 
         () => {
-            expects.valueToBe('1', 1, null, null, false)
+            expects.toBe.value('1', 1, null, null, false)
         },
         'SubjectTargetSuitabilityError',
         SubjectTargetSuitabilityError
@@ -120,7 +185,7 @@ function ThrowsErrorTests(){
 
 describe('Jestr', () => {
     describe('Helper functions', () => {HelperTests()})
-    describe('expect.ToBe...', () => {ToBeTests()})
+    describe('expect.ToBe or !ToBe...', () => {ToBeTests()})
     describe('expect.toThrowError', () => {ThrowsErrorTests()})
-    
+    describe('expects.array', () => {ArrayTests()})
 })
