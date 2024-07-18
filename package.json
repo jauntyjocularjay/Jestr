@@ -4,7 +4,8 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "test": "clear && jest"
+    "test": "clear && jest",
+    "dev": "git submodule update --init"
   },
   "author": "jauntyjocularjay",
   "license": "MIT",
