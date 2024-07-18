@@ -14,25 +14,6 @@ const {expect, test} = require('@jest/globals')
 
 
 
-// class TestValue {
-//     constructor(alias='alias', value='value'){
-//         this.alias = alias
-//         this.value = value
-//     }
-// }
-
-// class Subject extends TestValue {
-//     constructor(value='value'){
-//         this.subject = value
-//     }
-// }
-
-// class Target extends TestValue {
-//     constructor(value='value'){
-//         this.target = value
-//     }
-// }
-
 const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
 const expects = {
@@ -51,6 +32,7 @@ const expects = {
          *      A boolean that 
          * @returns passing/failing
          */
+            /** @note types is used twice in this block */
             const types = ['number', 'object', 'null']
 
             if(SubjectTargetAre(subject, target, types)){
@@ -169,9 +151,6 @@ const expects = {
         },
     },
     array: {
-        /**
-         * @todo test
-         */
         toContain: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
@@ -186,9 +165,6 @@ const expects = {
             }
         },
         toContainEqual: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
-            /**
-             * @todo test
-             */
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
 
@@ -203,9 +179,12 @@ const expects = {
         },
     },
     string: {
-        contains: () => { throw new StubError()},
+        contains: () => {
+            throw new StubError()
+
+        },
     },
-    toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
+    toThrow: (functionAlias='function alias', funct = () => {} , errorAlias='error alias', error=Error, bool=true) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
@@ -240,10 +219,6 @@ class SubjectTargetSuitabilityError extends TypeError {
             append
         )
     }
-
-    // recommendation(subject){
-    //     if(subject === null)
-    // }
 }
 
 function SubjectTargetAre(subject, target, types=[]){
