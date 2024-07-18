@@ -15,14 +15,6 @@ const {
 
 
 
-
-
-
-function DynamicTests() {
-    const booleans = [ true, true, true ]
-    booleans.forEach(bool => { expects.valueToBe(bool, bool, 'true', true) })
-}
-
 function HelperTests(){
     let result
 
@@ -36,12 +28,28 @@ function HelperTests(){
     expects.valueToBe('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
 }
 
+function ToBeTests(){
+    ValueToBeTests()
+    ToBeNullTests()
+    TruthyTests()
+}
+
 function ValueToBeTests(){
     expects.valueToBe()
     expects.valueToBe('true', true, 'true', true)
     expects.valueToBe('true', true, 'false', false, false)
+}
+
+function ToBeNullTests(){
     expects.valueToBeNull('null', null)
     expects.valueToBeNull('true', true, false)
+}
+
+function TruthyTests() {
+    const truthy = [ true, {}, {alias: 'value'}, [0], []]
+    const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
+    truthy.forEach(value => { expects.toBeTruthy(value) })
+    falsy.forEach(value => { expects.toBeTruthy(value, false) })
 }
 
 function ThrowsErrorTests(){
@@ -112,8 +120,7 @@ function ThrowsErrorTests(){
 
 describe('Jestr', () => {
     describe('Helper functions', () => {HelperTests()})
-    describe('expect.valuesToBe', () => {ValueToBeTests()})
+    describe('expect.ToBe...', () => {ToBeTests()})
     describe('expect.toThrowError', () => {ThrowsErrorTests()})
-    describe('Dynamic Tests demo', () => {DynamicTests()})
     
 })

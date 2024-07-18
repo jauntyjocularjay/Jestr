@@ -14,6 +14,25 @@ const {expect, test} = require('@jest/globals')
 
 
 
+// class TestValue {
+//     constructor(alias='alias', value='value'){
+//         this.alias = alias
+//         this.value = value
+//     }
+// }
+
+// class Subject extends TestValue {
+//     constructor(value='value'){
+//         this.subject = value
+//     }
+// }
+
+// class Target extends TestValue {
+//     constructor(value='value'){
+//         this.target = value
+//     }
+// }
+
 const expects = {
     valueToBe: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
     /**
@@ -134,6 +153,29 @@ const expects = {
                 : expect(() => { funct()}).not.toThrow(error)
         })
     },
+    toBeTruthy: (subject, bool=true) => {
+
+        let alias = ''
+        if(subject === undefined){
+            alias='undefined'
+        } else if(subject === null){
+            alias='null'
+        } else if(subject === ''){
+            alias='""'
+        } else if(Array.isArray(subject)){
+            alias = `[ ${subject} ]`
+        } else {
+            alias=subject.toString()
+        }
+
+        const description = `${getCounter()} ${alias} ${is(bool)} truthy`
+
+        test(description, () => {
+            bool
+                ? expect(subject).toBeTruthy()
+                : expect(subject).not.toBeTruthy()
+        })
+    }
 }
 
 class StubError extends Error {
@@ -201,5 +243,8 @@ module.exports = {
 
 
     // For use
+    // TestValue,
+    // Subject,
+    // Target,
     expects,
 }
