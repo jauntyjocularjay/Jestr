@@ -14,5 +14,4 @@ mkdir test
 touch test/Name.test.cjs
 ```
 
-For now, Jest only supports CommonJS. I have another library [ChaiTests](https://github.com/jauntyjocularjay/chaitests.git) for anybody who wants to use ES6. 
-
+For now, Jest only supports CommonJS. 
