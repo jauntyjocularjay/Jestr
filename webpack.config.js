@@ -1,11 +1,57 @@
-module: {
-    loaders: [
-        // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-        { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
-    ],
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-    preLoaders: [
-        // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-        { test: /\.js$/, loader: "source-map-loader" }
-    ]
-}
+const path = require('path');
+
+const isProduction = process.env.NODE_ENV == 'production';
+
+
+const config = {
+    entry: './src/index.ts',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+    },
+    plugins: [
+        // Add your plugins here
+        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+    ],
+    module: {
+        loaders: [
+            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            { test: /\.tsx?$/, loader: "awesome-typescript-loader" }
+        ],
+    
+        preLoaders: [
+            // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+            { test: /\.js$/, loader: "source-map-loader" }
+        ],
+        
+        rules: [
+            {
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
+                exclude: ['/node_modules/'],
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+                type: 'asset',
+            },
+
+            // Add your rules for custom modules here
+            // Learn more about loaders from https://webpack.js.org/loaders/
+        ],
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
+    },
+};
+
+module.exports = () => {
+    if (isProduction) {
+        config.mode = 'production';
+        
+        
+    } else {
+        config.mode = 'development';
+    }
+    return config;
+};
