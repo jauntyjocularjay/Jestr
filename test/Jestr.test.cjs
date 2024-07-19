@@ -4,6 +4,7 @@ const {
     expects,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
+    IntegerFloatMismatchError,
 } = require('../Jestr.cjs')
 const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 
@@ -12,7 +13,6 @@ const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 //         expect.toString.test
 //     })
 // })
-
 
 function HelperTests(){
     let result
@@ -29,14 +29,21 @@ function HelperTests(){
 
 function ToBeTests(){
     describe('value()', () => {ToBeValueTests()})
-    describe('toBeNumber()', () => {ToBeNumber()})
+    describe('toBeNumber()', () => {ToBeNumber()}) //  Why are they skipping?
     describe('null()', () => {ToBeNullTests()})
     describe('truthy()', () => {ToBeTruthyTests()})
 }
 
 function ToBeNumber(){
     expects.toBe.number('four', 4, 4)
-    expects.toBe.number('four', 4.0, 4.0)
+    expects.toBe.number('four point zero', 4.0, 4.0)
+    
+    expects.toThrow(
+        'expect 4 to be 4.0',
+        expects.toBe.number('four', 4, 4.0),
+        'Error',
+        Error,
+    )
 }
 
 function ToBeValueTests(){
@@ -188,10 +195,11 @@ function ThrowsErrorTests(){
     )
 }
 
-
 describe('Jestr', () => {
     describe('Helper functions', () => {HelperTests()})
     describe('expect.ToBe or !ToBe...', () => {ToBeTests()})
     describe('expect.toThrowError', () => {ThrowsErrorTests()})
     describe('expects.array', () => {ArrayTests()})
 })
+
+

@@ -7,6 +7,7 @@ const {
     have,
     has,
     is,
+    isInteger,
     matches,
     recognizes
 } = require('./module/verbs/Verbs.cjs')
@@ -89,8 +90,7 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: () => (subjectAlias='subject alias', subject, target, bool=true) => {
-        /** @todo Finish debugging */
+        number: (subjectAlias='subject alias', subject, target, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -106,24 +106,28 @@ const expects = {
          */
             const types = ['number']
 
-            if(SubjectTargetAre(subject, target, types) || Number.isInteger(subject) !== Number.isInteger(target)){
+            if(SubjectTargetAre(subject, target, types) && Number.isInteger(subject) === Number.isInteger(target)){
                 const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${target}'`
 
                 test(description, () => {
-                    bool && Number.isInteger(subject) && Number.isInteger(target)
-                        ? expect(subject).toBe(target)
-                        : expect(subject).not.toBe(target)
-
-                    bool && !(Number.isInteger(subject) && Number.isInteger(target))
-                        ? expect(subject * 1.0).toBe(target * 1.0)
-                        : expect(subject * 1.0).not.toBe(target * 1.0)
+                    if(Number.isInteger(subject) && Number.isInteger(target)){
+                        bool
+                            ? expect(subject).toBe(target)
+                            : expect(subject).not.toBe(target)
+                    } else if (!(Number.isInteger(subject) && Number.isInteger(target))){ 
+                        bool
+                            ? expect(subject * 1.0).toBeCloseTo(target * 1.0)
+                            : expect(subject * 1.0).not.toBeCloseTo(target * 1.0)
+                    } else {
+                        throw new Error('Unexpected outcome from expects.toBe.number()')
+                    }
                 })
             } else {
                 throw new SubjectTargetSuitabilityError(
                     'expects.toBe.number()',
                     TestableTypes.filter('number'),
-                    subject, 
-                    target 
+                    subject,
+                    target
                 )
             }
         },
@@ -222,6 +226,24 @@ class SubjectTargetSuitabilityError extends TypeError {
     }
 }
 
+class SubjectTargetMismatchError extends TypeError {
+    constructor(subject, target){
+        const message = `Subject: ${subject} and Target: ${target} are not comparable.`
+        super(message)
+    }
+}
+
+class IntegerFloatMismatchError extends TypeError {
+    constructor(subject, target){
+
+        let message = 
+            `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
+            `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
+            `convert them both to Integer or Float.`
+        super(message)
+    }
+}
+
 function SubjectTargetAre(subject, target, types=[]){
 /**
  * @param {*} subject
@@ -256,7 +278,7 @@ module.exports = {
     // for testing
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
-
+    IntegerFloatMismatchError,
 
     // For use
     // TestValue,
