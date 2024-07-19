@@ -4,7 +4,7 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "test": "clear && jest",
+    "test": "clear && jest --coverage",
     "dev": "git submodule update --init"
   },
   "author": "jauntyjocularjay",

@@ -29,8 +29,14 @@ function HelperTests(){
 
 function ToBeTests(){
     describe('value()', () => {ToBeValueTests()})
+    describe('toBeNumber()', () => {ToBeNumber()})
     describe('null()', () => {ToBeNullTests()})
     describe('truthy()', () => {ToBeTruthyTests()})
+}
+
+function ToBeNumber(){
+    expects.toBe.number('four', 4, 4)
+    expects.toBe.number('four', 4.0, 4.0)
 }
 
 function ToBeValueTests(){
