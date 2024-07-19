@@ -1,4 +1,6 @@
-
+import {
+    SubjectTargetAre
+} from '../Jestr.ts'
 
 // describe('', () => {
 //     test('', () => {

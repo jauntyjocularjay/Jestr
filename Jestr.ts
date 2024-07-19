@@ -17,6 +17,38 @@ const {expect, test} = require('@jest/globals')
 
 const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
+
+
+function SubjectTargetAre(subject: any, target: null, types: Array<string>){
+/**
+ * @param {*} subject
+ * @param {*} target
+ * @param {[]<string>} types
+ * @returns { boolean } result of the test
+ */
+    let result = false
+
+    // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
+    if((subject === null || target === null) &&
+        types.indexOf('null') !== -1
+    ){
+        result = true
+    }
+
+    types.forEach(type => {
+        // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
+        if( subject === null || target === null) {
+            return
+        } else if(typeof subject === type ||
+            typeof target === type
+        ){
+            result = true
+        }
+    })
+
+    return result
+}
+
 const expects = {
     toBe: {
         value: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
@@ -255,36 +287,6 @@ class IntegerFloatMismatchError extends TypeError {
             `convert them both to Integer or Float.`
         super(message)
     }
-}
-
-function SubjectTargetAre(subject: any, target: null, types: Array<string>){
-/**
- * @param {*} subject
- * @param {*} target
- * @param {[]<string>} types
- * @returns { boolean } result of the test
- */
-    let result = false
-
-    // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
-    if((subject === null || target === null) &&
-        types.indexOf('null') !== -1
-    ){
-        result = true
-    }
-
-    types.forEach(type => {
-        // This check is done because Javascript evaluates typeof null > 'object' instead of 'null'
-        if( subject === null || target === null) {
-            return
-        } else if(typeof subject === type ||
-            typeof target === type
-        ){
-            result = true
-        }
-    })
-
-    return result
 }
 
 module.exports = {
