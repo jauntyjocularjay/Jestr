@@ -7,6 +7,7 @@ const {
     have,
     has,
     is,
+    isInteger,
     matches,
     recognizes
 } = require('./module/verbs/Verbs.cjs')
@@ -16,9 +17,35 @@ const {expect, test} = require('@jest/globals')
 
 const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
+const globals = {
+    afterAll: (fn, timeout) => {
+        afterAll(() => fn, timeout)
+    },
+    afterEach: (fn, timeout) => {
+        afterEach(() => fn, timeout)
+    },
+    beforeAll: (fn, timeout) => {
+        beforeAll(() => fn, timeout)
+    },
+    beforeEach: (fn, timeout) => {
+        beforeEach(() => fn, timeout)
+    },
+    it: (name, fn, timeout) => {
+        it(name, () => fn, timeout)
+    },
+    test: (name, fn, timeout) => {
+        test(name, () => fn, timeout)
+    }
+}
+
+const describe = (name, fn) => {
+    describe(name, () => fn)
+}
+
+
 const expects = {
     toBe: {
-        value: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        value: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -64,7 +91,7 @@ const expects = {
                 })
             }
         },
-        null: (subjectAlias='subject', subject, bool=true) => {
+        null: (subjectAlias='subject alias', subject, bool=true) => {
             const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
 
             test(description, () => {
@@ -73,7 +100,7 @@ const expects = {
                     : expect(subject).not.toBeNull()
             })
         },
-        object: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        object: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -89,9 +116,8 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: () => (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        number: (subjectAlias='subject alias', subject, target, bool=true) => {
         /**
-         * @todo test
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
          * @param { string } subject
@@ -106,24 +132,29 @@ const expects = {
          */
             const types = ['number']
 
-            if(SubjectTargetAre(subject, target, types)){
-                const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
+            if(SubjectTargetAre(subject, target, types) && Number.isInteger(subject) === Number.isInteger(target)){
+                const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${target}'`
 
                 test(description, () => {
-                    bool && Number.isInteger(subject) && Number.isInteger(target)
-                        ? expect(subject).toBe(target)
-                        : expect(subject).not.toBe(target)
-
-                    bool && (!Number.isInteger(subject) && !Number.isInteger(target))
-                        ? expect(subject * 1.0).toBe(target * 1.0)
-                        : expect(subject * 1.0).not.toBe(target * 1.0)
+                    if(Number.isInteger(subject) && Number.isInteger(target)){
+                        bool
+                            ? expect(subject).toBe(target)
+                            : expect(subject).not.toBe(target)
+                    } else if (!(Number.isInteger(subject) && Number.isInteger(target))){ 
+                        bool
+                            ? expect(subject * 1.0).toBeCloseTo(target * 1.0)
+                            : expect(subject * 1.0).not.toBeCloseTo(target * 1.0)
+                    } else {
+                        throw new Error('Unexpected outcome from expects.toBe.number()')
+                    }
                 })
             } else {
                 throw new SubjectTargetSuitabilityError(
-                    'expects.valuesToMatch()',
-                    types,
-                    subject, 
-                    target )
+                    'expects.toBe.number()',
+                    TestableTypes.filter('number'),
+                    subject,
+                    target
+                )
             }
         },
         truthy: (subject, bool=true) => {
@@ -151,7 +182,7 @@ const expects = {
         },
     },
     array: {
-        toContain: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
 
@@ -164,7 +195,7 @@ const expects = {
                 throw new SubjectTargetSuitabilityError('expects.array.toContain()', TestableTypes.filter((type) => type !== 'array'), subject, target)
             }
         },
-        toContainEqual: (subjectAlias='subject', subject, targetAlias='target', target, bool=true) => {
+        toContainEqual: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
 
@@ -221,6 +252,24 @@ class SubjectTargetSuitabilityError extends TypeError {
     }
 }
 
+class SubjectTargetMismatchError extends TypeError {
+    constructor(subject, target){
+        const message = `Subject: ${subject} and Target: ${target} are not comparable.`
+        super(message)
+    }
+}
+
+class IntegerFloatMismatchError extends TypeError {
+    constructor(subject, target){
+
+        let message = 
+            `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
+            `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
+            `convert them both to Integer or Float.`
+        super(message)
+    }
+}
+
 function SubjectTargetAre(subject, target, types=[]){
 /**
  * @param {*} subject
@@ -255,11 +304,12 @@ module.exports = {
     // for testing
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
-
+    IntegerFloatMismatchError,
 
     // For use
     // TestValue,
     // Subject,
     // Target,
+    globals,
     expects,
 }

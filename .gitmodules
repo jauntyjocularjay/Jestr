@@ -1,3 +1,6 @@
 [submodule "module/verbs"]
 	path = module/verbs
 	url = https://github.com/jauntyjocularjay/verbsjs.git
+[submodule "git"]
+	path = git
+	url = https://github.com/jauntyjocularjay/kwikgit.git
