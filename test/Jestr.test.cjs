@@ -2,6 +2,7 @@
 const {expect, test} = require('@jest/globals')
 const {
     expects,
+    globals,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
     IntegerFloatMismatchError,
@@ -34,6 +35,12 @@ function ToBeTests(){
     describe('truthy()', () => {ToBeTruthyTests()})
 }
 
+function ToBeValueTests(){
+    expects.toBe.value()
+    expects.toBe.value('true', true, 'true', true)
+    expects.toBe.value('true', true, 'false', false, false)
+}
+
 function ToBeNumber(){
     expects.toBe.number('four', 4, 4)
     expects.toBe.number('four point zero', 4.0, 4.0)
@@ -44,12 +51,6 @@ function ToBeNumber(){
         'Error',
         Error,
     )
-}
-
-function ToBeValueTests(){
-    expects.toBe.value()
-    expects.toBe.value('true', true, 'true', true)
-    expects.toBe.value('true', true, 'false', false, false)
 }
 
 function ToBeNullTests(){
@@ -195,11 +196,13 @@ function ThrowsErrorTests(){
     )
 }
 
+
+
 describe('Jestr', () => {
-    describe('Helper functions', () => {HelperTests()})
-    describe('expect.ToBe or !ToBe...', () => {ToBeTests()})
-    describe('expect.toThrowError', () => {ThrowsErrorTests()})
-    describe('expects.array', () => {ArrayTests()})
+    describe('Helper functions', () => HelperTests())
+    describe('expects.ToBe or !ToBe...', () => ToBeTests())
+    describe('expects.toThrowError', () => ThrowsErrorTests())
+    describe('expects.array', () => ArrayTests())
 })
 
 
