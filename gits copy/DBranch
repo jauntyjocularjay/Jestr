@@ -1,0 +1,9 @@
+#!/bin/bash
+
+read -r -p  "Which branch do you want to delete? " branch
+
+git branch -d $branch
+
+git push origin -d $branch
+
+git fetch origin --prune
