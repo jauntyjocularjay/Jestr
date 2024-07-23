@@ -43,14 +43,21 @@ function ToBeValueTests(){
 
 function ToBeNumber(){
     expects.toBe.number('four', 4, 4)
-    expects.toBe.number('four point zero', 4.0, 4.0)
+    expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     
     expects.toThrow(
-        'expect 4 to be 4.0',
-        expects.toBe.number('four', 4, 4.0),
-        'Error',
-        Error,
+        'expect 4 to be 4.1',
+        expects.toBe.closeToNumber('four', 4, 4.001),
+        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError,
     )
+
+    // expects.toThrow(
+    //     'expect 4 to be 4.1',
+    //     expects.toBe.number('four', 4.1, 4),
+    //     IntegerFloatMismatchError.toString(),
+    //     IntegerFloatMismatchError,
+    // )
 }
 
 function ToBeNullTests(){
@@ -137,7 +144,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('1', 1) 
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -146,7 +153,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('2', 2, '3', 3, false)
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -155,7 +162,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('4', 4, '5', 5, false)
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -164,7 +171,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -173,7 +180,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('null', null, 'null', null)
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -182,7 +189,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('undefined', undefined, 'null', null, false)
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 
@@ -191,7 +198,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('1', 1, null, null, false)
         },
-        'SubjectTargetSuitabilityError',
+        SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
 }
