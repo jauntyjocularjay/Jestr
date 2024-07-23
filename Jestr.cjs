@@ -131,7 +131,7 @@ const expects = {
          *      A boolean that 
          * @returns passing/failing
          */
-            return StubError()
+            return new StubError()
         },
         closeToNumber: (subjectAlias='subject alias', subject, target, bool=true) => {
         /**
@@ -147,7 +147,7 @@ const expects = {
          *      A boolean that 
          * @returns passing/failing
          */
-            return StubError()
+            return new StubError()
         },
         truthy: (subject, bool=true) => {
 
@@ -315,6 +315,7 @@ module.exports = {
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
     IntegerFloatMismatchError,
+    StubError,
 
     // For use
     // TestValue,

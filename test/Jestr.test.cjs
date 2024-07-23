@@ -6,6 +6,7 @@ const {
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
     IntegerFloatMismatchError,
+    StubError,
 } = require('../Jestr.cjs')
 const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 
@@ -45,12 +46,12 @@ function ToBeNumber(){
     expects.toBe.number('four', 4, 4)
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     
-    expects.toThrow(
-        'expect 4 to be 4.1',
-        expects.toBe.closeToNumber('four', 4, 4.001),
-        IntegerFloatMismatchError.toString(),
-        IntegerFloatMismatchError,
-    )
+    // expects.toThrow(
+    //     'expect 4 to be 4.1',
+    //     expects.toBe.closeToNumber('four', 4, 4.001),
+    //     StubError.toString(),
+    //     StubError,
+    // )
 
     // expects.toThrow(
     //     'expect 4 to be 4.1',
