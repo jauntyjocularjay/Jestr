@@ -2,6 +2,7 @@
 const config = {
     verbose: true,
     testMatch: [
+      // Requires special configuration of experimental features in Jest
       // '**/test/__tests__/**/*.mjs?(x)', 
       // '**/test/?(*.)+(spec|test).mjs?(x)',
       '**/test/__tests__/**/*.cjs?(x)',
