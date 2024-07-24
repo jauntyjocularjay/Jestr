@@ -2,7 +2,6 @@
 const {expect, test} = require('@jest/globals')
 const {
     expects,
-    globals,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
     IntegerFloatMismatchError,
@@ -48,6 +47,20 @@ function ToBeNumber(){
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
     
+    expects.toThrow(
+        'expects.number.toBe()', 
+        () => expects.toBe.number('four', 'four', 4),
+        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError
+    )
+
+    // expects.toThrow(
+    //     'expects.number.toBe.closeToNumber()', 
+    //     () => expects.toBe.closeToNumber('four', 'four', 4.0),
+    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError
+    // )
+
     expects.toThrow(
         'expect 4 to be 4.1',
         () => expects.toBe.closeToNumber('four', 4, 5.001),
@@ -139,6 +152,11 @@ function ArrayTests() {
     
         expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
     })
+
+    describe('.toHaveLength()', () => {
+        expects.toHaveLength('Nevermind discography', albumsArray, 3)
+        expects.toHaveLength('Nevermind discography', albumsArray, 8, false)
+    })
 }
 
 function ThrowsErrorTests(){
@@ -204,6 +222,13 @@ function ThrowsErrorTests(){
         SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
+
+    expects.toThrow(
+        'throw stub error',
+        () => {throw new StubError},
+        StubError.toString(),
+        StubError
+    )
 }
 
 
@@ -211,8 +236,8 @@ function ThrowsErrorTests(){
 describe('Jestr', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
-    describe('expects.toThrowError', () => ThrowsErrorTests())
     describe('expects.array', () => ArrayTests())
+    describe('expects.toThrowError', () => ThrowsErrorTests())
 })
 
 

@@ -18,11 +18,6 @@ const {expect, test} = require('@jest/globals')
 
 const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
-const describe = (name, fn) => {
-    describe(name, () => fn)
-}
-
-
 const expects = {
     toBe: {
         value: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
@@ -122,7 +117,7 @@ const expects = {
                         : expect(subject).not.toBe(target)
                 })
             } else if (
-                SubjectTargetAre(subject,target,['number']) &&
+                SubjectTargetAre(subject,target,TestableTypes.filter(type => type !== 'number')) &&
                 !Number.isInteger(subject) &&
                 !Number.isInteger(target) 
             ) {
@@ -209,6 +204,15 @@ const expects = {
                     : expect(subject).not.toBeTruthy()
             })
         },
+    },
+    toHaveLength: (subjectAlias, subject, target, bool=true) => {
+        const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
+
+        it(description, () => {
+            bool
+                ? expect(subject).toHaveLength(target)
+                : expect(subject).not.toHaveLength(target)
+        })
     },
     array: {
         toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
@@ -355,6 +359,5 @@ module.exports = {
     // TestValue,
     // Subject,
     // Target,
-    globals,
     expects,
 }
