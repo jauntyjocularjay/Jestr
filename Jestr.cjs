@@ -18,27 +18,6 @@ const {expect, test} = require('@jest/globals')
 
 const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
-const globals = {
-    afterAll: (fn, timeout) => {
-        afterAll(() => fn, timeout)
-    },
-    afterEach: (fn, timeout) => {
-        afterEach(() => fn, timeout)
-    },
-    beforeAll: (fn, timeout) => {
-        beforeAll(() => fn, timeout)
-    },
-    beforeEach: (fn, timeout) => {
-        beforeEach(() => fn, timeout)
-    },
-    it: (name, fn, timeout) => {
-        it(name, () => fn, timeout)
-    },
-    test: (name, fn, timeout) => {
-        test(name, () => fn, timeout)
-    }
-}
-
 const describe = (name, fn) => {
     describe(name, () => fn)
 }
