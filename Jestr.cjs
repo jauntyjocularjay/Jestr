@@ -205,15 +205,6 @@ const expects = {
             })
         },
     },
-    toHaveLength: (subjectAlias, subject, target, bool=true) => {
-        const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
-
-        it(description, () => {
-            bool
-                ? expect(subject).toHaveLength(target)
-                : expect(subject).not.toHaveLength(target)
-        })
-    },
     array: {
         toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
             if(Array.isArray(target)){
@@ -241,6 +232,27 @@ const expects = {
                 throw new SubjectTargetSuitabilityError('expects.array.toContainEqual()', TestableTypes.filter((type) => type !== 'array'), subject, target)
             }
         },
+    },
+    object: {
+        toHaveLength: (subjectAlias, subject, target, bool=true) => {
+            const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
+
+            it(description, () => {
+                bool
+                    ? expect(subject).toHaveLength(target)
+                    : expect(subject).not.toHaveLength(target)
+            })
+        },
+        toHaveProperty: (subject, targetAlias, target, bool=true) => {
+            const description = `${getCounter()} ${targetAlias} ${has(bool)} ${subject} as a property`
+
+            it(description, () => {
+                bool
+                    ? expect(target).toHaveProperty(subject)
+                    : expect(target).not.toHaveProperty(subject)
+            })
+            
+        }
     },
     string: {
         contains: () => {

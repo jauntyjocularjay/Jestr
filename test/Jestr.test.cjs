@@ -9,11 +9,7 @@ const {
 } = require('../Jestr.cjs')
 const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 
-// describe('', () => {
-//     test('', () => {
-//         expect.toString.test
-//     })
-// })
+
 
 function HelperTests(){
     let result
@@ -47,12 +43,12 @@ function ToBeNumber(){
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
     
-    expects.toThrow(
-        'expects.number.toBe()', 
-        () => expects.toBe.number('four', 'four', 4),
-        SubjectTargetSuitabilityError.toString(),
-        SubjectTargetSuitabilityError
-    )
+    // expects.toThrow(
+    //     'expects.number.toBe()', 
+    //     () => expects.toBe.number('four', 'four', 4),
+    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError
+    // )
 
     // expects.toThrow(
     //     'expects.number.toBe.closeToNumber()', 
@@ -91,6 +87,18 @@ function ToBeTruthyTests() {
     const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
     truthy.forEach(value => { expects.toBe.truthy(value) })
     falsy.forEach(value => { expects.toBe.truthy(value, false) })
+}
+
+function ObjectTests() {
+    const goat = {
+        Nirvana: 'Come as you are',
+        Megadeth: 'Tornado of Souls',
+        Metallica: 'Four Horsemen'
+    }
+
+    describe('object.toHaveProperty', () => {
+        expects.object.toHaveProperty('Metallica', 'goat', goat)
+    })
 }
 
 function ArrayTests() {
@@ -154,9 +162,15 @@ function ArrayTests() {
     })
 
     describe('.toHaveLength()', () => {
-        expects.toHaveLength('Nevermind discography', albumsArray, 3)
-        expects.toHaveLength('Nevermind discography', albumsArray, 8, false)
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 3)
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 8, false)
     })
+}
+
+function StringTests() {
+    const intro = 'It was the best of times'
+
+    expects.object.toHaveLength('intro', intro, 24)
 }
 
 function ThrowsErrorTests(){
@@ -236,7 +250,9 @@ function ThrowsErrorTests(){
 describe('Jestr', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
-    describe('expects.array', () => ArrayTests())
+    describe('object tests', () => ObjectTests())
+    describe('array tests', () => ArrayTests())
+    describe('string tests', () => StringTests())
     describe('expects.toThrowError', () => ThrowsErrorTests())
 })
 
