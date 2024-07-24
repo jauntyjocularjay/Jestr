@@ -44,21 +44,23 @@ function ToBeValueTests(){
 
 function ToBeNumber(){
     expects.toBe.number('four', 4, 4)
+    expects.toBe.number('five', 5, 4, false)
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
+    expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
     
-    // expects.toThrow(
-    //     'expect 4 to be 4.1',
-    //     expects.toBe.closeToNumber('four', 4, 4.001),
-    //     StubError.toString(),
-    //     StubError,
-    // )
+    expects.toThrow(
+        'expect 4 to be 4.1',
+        () => expects.toBe.closeToNumber('four', 4, 5.001),
+        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError,
+    )
 
-    // expects.toThrow(
-    //     'expect 4 to be 4.1',
-    //     expects.toBe.number('four', 4.1, 4),
-    //     IntegerFloatMismatchError.toString(),
-    //     IntegerFloatMismatchError,
-    // )
+    expects.toThrow(
+        'expect 4.1 to be 4',
+        () => expects.toBe.number('four', 4.1, 4),
+        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError,
+    )
 }
 
 function ToBeNullTests(){

@@ -131,7 +131,36 @@ const expects = {
          *      A boolean that 
          * @returns passing/failing
          */
-            return new StubError()
+            if(
+                SubjectTargetAre(subject,target, ['number']) && 
+                Number.isInteger(subject) &&
+                Number.isInteger(target)
+            ){
+                const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
+                it(description, () => {
+                    bool
+                        ? expect(subject).toBe(target)
+                        : expect(subject).not.toBe(target)
+                })
+            } else if (
+                SubjectTargetAre(subject,target,['number']) &&
+                !Number.isInteger(subject) &&
+                !Number.isInteger(target) 
+            ) {
+                throw new SubjectTargetSuitabilityError(
+                    'expects.toBe.number()', 
+                    TestableTypes.filter(type => type !== 'number'), 
+                    subject, 
+                    target, 
+                    'use expects.toBe.closeToNumber() instead')
+            } else if (
+                SubjectTargetAre(subject,target,['number']) &&
+                Number.isInteger(subject) !== Number.isInteger(target)
+            ) {
+                throw new IntegerFloatMismatchError(subject, target)
+            } else {
+                throw new Error(`expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
+            }
         },
         closeToNumber: (subjectAlias='subject alias', subject, target, bool=true) => {
         /**
@@ -147,7 +176,36 @@ const expects = {
          *      A boolean that 
          * @returns passing/failing
          */
-            return new StubError()
+            if(
+                SubjectTargetAre(subject,target, ['number']) && 
+                !Number.isInteger(subject) &&
+                !Number.isInteger(target)
+            ){
+                const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
+                it(description, () => {
+                    bool
+                        ? expect(subject).toBeCloseTo(target)
+                        : expect(subject).not.toBeCloseTo(target)
+                })
+            } else if (
+                SubjectTargetAre(subject,target,['number']) &&
+                Number.isInteger(subject) &&
+                Number.isInteger(target) 
+            ) {
+                throw new SubjectTargetSuitabilityError(
+                    'expects.toBe.closeToNumber()', 
+                    TestableTypes.filter(type => type !== 'number'), 
+                    subject, 
+                    target, 
+                    'use expects.toBe.number() instead')
+            } else if (
+                SubjectTargetAre(subject,target,['number']) &&
+                Number.isInteger(subject) !== Number.isInteger(target)
+            ) {
+                throw new IntegerFloatMismatchError(subject, target)
+            } else {
+                throw new Error(`expects.toBe.closeToNumber(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
+            }
         },
         truthy: (subject, bool=true) => {
 
@@ -207,14 +265,11 @@ const expects = {
 
         },
     },
-    toThrow: (functionAlias='function alias', funct = () => {} , errorAlias='error alias', error=Error, bool=true) => {
+    toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
-                ? expect(
-                    () => 
-                        funct()
-                ).toThrow(error)
+                ? expect(() => funct()).toThrow(error)
                 : expect(() => funct()).not.toThrow(error)
         })
     }
