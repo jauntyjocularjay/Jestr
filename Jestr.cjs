@@ -163,17 +163,6 @@ const expects = {
                 })
             } else if (
                 SubjectTargetAre(subject,target,['number']) &&
-                Number.isInteger(subject) &&
-                Number.isInteger(target) 
-            ) {
-                throw new SubjectTargetSuitabilityError(
-                    'expects.toBe.closeToNumber()', 
-                    TestableTypes.filter(type => type !== 'number'), 
-                    subject, 
-                    target, 
-                    'use expects.toBe.number() instead')
-            } else if (
-                SubjectTargetAre(subject,target,['number']) &&
                 Number.isInteger(subject) !== Number.isInteger(target)
             ) {
                 throw new IntegerFloatMismatchError(subject, target)
@@ -216,7 +205,11 @@ const expects = {
                         : expect(target).not.toContain(subject)
                 })
             } else {
-                throw new SubjectTargetSuitabilityError('expects.array.toContain()', TestableTypes.filter((type) => type !== 'array'), subject, target)
+                throw new TargetSuitabilityError(
+                    'expects.array.toContain()',
+                    ['array'],
+                    target
+                )
             }
         },
         toContainEqual: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
@@ -229,7 +222,12 @@ const expects = {
                         : expect(target).not.toContainEqual(subject)
                 })
             } else {
-                throw new SubjectTargetSuitabilityError('expects.array.toContainEqual()', TestableTypes.filter((type) => type !== 'array'), subject, target)
+                throw new SubjectTargetSuitabilityError(
+                    'expects.array.toContainEqual()', 
+                    TestableTypes.filter((type) => type !== 'array'), 
+                    subject, 
+                    target
+                )
             }
         },
     },
@@ -251,7 +249,6 @@ const expects = {
                     ? expect(target).toHaveProperty(subject)
                     : expect(target).not.toHaveProperty(subject)
             })
-            
         }
     },
     string: {
@@ -274,12 +271,13 @@ class StubError extends Error {
 /**
  * @class Error explains the variable, function, or method is a stub and not ready for use.
  */
-    constructor(functionAlias){
-        super(`Function or method ${functionAlias} is a stub and has yet to be written.`)
-    }
 
     static toString(){
         return 'StubError'
+    }
+
+    constructor(functionAlias){
+        super(`Function or method ${functionAlias} is a stub and has yet to be written.`)
     }
 }
 
@@ -287,6 +285,10 @@ class SubjectTargetSuitabilityError extends TypeError {
 /**
  * @class Error explains why a value was rejected due to data type mismatch.
  */
+    static toString(){
+        return 'SubjectTargetSuitabilityError'
+    }
+
     constructor(testName, types=[], subject, target, append=''){
         super(
             `${testName} does not accept accept subject/targets of ` + 
@@ -296,24 +298,40 @@ class SubjectTargetSuitabilityError extends TypeError {
             append
         )
     }
+}
 
+class TargetSuitabilityError extends TypeError {
     static toString(){
-        return 'SubjectTargetSuitabilityError'
+        return 'TargetSuitabilityError'
+    }
+
+    constructor(testName, types=[], target, append=''){
+        super(
+            `${testName} does must be one of these types: ${types} \n` +
+            `typeof Target: ${typeof target} \n` +
+            append
+        )
     }
 }
 
 class SubjectTargetMismatchError extends TypeError {
-    constructor(subject, target){
-        const message = `Subject: ${subject} and Target: ${target} are not comparable.`
-        super(message)
-    }
 
     static toString(){
         return 'SubjectTargetMismatchError'
     }
+
+    constructor(subject, target){
+        const message = `Subject: ${subject} and Target: ${target} are not comparable.`
+        super(message)
+    }
 }
 
 class IntegerFloatMismatchError extends TypeError {
+
+    static toString(){
+        return 'IntegerFloatMismatchError'
+    }
+
     constructor(subject, target){
         let message = 
             `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
@@ -323,10 +341,6 @@ class IntegerFloatMismatchError extends TypeError {
             `expects.toBeCloseToNumber() for floats \n`
 
         super(message)
-    }
-
-    static toString(){
-        return 'IntegerFloatMismatchError'
     }
 }
 
@@ -364,6 +378,7 @@ module.exports = {
     // for testing
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
+    TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
 

@@ -4,6 +4,7 @@ const {
     expects,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
+    TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
 } = require('../Jestr.cjs')
@@ -109,7 +110,13 @@ function ArrayTests() {
 
     describe('.toContain()', () => {
         expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
-        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)    
+        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
+        expects.toThrow(
+            TargetSuitabilityError.toString(),
+            () => expects.array.toContain('Unplugged', 'Unplugged', 'bah bah black sheep', 'have you any wool'),
+            TargetSuitabilityError.toString(),
+            TargetSuitabilityError
+        )
     })
 
     describe('.toContainEqual()', () => {
