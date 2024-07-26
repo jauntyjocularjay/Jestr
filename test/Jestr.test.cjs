@@ -185,6 +185,8 @@ function StringTests() {
 
     expects.object.toHaveLength('intro', intro, 24)
     expects.string.toContain(intro, 'best of times')
+    expects.string.toContain(intro, 'was the', true)
+    expects.string.toContain(intro, 'the worst of times', false)
 }
 
 function ThrowsErrorTests(){
