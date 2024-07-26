@@ -17,7 +17,6 @@ const {expect, test} = require('@jest/globals')
 
 
 
-const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
 const expects = {
     toBe: {
@@ -107,7 +106,7 @@ const expects = {
          * @returns passing/failing
          */
             if(
-                SubjectTargetAre(subject,target, ['number']) && 
+                SubjectTargetAre(subject, target, ['number']) && 
                 Number.isInteger(subject) &&
                 Number.isInteger(target)
             ){
@@ -118,13 +117,13 @@ const expects = {
                         : expect(subject).not.toBe(target)
                 })
             } else if (
-                SubjectTargetAre(subject,target,TestableTypes.filter(type => type !== 'number')) &&
+                SubjectTargetAre(subject,target,testableTypes(['number'])) &&
                 !Number.isInteger(subject) &&
                 !Number.isInteger(target) 
             ) {
                 throw new SubjectTargetSuitabilityError(
-                    'expects.toBe.number()', 
-                    TestableTypes.filter(type => type !== 'number'), 
+                    'expects.toBe.number()',
+                    testableTypes(['number']),
                     subject, 
                     target, 
                     'use expects.toBe.closeToNumber() instead')
@@ -195,6 +194,10 @@ const expects = {
             })
         },
         defined: (subjectAlias='subjectAlias', subject, bool=true) => {
+        /** 
+         * @todo test
+         * @test is either toBeDefined or toBeUndefined depending on the boolean
+         */
             const description = `${getCounter()} ${subjectAlias} is ${defined(bool)}`
 
             it(description, () => {
@@ -202,7 +205,7 @@ const expects = {
                     ? expect(subject).toBeDefined()
                     : expect(subject).toBeUndefined()
             })
-        },
+        }
     },
     array: {
         toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
@@ -233,8 +236,8 @@ const expects = {
                 })
             } else {
                 throw new SubjectTargetSuitabilityError(
-                    'expects.array.toContainEqual()', 
-                    TestableTypes.filter((type) => type !== 'array'), 
+                    'expects.array.toContainEqual()',
+                    testableTypes(['array']),
                     subject, 
                     target
                 )
@@ -262,9 +265,18 @@ const expects = {
         }
     },
     string: {
-        contains: () => {
-            throw new StubError()
+        toContain: (target='target', subject='subject', bool=true) => {
+        /** @todo test */
+        /** Subject and Target order is switched to match verbiage.
+         *      e.g. Expects.string.toContain('the best of times', 'times')
+         *           Expects 'the best of times' toContain 'times' */
+            const description = `${getCounter()} '${target}' ${contains(true)} '${subject}'`
 
+            it(description, () => {
+                bool
+                    ? expect(target).toEqual(expect.stringContaining(subject))
+                    : expect(target).not.toEqual(expect.stringContaining(subject))
+            })
         },
     },
     toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
@@ -281,7 +293,6 @@ class StubError extends Error {
 /**
  * @class Error explains the variable, function, or method is a stub and not ready for use.
  */
-
     static toString(){
         return 'StubError'
     }
@@ -352,6 +363,16 @@ class IntegerFloatMismatchError extends TypeError {
 
         super(message)
     }
+}
+
+function testableTypes(array=[]){
+    const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
+
+    array.forEach(type => {
+        TestableTypes.filter( testableType => {
+            testableType !== type
+        })
+    })
 }
 
 function SubjectTargetAre(subject, target, types=[]){

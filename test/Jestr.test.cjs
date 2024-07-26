@@ -8,7 +8,6 @@ const {
     IntegerFloatMismatchError,
     StubError,
 } = require('../Jestr.cjs')
-const { throwsAnError } = require('../module/verbs/Verbs.cjs')
 
 
 
@@ -26,10 +25,11 @@ function HelperTests(){
 }
 
 function ToBeTests(){
-    describe('value()', () => {ToBeValueTests()})
-    describe('toBeNumber()', () => {ToBeNumber()}) //  Why are they skipping?
-    describe('null()', () => {ToBeNullTests()})
-    describe('truthy()', () => {ToBeTruthyTests()})
+    describe('value()', () => ToBeValueTests())
+    describe('toBeNumber()', () => ToBeNumber()) //  Why are they skipping?
+    describe('null()', () => ToBeNullTests())
+    describe('truthy()', () => ToBeTruthyTests())
+    describe('defined()', () => ToBeDefinedTests())
 }
 
 function ToBeValueTests(){
@@ -88,6 +88,12 @@ function ToBeTruthyTests() {
     const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
     truthy.forEach(value => { expects.toBe.truthy(value) })
     falsy.forEach(value => { expects.toBe.truthy(value, false) })
+}
+
+function ToBeDefinedTests() {
+    expects.toBe.defined('aaa', 'aaa')
+    expects.toBe.defined('bbb', 'bbb', true)
+    expects.toBe.defined('undefined', undefined, false)
 }
 
 function ObjectTests() {
@@ -178,6 +184,7 @@ function StringTests() {
     const intro = 'It was the best of times'
 
     expects.object.toHaveLength('intro', intro, 24)
+    expects.string.toContain(intro, 'best of times')
 }
 
 function ThrowsErrorTests(){
@@ -254,7 +261,7 @@ function ThrowsErrorTests(){
 
 
 
-describe('Jestr', () => {
+describe('Jestr expects', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())
@@ -262,5 +269,4 @@ describe('Jestr', () => {
     describe('string tests', () => StringTests())
     describe('expects.toThrowError', () => ThrowsErrorTests())
 })
-
 
