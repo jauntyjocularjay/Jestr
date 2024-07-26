@@ -2,6 +2,7 @@ const {
     getCounter,
     throwsAnError,
     contains,
+    defined,
     did,
     does,
     have,
@@ -191,6 +192,15 @@ const expects = {
                 bool
                     ? expect(subject).toBeTruthy()
                     : expect(subject).not.toBeTruthy()
+            })
+        },
+        defined: (subjectAlias='subjectAlias', subject, bool=true) => {
+            const description = `${getCounter()} ${subjectAlias} is ${defined(bool)}`
+
+            it(description, () => {
+                bool
+                    ? expect(subject).toBeDefined()
+                    : expect(subject).toBeUndefined()
             })
         },
     },
