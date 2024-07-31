@@ -297,7 +297,7 @@ class StubError extends Error {
         return 'StubError'
     }
 
-    constructor(functionAlias){
+    constructor(functionAlias: string){
         super(`Function or method ${functionAlias} is a stub and has yet to be written.`)
     }
 }
@@ -310,7 +310,7 @@ class SubjectTargetSuitabilityError extends TypeError {
         return 'SubjectTargetSuitabilityError'
     }
 
-    constructor(testName, types=[], subject, target, append=''){
+    constructor(testName: string, types: string[], subject: any, target: any, append=''){
         super(
             `${testName} does not accept accept subject/targets of ` + 
             `these types: [${types}] \n` + 
@@ -326,7 +326,7 @@ class TargetSuitabilityError extends TypeError {
         return 'TargetSuitabilityError'
     }
 
-    constructor(testName, types=[], target, append=''){
+    constructor(testName: string, types: string[], target: any, append=''){
         super(
             `${testName} does must be one of these types: ${types} \n` +
             `typeof Target: ${typeof target} \n` +
@@ -341,7 +341,7 @@ class SubjectTargetMismatchError extends TypeError {
         return 'SubjectTargetMismatchError'
     }
 
-    constructor(subject, target){
+    constructor(subject: any, target: any){
         const message = `Subject: ${subject} and Target: ${target} are not comparable.`
         super(message)
     }
@@ -353,7 +353,7 @@ class IntegerFloatMismatchError extends TypeError {
         return 'IntegerFloatMismatchError'
     }
 
-    constructor(subject, target){
+    constructor(subject: number, target: number){
         let message = 
             `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
             `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
@@ -375,7 +375,7 @@ function testableTypes(array=[]){
     })
 }
 
-function SubjectTargetAre(subject, target, types=[]){
+function SubjectTargetAre(subject: any, target: any, types: string []){
 /**
  * @param {*} subject
  * @param {*} target
@@ -414,8 +414,5 @@ module.exports = {
     StubError,
 
     // For use
-    // TestValue,
-    // Subject,
-    // Target,
     expects,
 }

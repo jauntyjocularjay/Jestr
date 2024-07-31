@@ -2,12 +2,13 @@
 const config = {
     verbose: true,
     testMatch: [
-      // '**/__tests__/**/*.mjs?(x)', 
-      // '**/?(*.)+(spec|test).mjs?(x)',
-      '**/__tests__/**/*.cjs?(x)',
-      '**/?(*.)+(spec|test).cjs?(x)',
-      '**/__tests__/**/*.[jt]s?(x)',
-      '**/?(*.)+(spec|test).[jt]s?(x)',
+      // Requires special configuration of experimental features in Jest
+      // '**/test/__tests__/**/*.mjs?(x)', 
+      // '**/test/?(*.)+(spec|test).mjs?(x)',
+      '**/test/__tests__/**/*.cjs?(x)',
+      '**/test/?(*.)+(spec|test).cjs?(x)',
+      '**/test/__tests__/**/*.[jt]s?(x)',
+      '**/test/?(*.)+(spec|test).[jt]s?(x)',
     ]
   }
 

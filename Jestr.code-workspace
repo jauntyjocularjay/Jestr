@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "Jestr",
+			"path": "."
+		},
+		{
+			"name": "verbs",
+			"path": "module/verbs"
+		}
+	],
+	"settings": {}
+}
