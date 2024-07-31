@@ -20,7 +20,7 @@ const {expect, test} = require('@jest/globals')
 
 const expects = {
     toBe: {
-        value: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        value: (subjectAlias='subject alias', subject: any, targetAlias='target alias', target: any, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -66,7 +66,7 @@ const expects = {
                 })
             }
         },
-        null: (subjectAlias='subject alias', subject, bool=true) => {
+        null: (subjectAlias='subject alias', subject: null, bool=true) => {
             const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
 
             test(description, () => {
@@ -75,7 +75,7 @@ const expects = {
                     : expect(subject).not.toBeNull()
             })
         },
-        object: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        object: (subjectAlias='subject alias', subject: Object, targetAlias='target alias', target: Object, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -91,7 +91,7 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: (subjectAlias='subject alias', subject, target, bool=true) => {
+        number: (subjectAlias='subject alias', subject: Number, target: Number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -136,7 +136,7 @@ const expects = {
                 throw new Error(`expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
             }
         },
-        closeToNumber: (subjectAlias='subject alias', subject, target, bool=true) => {
+        closeToNumber: (subjectAlias='subject alias', subject: Number, target: Number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -170,7 +170,7 @@ const expects = {
                 throw new Error(`expects.toBe.closeToNumber(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
             }
         },
-        truthy: (subject, bool=true) => {
+        truthy: (subject: any, bool=true) => {
 
             let alias = ''
             if(subject === undefined){
@@ -193,7 +193,7 @@ const expects = {
                     : expect(subject).not.toBeTruthy()
             })
         },
-        defined: (subjectAlias='subjectAlias', subject, bool=true) => {
+        defined: (subjectAlias='subjectAlias', subject: any, bool=true) => {
         /** 
          * @todo test
          * @test is either toBeDefined or toBeUndefined depending on the boolean
@@ -208,7 +208,7 @@ const expects = {
         }
     },
     array: {
-        toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        toContain: (subjectAlias='subject alias', subject: any[], targetAlias='target alias', target: any[], bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
 
@@ -225,7 +225,7 @@ const expects = {
                 )
             }
         },
-        toContainEqual: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        toContainEqual: (subjectAlias='subject alias', subject: any, targetAlias='target alias', target: any[], bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
 
@@ -245,7 +245,7 @@ const expects = {
         },
     },
     object: {
-        toHaveLength: (subjectAlias, subject, target, bool=true) => {
+        toHaveLength: (subjectAlias: string, subject: Object, target: Object, bool=true) => {
             const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
 
             it(description, () => {
@@ -254,7 +254,7 @@ const expects = {
                     : expect(subject).not.toHaveLength(target)
             })
         },
-        toHaveProperty: (subject, targetAlias, target, bool=true) => {
+        toHaveProperty: (subject: any, targetAlias: string, target: Object, bool=true) => {
             const description = `${getCounter()} ${targetAlias} ${has(bool)} ${subject} as a property`
 
             it(description, () => {
@@ -279,7 +279,7 @@ const expects = {
             })
         },
     },
-    toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
+    toThrow: (functionAlias='function alias', funct: Function, errorAlias='error alias', error=Error, bool=true) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
@@ -353,7 +353,7 @@ class IntegerFloatMismatchError extends TypeError {
         return 'IntegerFloatMismatchError'
     }
 
-    constructor(subject: number, target: number){
+    constructor(subject: Number, target: Number){
         let message = 
             `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
             `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
@@ -365,7 +365,7 @@ class IntegerFloatMismatchError extends TypeError {
     }
 }
 
-function testableTypes(array=[]){
+function testableTypes(array: string[]){
     const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
     array.forEach(type => {
@@ -373,6 +373,8 @@ function testableTypes(array=[]){
             testableType !== type
         })
     })
+
+    return TestableTypes
 }
 
 function SubjectTargetAre(subject: any, target: any, types: string []){
