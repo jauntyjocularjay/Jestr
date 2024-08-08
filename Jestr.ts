@@ -410,7 +410,7 @@ function SubjectTargetAre(subject: any, target: any, types: string []){
     return result
 }
 
-module.exports = {
+export {
     // for testing
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
