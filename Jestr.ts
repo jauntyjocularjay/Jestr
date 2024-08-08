@@ -1,4 +1,4 @@
-const {
+import {
     getCounter,
     throwsAnError,
     contains,
@@ -12,8 +12,11 @@ const {
     isInteger,
     matches,
     recognizes
-} = require('./module/verbs/Verbs.cjs')
-const {expect, test} = require('@jest/globals')
+} from './module/verbs/Verbs'
+import {
+    expect,
+    test
+} from '@jest/globals'
 
 
 
