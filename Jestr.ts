@@ -94,7 +94,7 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: (subjectAlias='subject alias', subject: Number, target: Number, bool=true) => {
+        number: (subjectAlias='subject alias', subject: number, target: number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -139,7 +139,7 @@ const expects = {
                 throw new Error(`expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
             }
         },
-        closeToNumber: (subjectAlias='subject alias', subject: Number, target: Number, bool=true) => {
+        closeToNumber: (subjectAlias='subject alias', subject: number, target: number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -248,7 +248,7 @@ const expects = {
         },
     },
     object: {
-        toHaveLength: (subjectAlias: string, subject: Object, target: Object, bool=true) => {
+        toHaveLength: (subjectAlias: string, subject: Object, target: number, bool=true) => {
             const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
 
             it(description, () => {
@@ -356,7 +356,7 @@ class IntegerFloatMismatchError extends TypeError {
         return 'IntegerFloatMismatchError'
     }
 
-    constructor(subject: Number, target: Number){
+    constructor(subject: number, target: number){
         let message = 
             `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
             `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
