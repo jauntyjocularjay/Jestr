@@ -1,26 +1,41 @@
 {
     "compilerOptions": {
-      "types": ["node", "jest"],
-      "module": "ES6",
-      "noImplicitAny": true,
-      "removeComments": true,
-      "preserveConstEnums": true,
-      "sourceMap": true,
-      "allowImportingTsExtensions": true
-    },
-    "files": [
-      "core.ts",
-      "sys.ts",
-      "types.ts",
-      "scanner.ts",
-      "parser.ts",
-      "utilities.ts",
-      "binder.ts",
-      "checker.ts",
-      "emitter.ts",
-      "program.ts",
-      "commandLineParser.ts",
-      "tsc.ts",
-      "diagnosticInformationMap.generated.ts"
-    ]
+         "types": ["node", "jest"]
+        ,"module": "ES6"
+        ,"noImplicitAny": true
+        ,"removeComments": true
+        ,"preserveConstEnums": true
+        ,"sourceMap": true
+        ,"allowImportingTsExtensions": true
+        ,"noEmit": true
+    }
+    ,"moduleFileExtensions": [
+         "cjs"
+        ,"mjs"
+        ,"jsx"
+        ,"cjsx"
+        ,"mjsx"
+        ,"ts"
+        ,"cts"
+        ,"mts"
+        ,"tsx"
+        ,"ctsx"
+        ,"mtsx"]
+    ,"testEnvironment": "node"
+
+    // ,"files": [
+    //    "core.ts"
+    //   ,"sys.ts"
+    //   ,"types.ts"
+    //   ,"scanner.ts"
+    //   ,"parser.ts"
+    //   ,"utilities.ts"
+    //   ,"binder.ts"
+    //   ,"checker.ts"
+    //   ,"emitter.ts"
+    //   ,"program.ts"
+    //   ,"commandLineParser.ts"
+    //   ,"tsc.ts"
+    //   ,"diagnosticInformationMap.generated.ts"
+    // ]
 }

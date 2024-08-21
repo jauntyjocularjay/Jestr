@@ -1,20 +1,16 @@
-import {expect, test} from '@jest/globals'
 import {
     expects,
-    globals,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
+    TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
 } from '../Jestr.mjs'
 
-// describe('', () => {
-//     test('', () => {
-//         expect.toString.test
-//     })
-// })
 
-function HelperTests(){
+
+function HelperTests()
+{
     let result
 
     result = SubjectTargetAre(true, false, ['boolean'])
@@ -27,39 +23,60 @@ function HelperTests(){
     expects.toBe.value('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
 }
 
-function ToBeTests(){
-    describe('value()', () => {ToBeValueTests()})
-    describe('toBeNumber()', () => {ToBeNumber()}) //  Why are they skipping?
-    describe('null()', () => {ToBeNullTests()})
-    describe('truthy()', () => {ToBeTruthyTests()})
+function ToBeTests()
+{
+    describe('value()', () => ToBeValueTests())
+    describe('toBeNumber()', () => ToBeNumber()) //  Why are they skipping?
+    describe('null()', () => ToBeNullTests())
+    describe('truthy()', () => ToBeTruthyTests())
+    describe('defined()', () => ToBeDefinedTests())
 }
 
-function ToBeValueTests(){
+function ToBeValueTests()
+{
     expects.toBe.value()
     expects.toBe.value('true', true, 'true', true)
     expects.toBe.value('true', true, 'false', false, false)
 }
 
-function ToBeNumber(){
+function ToBeNumber()
+{
     expects.toBe.number('four', 4, 4)
+    expects.toBe.number('five', 5, 4, false)
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
+    expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
     
     // expects.toThrow(
-    //     'expect 4 to be 4.1',
-    //     expects.toBe.closeToNumber('four', 4, 4.001),
-    //     StubError.toString(),
-    //     StubError,
+    //     'expects.number.toBe()', 
+    //     () => expects.toBe.number('four', 'four', 4),
+    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError
     // )
 
     // expects.toThrow(
-    //     'expect 4 to be 4.1',
-    //     expects.toBe.number('four', 4.1, 4),
-    //     IntegerFloatMismatchError.toString(),
-    //     IntegerFloatMismatchError,
+    //     'expects.number.toBe.closeToNumber()', 
+    //     () => expects.toBe.closeToNumber('four', 'four', 4.0),
+    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError
     // )
+
+    expects.toThrow(
+        'expect 4 to be 4.1',
+        () => expects.toBe.closeToNumber('four', 4, 5.001),
+        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError,
+    )
+
+    expects.toThrow(
+        'expect 4.1 to be 4',
+        () => expects.toBe.number('four', 4.1, 4),
+        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError,
+    )
 }
 
-function ToBeNullTests(){
+function ToBeNullTests()
+{
     const nulled = null
     const notNulled = true
 
@@ -69,14 +86,36 @@ function ToBeNullTests(){
     expects.toBe.null('Not Nulled variable', notNulled, false)
 }
 
-function ToBeTruthyTests() {
+function ToBeTruthyTests()
+{
     const truthy = [ true, {}, {alias: 'value'}, [0], []]
     const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
     truthy.forEach(value => { expects.toBe.truthy(value) })
     falsy.forEach(value => { expects.toBe.truthy(value, false) })
 }
 
-function ArrayTests() {
+function ToBeDefinedTests()
+{
+    expects.toBe.defined('aaa', 'aaa')
+    expects.toBe.defined('bbb', 'bbb', true)
+    expects.toBe.defined('undefined', undefined, false)
+}
+
+function ObjectTests()
+{
+    const goat = {
+        Nirvana: 'Come as you are',
+        Megadeth: 'Tornado of Souls',
+        Metallica: 'Four Horsemen'
+    }
+
+    describe('object.toHaveProperty', () => {
+        expects.object.toHaveProperty('Metallica', 'goat', goat)
+    })
+}
+
+function ArrayTests()
+{
     const albumsArray = ['Bleach','Nevermind', 'In Utero']
     const albumsObj = {0:'Bleach', 1:'Nevermind', 2:'In Utero'}
     const nevermind = 'Nevermind'
@@ -84,7 +123,13 @@ function ArrayTests() {
 
     describe('.toContain()', () => {
         expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
-        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)    
+        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
+        expects.toThrow(
+            TargetSuitabilityError.toString(),
+            () => expects.array.toContain('Unplugged', 'Unplugged', 'bah bah black sheep', 'have you any wool'),
+            TargetSuitabilityError.toString(),
+            TargetSuitabilityError
+        )
     })
 
     describe('.toContainEqual()', () => {
@@ -135,9 +180,25 @@ function ArrayTests() {
     
         expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
     })
+
+    describe('.toHaveLength()', () => {
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 3)
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 8, false)
+    })
 }
 
-function ThrowsErrorTests(){
+function StringTests()
+{
+    const intro = 'It was the best of times'
+
+    expects.object.toHaveLength('intro', intro, 24)
+    expects.string.toContain(intro, 'best of times')
+    expects.string.toContain(intro, 'was the', true)
+    expects.string.toContain(intro, 'the worst of times', false)
+}
+
+function ThrowsErrorTests()
+{
     expects.toThrow(
         'valuesToBe() subject is a number', 
         () => {
@@ -200,15 +261,22 @@ function ThrowsErrorTests(){
         SubjectTargetSuitabilityError.toString(),
         SubjectTargetSuitabilityError
     )
+
+    expects.toThrow(
+        'throw stub error',
+        () => {throw new StubError},
+        StubError.toString(),
+        StubError
+    )
 }
 
-
-
-describe('Jestr', () => {
+describe('Jestr.cjs expects', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
+    describe('object tests', () => ObjectTests())
+    describe('array tests', () => ArrayTests())
+    describe('string tests', () => StringTests())
     describe('expects.toThrowError', () => ThrowsErrorTests())
-    describe('expects.array', () => ArrayTests())
 })
 
 

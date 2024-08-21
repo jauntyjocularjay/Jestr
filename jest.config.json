@@ -1,0 +1,9 @@
+{
+     "bail": 1
+    , "verbose": true
+    ,"testMatch": [
+         "**/__tests__/**/*.[jt]s?(x)"
+        ,"**/?(*.)+(spec|test).m[jt]s?(x)"
+    ]
+    ,"transform": {}
+}
