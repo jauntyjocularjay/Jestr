@@ -4,8 +4,7 @@
   "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "test": "clear && jest --coverage",
-    "test-es6": "clear && node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "test": "clear && node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "dev": "git submodule update --init --recursive"
   },
   "author": "jauntyjocularjay",
