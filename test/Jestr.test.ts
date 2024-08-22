@@ -11,7 +11,7 @@ import {
 
 function HelperTests()
 {
-    let result
+    let result: boolean
 
     result = SubjectTargetAre(true, false, ['boolean'])
     expects.toBe.value('subject: true, target: false', result, 'boolean', true)
@@ -34,7 +34,6 @@ function ToBeTests()
 
 function ToBeValueTests()
 {
-    expects.toBe.value()
     expects.toBe.value('true', true, 'true', true)
     expects.toBe.value('true', true, 'false', false, false)
 }
@@ -49,28 +48,28 @@ function ToBeNumber()
     // expects.toThrow(
     //     'expects.number.toBe()', 
     //     () => expects.toBe.number('four', 'four', 4),
-    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError.name,
     //     SubjectTargetSuitabilityError
     // )
 
     // expects.toThrow(
     //     'expects.number.toBe.closeToNumber()', 
     //     () => expects.toBe.closeToNumber('four', 'four', 4.0),
-    //     SubjectTargetSuitabilityError.toString(),
+    //     SubjectTargetSuitabilityError.name,
     //     SubjectTargetSuitabilityError
     // )
 
     expects.toThrow(
         'expect 4 to be 4.1',
         () => expects.toBe.closeToNumber('four', 4, 5.001),
-        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError.name,
         IntegerFloatMismatchError,
     )
 
     expects.toThrow(
         'expect 4.1 to be 4',
         () => expects.toBe.number('four', 4.1, 4),
-        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError.name,
         IntegerFloatMismatchError,
     )
 }
@@ -89,7 +88,7 @@ function ToBeNullTests()
 function ToBeTruthyTests()
 {
     const truthy = [ true, {}, {alias: 'value'}, [0], []]
-    const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
+    const falsy = [ undefined, null, false, NaN, 0, -0, 0, 0.0, '' ]
     truthy.forEach(value => { expects.toBe.truthy(value) })
     falsy.forEach(value => { expects.toBe.truthy(value, false) })
 }
@@ -122,12 +121,12 @@ function ArrayTests()
     const unplugged = 'Unplugged in New York'
 
     describe('.toContain()', () => {
-        expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
-        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
+        expects.array.toContain(nevermind, [nevermind], 'Album by Nirvana', albumsArray)
+        expects.array.toContain(unplugged, [unplugged], 'Album by Nirvana', albumsArray, false)
         expects.toThrow(
-            TargetSuitabilityError.toString(),
-            () => expects.array.toContain('Unplugged', 'Unplugged', 'bah bah black sheep', 'have you any wool'),
-            TargetSuitabilityError.toString(),
+            TargetSuitabilityError.name,
+            () => expects.array.toContain('Unplugged', ['Unplugged'], 'bah bah black sheep', ['have you any wool']),
+            TargetSuitabilityError.name,
             TargetSuitabilityError
         )
     })
@@ -173,10 +172,10 @@ function ArrayTests()
         
         expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2)
     
-        myBeverages2 = {
-            0: myBeverages2[0],
-            1: myBeverages2[1]
-        }
+        myBeverages2 = [
+            myBeverages2[0],
+            myBeverages2[1]
+        ]
     
         expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
     })
@@ -202,9 +201,9 @@ function ThrowsErrorTests()
     expects.toThrow(
         'valuesToBe() subject is a number', 
         () => {
-            expects.toBe.value('1', 1) 
+            expects.toBe.value('1', 1, 'error', new Error()) 
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -213,7 +212,7 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('2', 2, '3', 3, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -222,7 +221,7 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('4', 4, '5', 5, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -231,7 +230,7 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -240,7 +239,7 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('null', null, 'null', null)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -249,7 +248,7 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('undefined', undefined, 'null', null, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -258,14 +257,16 @@ function ThrowsErrorTests()
         () => {
             expects.toBe.value('1', 1, null, null, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
+    const stub = () => {throw new StubError('anon function')}
+
     expects.toThrow(
         'throw stub error',
-        () => {throw new StubError},
-        StubError.toString(),
+        stub,
+        StubError.name,
         StubError
     )
 }

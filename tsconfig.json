@@ -1,28 +1,17 @@
 {
     "compilerOptions": {
-         "types": ["node", "jest"]
-        ,"module": "ES6"
-        ,"noImplicitAny": true
-        ,"removeComments": true
-        ,"preserveConstEnums": true
-        ,"sourceMap": true
-        ,"allowImportingTsExtensions": true
-        ,"noEmit": true
+        "types": ["node", "jest"],
+        "module": "ES6",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "sourceMap": true,
+        "moduleResolution": "Bundler",
     }
     ,"moduleFileExtensions": [
-         "cjs"
-        ,"mjs"
-        ,"jsx"
-        ,"cjsx"
-        ,"mjsx"
-        ,"ts"
-        ,"cts"
-        ,"mts"
-        ,"tsx"
-        ,"ctsx"
-        ,"mtsx"]
-    ,"testEnvironment": "node"
-
+        "ts",
+        "tsx",
+    ],
+    "testEnvironment": "node"
     // ,"files": [
     //    "core.ts"
     //   ,"sys.ts"

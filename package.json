@@ -1,7 +1,7 @@
 {
   "name": "jestr",
   "version": "0.0.1",
-  "main": "index.mjs",
+  "main": "",
   "type": "module",
   "scripts": {
     "test": "clear && node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
