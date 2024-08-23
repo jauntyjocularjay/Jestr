@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "clear && node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
+    "test--trace-warnings": "clear && node --experimental-vm-modules --trace-warnings node_modules/jest/bin/jest.js --coverage",
     "dev": "git submodule update --init --recursive"
   },
   "author": "jauntyjocularjay",
