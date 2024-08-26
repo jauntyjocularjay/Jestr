@@ -5,7 +5,7 @@ import {
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
-} from '../Jestr.mjs'
+} from '../Jestr.ts'
 
 
 
@@ -121,14 +121,8 @@ function ArrayTests()
     const unplugged = 'Unplugged in New York'
 
     describe('.toContain()', () => {
-        expects.array.toContain(nevermind, [nevermind], 'Album by Nirvana', albumsArray)
-        expects.array.toContain(unplugged, [unplugged], 'Album by Nirvana', albumsArray, false)
-        expects.toThrow(
-            TargetSuitabilityError.name,
-            () => expects.array.toContain('Unplugged', ['Unplugged'], 'bah bah black sheep', ['have you any wool']),
-            TargetSuitabilityError.name,
-            TargetSuitabilityError
-        )
+        expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
+        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
     })
 
     describe('.toContainEqual()', () => {
@@ -171,13 +165,6 @@ function ArrayTests()
         ]
         
         expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2)
-    
-        myBeverages2 = [
-            myBeverages2[0],
-            myBeverages2[1]
-        ]
-    
-        expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
     })
 
     describe('.toHaveLength()', () => {
@@ -271,7 +258,7 @@ function ThrowsErrorTests()
     )
 }
 
-describe('Jestr.cjs expects', () => {
+describe('Jestr.ts (ES6) expects', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())

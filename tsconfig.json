@@ -1,13 +1,16 @@
 {
     "compilerOptions": {
+        "esModuleInterop": true,
         "types": ["node", "jest"],
         "module": "ES6",
         "removeComments": true,
         "preserveConstEnums": true,
+        "noEmit": false,
         "sourceMap": true,
         "moduleResolution": "Bundler",
-    }
-    ,"moduleFileExtensions": [
+        "allowImportingTsExtensions": true,
+    },
+    "moduleFileExtensions": [
         "ts",
         "mts",
         "tsx",

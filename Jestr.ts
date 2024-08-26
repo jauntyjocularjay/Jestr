@@ -206,7 +206,7 @@ const expects = {
         }
     },
     array: {
-        toContain: (subjectAlias: string, subject: any[], targetAlias: string, target: any[], bool=true) => {
+        toContain: (subjectAlias: string, subject: any, targetAlias: string, target: any[], bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
 
