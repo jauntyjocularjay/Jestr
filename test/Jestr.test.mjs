@@ -5,7 +5,7 @@ import {
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
-} from '../Jestr'
+} from '../Jestr.ts'
 
 
 
@@ -26,7 +26,7 @@ function HelperTests()
 function ToBeTests()
 {
     describe('value()', () => ToBeValueTests())
-    describe('toBeNumber()', () => ToBeNumber()) //  Why are they skipping?
+    describe('toBeNumber()', () => ToBeNumber())
     describe('null()', () => ToBeNullTests())
     describe('truthy()', () => ToBeTruthyTests())
     describe('defined()', () => ToBeDefinedTests())
@@ -46,6 +46,7 @@ function ToBeNumber()
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
 
     expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(IntegerFloatMismatchError)
+    /** @todo test fails, fix */
     // expect(() => expects.toBe.number('four', [4.1], 4)).toThrow(SubjectTargetSuitabilityError)
 
     expects.toThrow(
@@ -247,7 +248,7 @@ function ThrowsErrorTests()
     )
 }
 
-describe('Jestr.ts (ES6) expects', () => {
+describe('Jestr.mjs expects', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())

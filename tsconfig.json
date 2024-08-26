@@ -11,6 +11,8 @@
         "allowImportingTsExtensions": false,
     },
     "moduleFileExtensions": [
+        "js",
+        "mjs",
         "ts",
         "mts",
         "tsx",
