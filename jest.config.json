@@ -1,13 +1,14 @@
 {
-     "bail": 1
-    ,"verbose": true
-    ,"extensionsToTreatAsEsm": [
+    "bail": 1,
+    "verbose": true,
+    "extensionsToTreatAsEsm": [
          ".ts"
         ,".tsx"
-    ]
-    ,"testMatch": [
+    ],
+    "testMatch": [
          "**/__tests__/**/ts?(x)"
         ,"**/?(*.)+(spec|test).ts?(x)"
-    ]
-    ,"transform": {}
+    ],
+    "transform": { 
+    }
 }

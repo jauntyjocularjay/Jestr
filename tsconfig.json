@@ -9,6 +9,7 @@
     }
     ,"moduleFileExtensions": [
         "ts",
+        "mts",
         "tsx",
     ],
     "testEnvironment": "node"
