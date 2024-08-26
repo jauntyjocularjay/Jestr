@@ -5,7 +5,7 @@ import {
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
-} from '../Jestr.ts'
+} from '../Jestr'
 
 
 

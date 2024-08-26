@@ -8,7 +8,7 @@
         "noEmit": false,
         "sourceMap": true,
         "moduleResolution": "Bundler",
-        "allowImportingTsExtensions": true,
+        "allowImportingTsExtensions": false,
     },
     "moduleFileExtensions": [
         "ts",
