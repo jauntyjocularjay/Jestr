@@ -44,20 +44,9 @@ function ToBeNumber()
     expects.toBe.number('five', 5, 4, false)
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
-    
-    // expects.toThrow(
-    //     'expects.number.toBe()', 
-    //     () => expects.toBe.number('four', 'four', 4),
-    //     SubjectTargetSuitabilityError.name,
-    //     SubjectTargetSuitabilityError
-    // )
 
-    // expects.toThrow(
-    //     'expects.number.toBe.closeToNumber()', 
-    //     () => expects.toBe.closeToNumber('four', 'four', 4.0),
-    //     SubjectTargetSuitabilityError.name,
-    //     SubjectTargetSuitabilityError
-    // )
+    expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(IntegerFloatMismatchError)
+    // expect(() => expects.toBe.number('four', [4.1], 4)).toThrow(SubjectTargetSuitabilityError)
 
     expects.toThrow(
         'expect 4 to be 4.1',

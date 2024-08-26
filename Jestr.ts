@@ -8,8 +8,6 @@ import {
     have,
     has,
     is,
-    isCloseTo,
-    isInteger,
     matches,
     recognizes
 } from './module/verbs/Verbs'
@@ -89,7 +87,7 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: (subjectAlias: string, subject: number, target: number, bool=true) => {
+        number: (subjectAlias: string, subject: any, target: number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -349,8 +347,8 @@ class IntegerFloatMismatchError extends TypeError {
 
     constructor(subject: number, target: number){
         let message = 
-            `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
-            `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
+            `Your subject ${subject} ${is(Number.isInteger(subject))} an integer, but your ` +
+            `target ${target} ${is(Number.isInteger(target))} an integer. To compare these, ` +
             `convert them both to Integer or Float. Use: \n` + 
             `expects.toBe.number() for integers \n` +
             `expects.toBeCloseToNumber() for floats \n`
