@@ -11,7 +11,7 @@ import {
 
 function HelperTests()
 {
-    let result: boolean
+    let result
 
     result = SubjectTargetAre(true, false, ['boolean'])
     expects.toBe.value('subject: true, target: false', result, 'boolean', true)

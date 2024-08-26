@@ -15,7 +15,8 @@
         "mts",
         "tsx",
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "extends": "@tsconfig/recommended/tsconfig.json"
     // ,"files": [
     //    "core.ts"
     //   ,"sys.ts"
