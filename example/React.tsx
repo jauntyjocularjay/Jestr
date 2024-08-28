@@ -1,3 +1,7 @@
+import React from "react"
+import { jsx } from "react/jsx-runtime"
+
+
 function MyButton() {
     return (
         <button>
@@ -5,7 +9,7 @@ function MyButton() {
         </button>
     )
 }
-  
+
 function MyApp() {
     return (
     <div>

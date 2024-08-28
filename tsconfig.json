@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+        "jsx": "react",
         "esModuleInterop": true,
         "types": ["node", "jest"],
         "module": "ES6",
