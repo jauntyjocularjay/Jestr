@@ -7,7 +7,8 @@
         "test": "clear && npm run update-jsx && node --experimental-vm-modules node_modules/jest/bin/jest --coverage",
         "test--trace-warnings": "clear && node --experimental-vm-modules --trace-warnings node_modules/jest/bin/jest.js --coverage",
         "dev": "git submodule update --init --recursive",
-        "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'"
+        "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'",
+        "clear-babel-cache": "rm -rf node_modules/.cache/babel-loader"
     },
     "author": "jauntyjocularjay",
     "license": "MIT",

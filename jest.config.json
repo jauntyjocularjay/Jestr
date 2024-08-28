@@ -11,10 +11,10 @@
         ".tsx"
     ],
     "testMatch": [
-        "**/__tests__/**/mjs?(x)"
-       ,"**/?(*.)+(spec|test).mjs?(x)",
-         "**/__tests__/**/ts?(x)"
-        ,"**/?(*.)+(spec|test).ts?(x)"
+        "**/__tests__/**/mjs?(x)",
+        "**/?(*.)+(spec|test).mjs?(x)",
+        "**/__tests__/**/ts?(x)",
+        "**/?(*.)+(spec|test).ts?(x)"
     ],
     "transform": {
         "^.+.tsx?$": [
