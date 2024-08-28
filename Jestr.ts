@@ -1,4 +1,4 @@
-const {
+import {
     getCounter,
     throwsAnError,
     contains,
@@ -8,19 +8,15 @@ const {
     have,
     has,
     is,
-    isCloseTo,
-    isInteger,
     matches,
     recognizes
-} = require('./module/verbs/Verbs.cjs')
-const {expect, test} = require('@jest/globals')
-
+} from './module/verbs/Verbs'
 
 
 
 const expects = {
     toBe: {
-        value: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        value: (subjectAlias: string, subject: any, targetAlias: string, target: any, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -66,7 +62,7 @@ const expects = {
                 })
             }
         },
-        null: (subjectAlias='subject alias', subject, bool=true) => {
+        null: (subjectAlias: string, subject: any, bool=true) => {
             const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
 
             test(description, () => {
@@ -75,7 +71,7 @@ const expects = {
                     : expect(subject).not.toBeNull()
             })
         },
-        object: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        object: (subjectAlias: string, subject: Object, targetAlias: string, target: Object, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -91,7 +87,7 @@ const expects = {
          */
             throw new StubError('expects.objectToBe()')
         },
-        number: (subjectAlias='subject alias', subject, target, bool=true) => {
+        number: (subjectAlias: string, subject: any, target: number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -136,7 +132,7 @@ const expects = {
                 throw new Error(`expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
             }
         },
-        closeToNumber: (subjectAlias='subject alias', subject, target, bool=true) => {
+        closeToNumber: (subjectAlias: string, subject: number, target: number, bool=true) => {
         /**
          * @param { string } subjectAlias 
          *      The alias of the subject to display in the description
@@ -170,7 +166,7 @@ const expects = {
                 throw new Error(`expects.toBe.closeToNumber(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
             }
         },
-        truthy: (subject, bool=true) => {
+        truthy: (subject: any, bool=true) => {
 
             let alias = ''
             if(subject === undefined){
@@ -193,7 +189,7 @@ const expects = {
                     : expect(subject).not.toBeTruthy()
             })
         },
-        defined: (subjectAlias='subjectAlias', subject, bool=true) => {
+        defined: (subjectAlias: string, subject: any, bool=true) => {
         /** 
          * @todo test
          * @test is either toBeDefined or toBeUndefined depending on the boolean
@@ -208,7 +204,7 @@ const expects = {
         }
     },
     array: {
-        toContain: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        toContain: (subjectAlias: string, subject: any, targetAlias: string, target: any[], bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
 
@@ -225,7 +221,7 @@ const expects = {
                 )
             }
         },
-        toContainEqual: (subjectAlias='subject alias', subject, targetAlias='target alias', target, bool=true) => {
+        toContainEqual: (subjectAlias: string, subject: any, targetAlias: string, target: any[], bool=true) => {
             if(Array.isArray(target)){
                 const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
 
@@ -245,7 +241,7 @@ const expects = {
         },
     },
     object: {
-        toHaveLength: (subjectAlias, subject, target, bool=true) => {
+        toHaveLength: (subjectAlias: string, subject: Object, target: number, bool=true) => {
             const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
 
             it(description, () => {
@@ -254,7 +250,7 @@ const expects = {
                     : expect(subject).not.toHaveLength(target)
             })
         },
-        toHaveProperty: (subject, targetAlias, target, bool=true) => {
+        toHaveProperty: (subject: any, targetAlias: string, target: Object, bool=true) => {
             const description = `${getCounter()} ${targetAlias} ${has(bool)} ${subject} as a property`
 
             it(description, () => {
@@ -265,7 +261,7 @@ const expects = {
         }
     },
     string: {
-        toContain: (target='target', subject='subject', bool=true) => {
+        toContain: (target: string, subject: string, bool=true) => {
         /** @todo test */
         /** Subject and Target order is switched to match verbiage.
          *      e.g. Expects.string.toContain('the best of times', 'times')
@@ -279,7 +275,7 @@ const expects = {
             })
         },
     },
-    toThrow: (functionAlias='function alias', funct, errorAlias='error alias', error=Error, bool=true) => {
+    toThrow: (functionAlias: string, funct: Function, errorAlias: string, error: any, bool=true) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
         test(description, () => {
             bool
@@ -293,11 +289,7 @@ class StubError extends Error {
 /**
  * @class Error explains the variable, function, or method is a stub and not ready for use.
  */
-    static toString(){
-        return 'StubError'
-    }
-
-    constructor(functionAlias: string){
+    constructor(functionAlias: string|null){
         super(`Function or method ${functionAlias} is a stub and has yet to be written.`)
     }
 }
@@ -355,8 +347,8 @@ class IntegerFloatMismatchError extends TypeError {
 
     constructor(subject: number, target: number){
         let message = 
-            `Your subject ${subject} ${isInteger(Number.isInteger(subject))}, but your ` +
-            `target ${target} ${isInteger(Number.isInteger(target))}. To compare these, ` +
+            `Your subject ${subject} ${is(Number.isInteger(subject))} an integer, but your ` +
+            `target ${target} ${is(Number.isInteger(target))} an integer. To compare these, ` +
             `convert them both to Integer or Float. Use: \n` + 
             `expects.toBe.number() for integers \n` +
             `expects.toBeCloseToNumber() for floats \n`
@@ -365,7 +357,7 @@ class IntegerFloatMismatchError extends TypeError {
     }
 }
 
-function testableTypes(array=[]){
+function testableTypes(array: string[]){
     const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
 
     array.forEach(type => {
@@ -373,6 +365,8 @@ function testableTypes(array=[]){
             testableType !== type
         })
     })
+
+    return TestableTypes
 }
 
 function SubjectTargetAre(subject: any, target: any, types: string []){
@@ -405,7 +399,7 @@ function SubjectTargetAre(subject: any, target: any, types: string []){
     return result
 }
 
-module.exports = {
+export {
     // for testing
     SubjectTargetAre,
     SubjectTargetSuitabilityError,

@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "types": ["node", "jest"],
+        "module": "ES6",
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "noEmit": false,
+        "sourceMap": true,
+        "moduleResolution": "Bundler",
+        "allowImportingTsExtensions": false,
+    },
+    "moduleFileExtensions": [
+        "js",
+        "mjs",
+        "ts",
+        "mts",
+        "tsx",
+    ],
+    "testEnvironment": "node",
+    "extends": "@tsconfig/recommended/tsconfig.json"
+    // ,"files": [
+    //    "core.ts"
+    //   ,"sys.ts"
+    //   ,"types.ts"
+    //   ,"scanner.ts"
+    //   ,"parser.ts"
+    //   ,"utilities.ts"
+    //   ,"binder.ts"
+    //   ,"checker.ts"
+    //   ,"emitter.ts"
+    //   ,"program.ts"
+    //   ,"commandLineParser.ts"
+    //   ,"tsc.ts"
+    //   ,"diagnosticInformationMap.generated.ts"
+    // ]
+}

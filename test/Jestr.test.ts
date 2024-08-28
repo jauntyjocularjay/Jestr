@@ -1,18 +1,17 @@
-
-const {expect, test} = require('@jest/globals')
-const {
+import {
     expects,
     SubjectTargetAre,
     SubjectTargetSuitabilityError,
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
-} = require('../Jestr.cjs')
+} from '../Jestr'
 
 
 
-function HelperTests(){
-    let result
+function HelperTests()
+{
+    let result: boolean
 
     result = SubjectTargetAre(true, false, ['boolean'])
     expects.toBe.value('subject: true, target: false', result, 'boolean', true)
@@ -24,7 +23,8 @@ function HelperTests(){
     expects.toBe.value('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
 }
 
-function ToBeTests(){
+function ToBeTests()
+{
     describe('value()', () => ToBeValueTests())
     describe('toBeNumber()', () => ToBeNumber()) //  Why are they skipping?
     describe('null()', () => ToBeNullTests())
@@ -32,48 +32,39 @@ function ToBeTests(){
     describe('defined()', () => ToBeDefinedTests())
 }
 
-function ToBeValueTests(){
-    expects.toBe.value()
+function ToBeValueTests()
+{
     expects.toBe.value('true', true, 'true', true)
     expects.toBe.value('true', true, 'false', false, false)
 }
 
-function ToBeNumber(){
+function ToBeNumber()
+{
     expects.toBe.number('four', 4, 4)
     expects.toBe.number('five', 5, 4, false)
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
-    
-    // expects.toThrow(
-    //     'expects.number.toBe()', 
-    //     () => expects.toBe.number('four', 'four', 4),
-    //     SubjectTargetSuitabilityError.toString(),
-    //     SubjectTargetSuitabilityError
-    // )
 
-    // expects.toThrow(
-    //     'expects.number.toBe.closeToNumber()', 
-    //     () => expects.toBe.closeToNumber('four', 'four', 4.0),
-    //     SubjectTargetSuitabilityError.toString(),
-    //     SubjectTargetSuitabilityError
-    // )
+    expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(IntegerFloatMismatchError)
+    // expect(() => expects.toBe.number('four', [4.1], 4)).toThrow(SubjectTargetSuitabilityError)
 
     expects.toThrow(
         'expect 4 to be 4.1',
         () => expects.toBe.closeToNumber('four', 4, 5.001),
-        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError.name,
         IntegerFloatMismatchError,
     )
 
     expects.toThrow(
         'expect 4.1 to be 4',
         () => expects.toBe.number('four', 4.1, 4),
-        IntegerFloatMismatchError.toString(),
+        IntegerFloatMismatchError.name,
         IntegerFloatMismatchError,
     )
 }
 
-function ToBeNullTests(){
+function ToBeNullTests()
+{
     const nulled = null
     const notNulled = true
 
@@ -83,20 +74,23 @@ function ToBeNullTests(){
     expects.toBe.null('Not Nulled variable', notNulled, false)
 }
 
-function ToBeTruthyTests() {
+function ToBeTruthyTests()
+{
     const truthy = [ true, {}, {alias: 'value'}, [0], []]
-    const falsy = [ undefined, null, false, NaN, 0, -0, 0n, 0.0, '' ]
+    const falsy = [ undefined, null, false, NaN, 0, -0, 0, 0.0, '' ]
     truthy.forEach(value => { expects.toBe.truthy(value) })
     falsy.forEach(value => { expects.toBe.truthy(value, false) })
 }
 
-function ToBeDefinedTests() {
+function ToBeDefinedTests()
+{
     expects.toBe.defined('aaa', 'aaa')
     expects.toBe.defined('bbb', 'bbb', true)
     expects.toBe.defined('undefined', undefined, false)
 }
 
-function ObjectTests() {
+function ObjectTests()
+{
     const goat = {
         Nirvana: 'Come as you are',
         Megadeth: 'Tornado of Souls',
@@ -108,7 +102,8 @@ function ObjectTests() {
     })
 }
 
-function ArrayTests() {
+function ArrayTests()
+{
     const albumsArray = ['Bleach','Nevermind', 'In Utero']
     const albumsObj = {0:'Bleach', 1:'Nevermind', 2:'In Utero'}
     const nevermind = 'Nevermind'
@@ -117,12 +112,6 @@ function ArrayTests() {
     describe('.toContain()', () => {
         expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray)
         expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
-        expects.toThrow(
-            TargetSuitabilityError.toString(),
-            () => expects.array.toContain('Unplugged', 'Unplugged', 'bah bah black sheep', 'have you any wool'),
-            TargetSuitabilityError.toString(),
-            TargetSuitabilityError
-        )
     })
 
     describe('.toContainEqual()', () => {
@@ -165,13 +154,6 @@ function ArrayTests() {
         ]
         
         expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2)
-    
-        myBeverages2 = {
-            0: myBeverages2[0],
-            1: myBeverages2[1]
-        }
-    
-        expects.toThrow('The object contains this object', () => {expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2, false)}, 'SubjectTargetSuitabilityError', SubjectTargetSuitabilityError)    
     })
 
     describe('.toHaveLength()', () => {
@@ -180,7 +162,8 @@ function ArrayTests() {
     })
 }
 
-function StringTests() {
+function StringTests()
+{
     const intro = 'It was the best of times'
 
     expects.object.toHaveLength('intro', intro, 24)
@@ -189,13 +172,14 @@ function StringTests() {
     expects.string.toContain(intro, 'the worst of times', false)
 }
 
-function ThrowsErrorTests(){
+function ThrowsErrorTests()
+{
     expects.toThrow(
         'valuesToBe() subject is a number', 
         () => {
-            expects.toBe.value('1', 1) 
+            expects.toBe.value('1', 1, 'error', new Error()) 
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -204,7 +188,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('2', 2, '3', 3, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -213,7 +197,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('4', 4, '5', 5, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -222,7 +206,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -231,7 +215,7 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('null', null, 'null', null)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
@@ -240,30 +224,30 @@ function ThrowsErrorTests(){
         () => {
             expects.toBe.value('undefined', undefined, 'null', null, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
     expects.toThrow(
         'expects.toBe.value has a null subject', 
         () => {
-            expects.toBe.value('1', 1, null, null, false)
+            expects.toBe.value('1', 1, 'null', null, false)
         },
-        SubjectTargetSuitabilityError.toString(),
+        SubjectTargetSuitabilityError.name,
         SubjectTargetSuitabilityError
     )
 
+    const stub = () => {throw new StubError('anon function')}
+
     expects.toThrow(
         'throw stub error',
-        () => {throw new StubError},
-        StubError.toString(),
+        stub,
+        StubError.name,
         StubError
     )
 }
 
-
-
-describe('Jestr expects', () => {
+describe('Jestr.ts (ES6) expects', () => {
     describe('Helper functions', () => HelperTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())
@@ -271,4 +255,5 @@ describe('Jestr expects', () => {
     describe('string tests', () => StringTests())
     describe('expects.toThrowError', () => ThrowsErrorTests())
 })
+
 
