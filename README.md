@@ -11,15 +11,8 @@ git submodule add https://github.com/jauntyjocularjay/Jestr.git /desired/path/to
 
 mkdir test
 
-<<<<<<< HEAD
-touch test/Name.test.cjs // .js
-```
-
-For now, Jest only supports CommonJS. 
-=======
 touch test/Name.test.mjs // .js
 ```
 
 For now, Jestr only supports ES6. 
->>>>>>> beta
 
