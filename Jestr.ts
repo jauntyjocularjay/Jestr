@@ -274,15 +274,22 @@ const expects = {
                     : expect(target).not.toEqual(expect.stringContaining(subject))
             })
         },
-    },
-    toThrow: (functionAlias: string, funct: Function, errorAlias: string, error: any, bool=true) => {
-        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
-        test(description, () => {
-            bool
-                ? expect(() => funct()).toThrow(error)
-                : expect(() => funct()).not.toThrow(error)
-        })
     }
+    // ,
+    // toThrow: (functionAlias: string, funct: Function, errorAlias: string, error: Error, bool=true) => 
+    // /**
+    //  * @method toThrow() is meant to confirm an action throws an error. 
+    //  *       moved to Jestr.mjs in the meantime where it does work.
+    //  * @todo Fix this
+    //  */
+    // {
+    //     const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
+    //     test(description, () => {
+    //         bool
+    //             ? expect(() => funct()).toThrow(error)
+    //             : expect(() => funct()).not.toThrow(error)
+    //     })
+    // }
 }
 
 class StubError extends Error {
@@ -291,6 +298,7 @@ class StubError extends Error {
  */
     constructor(functionAlias: string|null){
         super(`Function or method ${functionAlias} is a stub and has yet to be written.`)
+        this.name = 'StubError'
     }
 }
 
@@ -298,10 +306,6 @@ class SubjectTargetSuitabilityError extends TypeError {
 /**
  * @class Error explains why a value was rejected due to data type mismatch.
  */
-    static toString(){
-        return 'SubjectTargetSuitabilityError'
-    }
-
     constructor(testName: string, types: string[], subject: any, target: any, append=''){
         super(
             `${testName} does not accept accept subject/targets of ` + 
@@ -310,41 +314,31 @@ class SubjectTargetSuitabilityError extends TypeError {
             `typeof Target: ${typeof target} \n` + 
             append
         )
+        this.name = 'SubjectTargetSuitabilityError'
     }
 }
 
 class TargetSuitabilityError extends TypeError {
-    static toString(){
-        return 'TargetSuitabilityError'
-    }
-
     constructor(testName: string, types: string[], target: any, append=''){
         super(
             `${testName} does must be one of these types: ${types} \n` +
             `typeof Target: ${typeof target} \n` +
             append
         )
+
+        this.name = 'TargetSuitabilityError'
     }
 }
 
 class SubjectTargetMismatchError extends TypeError {
-
-    static toString(){
-        return 'SubjectTargetMismatchError'
-    }
-
     constructor(subject: any, target: any){
         const message = `Subject: ${subject} and Target: ${target} are not comparable.`
         super(message)
+        this.name = 'SubjectTargetMismatchError'
     }
 }
 
 class IntegerFloatMismatchError extends TypeError {
-
-    static toString(){
-        return 'IntegerFloatMismatchError'
-    }
-
     constructor(subject: number, target: number){
         let message = 
             `Your subject ${subject} ${is(Number.isInteger(subject))} an integer, but your ` +
@@ -354,6 +348,7 @@ class IntegerFloatMismatchError extends TypeError {
             `expects.toBeCloseToNumber() for floats \n`
 
         super(message)
+        this.name = 'IntegerFloatMismatchError'
     }
 }
 

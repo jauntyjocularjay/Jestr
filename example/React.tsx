@@ -4,7 +4,10 @@ import { jsx } from "react/jsx-runtime"
 
 function MyButton() {
     return (
-        <button>
+        <button
+            title="Learn More"
+            color="#841584"
+        >
             I'm a button
         </button>
     )

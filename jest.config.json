@@ -10,11 +10,15 @@
         ".mts",
         ".tsx"
     ],
+    "testPathIgnorePatterns": [
+        "/node_modules/",
+        "/templates/"
+    ],
     "testMatch": [
         "**/__tests__/**/mjs?(x)",
-        "**/?(*.)+(spec|test).mjs?(x)",
+        "**/test/?(*.)+(spec|test).mjs?(x)",
         "**/__tests__/**/ts?(x)",
-        "**/?(*.)+(spec|test).ts?(x)"
+        "**/test/?(*.)+(spec|test).ts?(x)"
     ],
     "transform": {
         "^.+.tsx?$": [
