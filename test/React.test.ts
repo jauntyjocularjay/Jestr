@@ -12,12 +12,12 @@ describe('Testing with React!', () => {
     it('Components', () => {
         const myApp = MyApp()
         const myAppChildren = myApp.props.children
-        console.log("MyApp:", MyApp())
-        console.log('myAppChildren:')
-        for(const [key, value] of Object.entries(myAppChildren))
-        {
-            console.log(key, value)
-        }
+        // console.log("MyApp:", MyApp())
+        // console.log('myAppChildren:')
+        // for(const [key, value] of Object.entries(myAppChildren))
+        // {
+        //     console.log(key, value)
+        // }
         expect(myApp.type).toBe('div')
     })
 })
