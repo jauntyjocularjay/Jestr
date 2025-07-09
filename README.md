@@ -6,8 +6,54 @@ A Jest-like testing framework with enhanced assertion methods that makes writing
 
 **Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This streamlined approach makes algorithmic test generation easy and is extremely nifty.
 
+## Algorithmic Testing with Jestr
+
+Jestr is designed from the ground up to support **algorithmic test generation** - the practice of programmatically creating test cases rather than writing them manually. This approach offers several advantages:
+
+### Why Algorithmic Testing?
+
+**Traditional Testing Challenges:**
+- Writing comprehensive test cases manually is time-consuming
+- Easy to miss edge cases or boundary conditions
+- Maintaining large test suites becomes unwieldy
+- Repetitive test patterns lead to copy-paste errors
+
+**Jestr's Solution:**
+- **Descriptive API**: Human-readable method names make generated tests self-documenting
+- **Consistent Structure**: Uniform parameter patterns across all assertion methods
+- **Smart Error Handling**: Detailed error messages help debug both your code and your test generation logic
+- **Type Safety**: Built-in type checking prevents common test generation mistakes
+
+### Algorithmic Testing Patterns
+
+```typescript
+// Generate tests for multiple inputs programmatically
+const testCases = [
+  { input: 'hello', expected: 'hello', description: 'simple string' },
+  { input: '', expected: '', description: 'empty string' },
+  { input: null, expected: null, description: 'null value' }
+]
+
+testCases.forEach(({ input, expected, description }) => {
+  expects.toBe.value(description, input, 'expected', expected)
+})
+
+// Generate boundary tests for numbers
+const boundaries = [-1, 0, 1, 100, 999, 1000]
+boundaries.forEach(num => {
+  expects.toBe.number(`boundary value ${num}`, num, num)
+})
+```
+
+This systematic approach to test generation makes Jestr particularly powerful for:
+- **Data-driven testing** with large datasets
+- **Property-based testing** with generated inputs  
+- **Regression testing** with automatically discovered edge cases
+- **API testing** with programmatically generated request/response pairs
+
 ## Table of Contents
 
+- [Algorithmic Testing with Jestr](#algorithmic-testing-with-jestr)
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [API Reference](#api-reference)
@@ -47,7 +93,7 @@ A Jest-like testing framework with enhanced assertion methods that makes writing
 - [Contributing](#contributing)
 - [License](#license)
 
-> **Quick Jump:** [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples) | [React Setup](#react-integration)
+> **Quick Jump:** [Algorithmic Testing](#algorithmic-testing-with-jestr) | [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples) | [React Setup](#react-integration)
 
 ---
 

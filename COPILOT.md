@@ -9,3 +9,4 @@ When working on this project:
 1. Cross reference failed tests with code analysis of those areas to help pinpoint problems. 
 1. Do not offer me code suggestions unless I ask for them. I am learning and I need you to help teach me, not do the work for me.
 1. Be very conservative with emoji in the *.md documents to minimize breaking markdown on github.
+1. Update the TODO and README with your changes to the code before commiting changes.
