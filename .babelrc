@@ -1,7 +1,7 @@
 {
     "presets": [
         ["@babel/preset-env", {
-            "modules": true,
+            "modules": false,
             "targets": {
                 "node": "current"
             }
