@@ -1,7 +1,8 @@
 /**
- * @fileoverview Jestr - A Jest enhancement library providing human-readable assertion methods and algorithmic test generation
+ * @fileoverview Jestr - A Jest enhancement library providing human-readable assertion methods with both verbose and concise APIs for algorithmic test generation
  * @author @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)
  * @version 1.0.0
+ * @description Offers algorithmic test generation through verbose API (descriptive aliases) and quick testing through concise API (auto-generated aliases)
  */
 
 import {
@@ -32,22 +33,28 @@ const expects = {
          * Tests strict equality between two values, excluding numbers, objects, and null
          * @param {string} subjectAlias - Display name for the subject value
          * @param {any} subject - The value being tested (non-number, non-object, non-null)
-         * @param {string} targetAlias - Display name for the target value  
+         * @param {string} targetAlias - Display name for the target value
          * @param {any} target - The expected value to compare against
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          * @throws {SubjectTargetSuitabilityError} When subject/target are numbers, objects, or null
          */
-        value: (subjectAlias: string, subject: any, targetAlias: string, target: any, bool=true) => {
+        value: (
+            subjectAlias: string,
+            subject: any,
+            targetAlias: string,
+            target: any,
+            bool = true
+        ) => {
             const types = ['number', 'object', 'null']
 
-            if(SubjectTargetAre(subject, target, types)){
+            if (SubjectTargetAre(subject, target, types)) {
                 // Added recommendation block here because this is the most generalized version of this expectation
                 let append = 'consider using '
-                if(subject === null){
+                if (subject === null) {
                     append += 'expects.valueToBeNull()'
                 } else if (typeof subject === 'number') {
                     append += 'expects.numberToBe()'
-                } else if (typeof subject === 'object'){
+                } else if (typeof subject === 'object') {
                     append += 'expects.objectToBe()'
                 }
 
@@ -59,7 +66,9 @@ const expects = {
                     append
                 )
             } else {
-                const description = `${getCounter()} '${subjectAlias}' ${is(bool)} '${targetAlias}'`
+                const description = `${getCounter()} '${subjectAlias}' ${is(
+                    bool
+                )} '${targetAlias}'`
 
                 test(description, () => {
                     bool
@@ -74,8 +83,10 @@ const expects = {
          * @param {any} subject - The value being tested for null
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        null: (subjectAlias: string, subject: any, bool=true) => {
-            const description = `${getCounter()} '${subjectAlias}' ${is(bool)} "null"`
+        null: (subjectAlias: string, subject: any, bool = true) => {
+            const description = `${getCounter()} '${subjectAlias}' ${is(
+                bool
+            )} "null"`
 
             test(description, () => {
                 bool
@@ -83,6 +94,13 @@ const expects = {
                     : expect(subject).not.toBeNull()
             })
         },
+        /**
+         * Concise version of expects.toBe.null() - Tests if a value is null using auto-generated alias
+         * These are defined separately below to avoid recursion and self-referencing problems.
+         * @param {any} subject - The value being tested for null
+         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+         */
+        isNull: (subject: any, bool = true) => {},
         /**
          * Tests strict equality between two objects (STUB - not yet implemented)
          * @param {string} subjectAlias - Display name for the subject object
@@ -92,7 +110,13 @@ const expects = {
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          * @throws {StubError} This method is not yet implemented
          */
-        object: (subjectAlias: string, subject: Object, targetAlias: string, target: Object, bool=true) => {
+        object: (
+            subjectAlias: string,
+            subject: Object,
+            targetAlias: string,
+            target: Object,
+            bool = true
+        ) => {
             throw new StubError('expects.objectToBe()')
         },
         /**
@@ -104,36 +128,50 @@ const expects = {
          * @throws {SubjectTargetSuitabilityError} When comparing non-integer numbers
          * @throws {IntegerFloatMismatchError} When one value is integer and the other is float
          */
-        number: (subjectAlias: string, subject: any, target: number, bool=true) => {
-            if(
-                SubjectTargetAre(subject, target, ['number']) && 
+        number: (
+            subjectAlias: string,
+            subject: any,
+            target: number,
+            bool = true
+        ) => {
+            if (
+                SubjectTargetAre(subject, target, ['number']) &&
                 Number.isInteger(subject) &&
                 Number.isInteger(target)
-            ){
-                const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
+            ) {
+                const description = `${getCounter()} ${subjectAlias} ${is(
+                    bool
+                )} ${target}`
                 test(description, () => {
                     bool
                         ? expect(subject).toBe(target)
                         : expect(subject).not.toBe(target)
                 })
             } else if (
-                SubjectTargetAre(subject,target,TestableTypesTypescript(['number'])) &&
+                SubjectTargetAre(
+                    subject,
+                    target,
+                    TestableTypesTypescript(['number'])
+                ) &&
                 !Number.isInteger(subject) &&
-                !Number.isInteger(target) 
+                !Number.isInteger(target)
             ) {
                 throw new SubjectTargetSuitabilityError(
                     'expects.toBe.number()',
                     TestableTypesTypescript(['number']),
-                    subject, 
-                    target, 
-                    'use expects.toBe.closeToNumber() instead')
+                    subject,
+                    target,
+                    'use expects.toBe.closeToNumber() instead'
+                )
             } else if (
-                SubjectTargetAre(subject,target,['number']) &&
+                SubjectTargetAre(subject, target, ['number']) &&
                 Number.isInteger(subject) !== Number.isInteger(target)
             ) {
                 throw new IntegerFloatMismatchError(subject, target)
             } else {
-                throw new Error(`expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
+                throw new Error(
+                    `expects.toBe.number(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`
+                )
             }
         },
         /**
@@ -144,25 +182,34 @@ const expects = {
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          * @throws {IntegerFloatMismatchError} When one value is integer and the other is float
          */
-        closeToNumber: (subjectAlias: string, subject: number, target: number, bool=true) => {
-            if(
-                SubjectTargetAre(subject,target, ['number']) && 
+        closeToNumber: (
+            subjectAlias: string,
+            subject: number,
+            target: number,
+            bool = true
+        ) => {
+            if (
+                SubjectTargetAre(subject, target, ['number']) &&
                 !Number.isInteger(subject) &&
                 !Number.isInteger(target)
-            ){
-                const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
+            ) {
+                const description = `${getCounter()} ${subjectAlias} ${is(
+                    bool
+                )} ${target}`
                 test(description, () => {
                     bool
                         ? expect(subject).toBeCloseTo(target)
                         : expect(subject).not.toBeCloseTo(target)
                 })
             } else if (
-                SubjectTargetAre(subject,target,['number']) &&
+                SubjectTargetAre(subject, target, ['number']) &&
                 Number.isInteger(subject) !== Number.isInteger(target)
             ) {
                 throw new IntegerFloatMismatchError(subject, target)
             } else {
-                throw new Error(`expects.toBe.closeToNumber(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`)
+                throw new Error(
+                    `expects.toBe.closeToNumber(${subjectAlias}, ${target}, ${bool}) threw an unknown error.`
+                )
             }
         },
         /**
@@ -170,19 +217,18 @@ const expects = {
          * @param {any} subject - The value being tested for truthiness
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        truthy: (subject: any, bool=true) => {
-
+        truthy: (subject: any, bool = true) => {
             let alias = ''
-            if(subject === undefined){
-                alias='undefined'
-            } else if(subject === null){
-                alias='null'
-            } else if(subject === ''){
-                alias='""'
-            } else if(Array.isArray(subject)){
+            if (subject === undefined) {
+                alias = 'undefined'
+            } else if (subject === null) {
+                alias = 'null'
+            } else if (subject === '') {
+                alias = '""'
+            } else if (Array.isArray(subject)) {
                 alias = `[ ${subject} ]`
             } else {
-                alias=subject.toString()
+                alias = subject.toString()
             }
 
             const description = `${getCounter()} ${alias} ${is(bool)} truthy`
@@ -199,15 +245,24 @@ const expects = {
          * @param {any} subject - The value being tested for definition
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        defined: (subjectAlias: string, subject: any, bool=true) => {
-            const description = `${getCounter()} ${subjectAlias} is ${defined(bool)}`
+        defined: (subjectAlias: string, subject: any, bool = true) => {
+            const description = `${getCounter()} ${subjectAlias} is ${defined(
+                bool
+            )}`
 
             test(description, () => {
                 bool
                     ? expect(subject).toBeDefined()
                     : expect(subject).toBeUndefined()
             })
-        }
+        },
+        /**
+         * Concise version of expects.toBe.defined() - Tests if a value is defined using auto-generated alias
+         * These are defined separately below to avoid recursion and self-referencing problems.
+         * @param {any} subject - The value being tested for definition
+         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+         */
+        isDefined: (subject: any, bool = true) => {}
     },
     /**
      * Array-specific testing methods that enhance Jest's array assertions with descriptive naming
@@ -222,9 +277,17 @@ const expects = {
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          * @throws {TargetSuitabilityError} When target is not an array
          */
-        toContain: (subjectAlias: string, subject: any, targetAlias: string, target: any[], bool=true) => {
-            if(Array.isArray(target)){
-                const description = `${getCounter()} the array ${subjectAlias} ${does(bool)} contain ${targetAlias}`
+        toContain: (
+            subjectAlias: string,
+            subject: any,
+            targetAlias: string,
+            target: any[],
+            bool = true
+        ) => {
+            if (Array.isArray(target)) {
+                const description = `${getCounter()} the array ${subjectAlias} ${does(
+                    bool
+                )} contain ${targetAlias}`
 
                 test(description, () => {
                     bool
@@ -248,9 +311,17 @@ const expects = {
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          * @throws {SubjectTargetSuitabilityError} When target is not an array
          */
-        toContainEqual: (subjectAlias: string, subject: any, targetAlias: string, target: any[], bool=true) => {
-            if(Array.isArray(target)){
-                const description = `${getCounter()} the array ${targetAlias} ${does(bool)} contain ${subjectAlias}`
+        toContainEqual: (
+            subjectAlias: string,
+            subject: any,
+            targetAlias: string,
+            target: any[],
+            bool = true
+        ) => {
+            if (Array.isArray(target)) {
+                const description = `${getCounter()} the array ${targetAlias} ${does(
+                    bool
+                )} contain ${subjectAlias}`
 
                 test(description, () => {
                     bool
@@ -261,7 +332,7 @@ const expects = {
                 throw new SubjectTargetSuitabilityError(
                     'expects.array.toContainEqual()',
                     TestableTypesTypescript(['array']),
-                    subject, 
+                    subject,
                     target
                 )
             }
@@ -278,8 +349,15 @@ const expects = {
          * @param {number} target - The expected length value
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        toHaveLength: (subjectAlias: string, subject: Object, target: number, bool=true) => {
-            const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
+        toHaveLength: (
+            subjectAlias: string,
+            subject: Object,
+            target: number,
+            bool = true
+        ) => {
+            const description = `${getCounter()} ${subjectAlias} ${has(
+                bool
+            )} length ${target}`
 
             test(description, () => {
                 bool
@@ -288,21 +366,36 @@ const expects = {
             })
         },
         /**
+         * Concise version of expects.object.toHaveLength() - Tests if an object has a specific length using auto-generated alias
+         * These are defined separately below to avoid recursion and self-referencing problems.
+         * @param {Object} subject - The object to test for length
+         * @param {number} target - The expected length value
+         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+         */
+        hasLength: (subject: Object, target: number, bool = true) => {},
+        /**
          * Tests if an object has a specific property
          * @param {any} subject - The property name to check for
          * @param {string} targetAlias - Display name for the object
          * @param {Object} target - The object to check for the property
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        toHaveProperty: (subject: any, targetAlias: string, target: Object, bool=true) => {
-            const description = `${getCounter()} ${targetAlias} ${has(bool)} ${subject} as a property`
+        toHaveProperty: (
+            subject: any,
+            targetAlias: string,
+            target: Object,
+            bool = true
+        ) => {
+            const description = `${getCounter()} ${targetAlias} ${has(
+                bool
+            )} ${subject} as a property`
 
             test(description, () => {
                 bool
                     ? expect(target).toHaveProperty(subject)
                     : expect(target).not.toHaveProperty(subject)
             })
-        }
+        },
     },
     /**
      * String-specific testing methods that enhance Jest's string assertions with descriptive naming
@@ -313,15 +406,18 @@ const expects = {
          * @param {string} target - The string to search in
          * @param {string} subject - The substring to search for
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         * @todo Add proper parameter names and descriptions for consistency
          */
-        toContain: (target: string, subject: string, bool=true) => {
-            const description = `${getCounter()} '${target}' ${contains(true)} '${subject}'`
+        toContain: (subject: string, target: string, bool = true) => {
+            const description = `${getCounter()} '${target}' ${contains(
+                true
+            )} '${subject}'`
 
             test(description, () => {
                 bool
                     ? expect(target).toEqual(expect.stringContaining(subject))
-                    : expect(target).not.toEqual(expect.stringContaining(subject))
+                    : expect(target).not.toEqual(
+                          expect.stringContaining(subject)
+                      )
             })
         },
     },
@@ -333,15 +429,57 @@ const expects = {
      * @param {any} error - The expected error type or message
      * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
      */
-    toThrow: (functionAlias: string, funct: Function, errorAlias: string, error: any, bool=true) => {
-        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}: '${errorAlias}'`
+    toThrow: (
+        functionAlias: string,
+        funct: Function,
+        errorAlias: string,
+        error: any,
+        bool = true
+    ) => {
+        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
+            bool
+        )}: '${errorAlias}'`
         test(description, () => {
             bool
                 ? expect(() => funct()).toThrow(error)
                 : expect(() => funct()).not.toThrow(error)
         })
-    }
+    },
 }
+
+/* Concise additions - these are pre-defined in the main expects object but implemented here to avoid a recursive trap and self-referencing errors. */
+
+/**
+ * Concise null test - automatically uses 'value' as alias
+ * @param {any} subject - The value being tested for null
+ * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+ * @example expects.toBe.isNull(userData) // "1 'value' is null"
+ */
+expects.toBe.isNull = (subject: any, bool = true) => {
+    expects.toBe.null('value', subject, bool)
+}
+
+/**
+ * Concise length test - automatically uses 'value' as alias  
+ * @param {Object} subject - The object to test for length
+ * @param {number} target - The expected length value
+ * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+ * @example expects.object.hasLength(users, 5) // "2 'value' has length 5"
+ */
+expects.object.hasLength = (subject: Object, target: number, bool = true) => {
+    expects.object.toHaveLength( 'value', subject, target, bool )
+}
+
+/**
+ * Concise defined test - automatically uses 'value' as alias
+ * @param {any} subject - The value being tested for definition
+ * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+ * @example expects.toBe.isDefined(config) // "3 'value' is defined"
+ */
+expects.toBe.isDefined = (subject: any, bool = true) => {
+    expects.toBe.defined('value', subject, bool)
+}
+
 
 /**
  * Error thrown when a function or method is not yet implemented (stub)

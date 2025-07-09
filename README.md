@@ -8,6 +8,51 @@ A Jest enhancement library that provides human-readable assertion methods and st
 
 *Created by @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)*
 
+## Table of Contents
+
+- [Algorithmic Testing with Jestr](#algorithmic-testing-with-jestr)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Concise API](#concise-api)
+- [API Reference](#api-reference)
+  - [Core Assertions (`expects.toBe`)](#core-assertions-expectstobe)
+    - [`expects.toBe.value()`](#expectstobevaluesubjectalias-subject-targetalias-target-bool)
+    - [`expects.toBe.null()`](#expectstobenullsubjectalias-subject-bool)
+    - [`expects.toBe.isNull()`](#expectstobenullsubject-bool) *(CONCISE)*
+    - [`expects.toBe.number()`](#expectstobenumbersubjectalias-subject-target-bool)
+    - [`expects.toBe.closeToNumber()`](#expectstobeclosetonnumbersubjectalias-subject-target-bool)
+    - [`expects.toBe.truthy()`](#expectstobtruthysubject-bool)
+    - [`expects.toBe.defined()`](#expectstobedefinedsubjectalias-subject-bool)
+    - [`expects.toBe.isDefined()`](#expectstobedefinedsubject-bool) *(CONCISE)*
+    - [`expects.toBe.object()`](#expectstobeobjectsubjectalias-subject-targetalias-target-bool) *(STUB)*
+  - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
+    - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
+    - [`expects.array.toContainEqual()`](#expectsarraytocontainequalsubjectalias-subject-targetalias-target-bool)
+  - [Object Assertions (`expects.object`)](#object-assertions-expectsobject)
+    - [`expects.object.toHaveLength()`](#expectsobjecttohavelengthmsubjectalias-subject-target-bool)
+    - [`expects.object.hasLength()`](#expectsobjecthaslengthsubject-target-bool) *(CONCISE)*
+    - [`expects.object.toHaveProperty()`](#expectsobjecttohavepropertysubject-targetalias-target-bool)
+  - [String Assertions (`expects.string`)](#string-assertions-expectsstring)
+    - [`expects.string.toContain()`](#expectsstringtocontaintarget-subject-bool)
+  - [Error Assertions](#error-assertions)
+    - [`expects.toThrow()`](#expectstothrowfunctionalias-funct-erroralias-error-bool)
+- [Error Types](#error-types)
+- [Type Utilities](#type-utilities)
+  - [`TestableTypesTypescript()`](#testabletypestypescriptexcludetypes)
+  - [`TestableTypesJavascript()`](#testabletypesjavascriptexcludetypes)
+  - [`SubjectTargetAre()`](#subjecttargetaresubject-target-types)
+- [Examples](#examples)
+  - [Basic Testing](#basic-testing)
+  - [Array Testing](#array-testing)
+  - [Error Testing](#error-testing)
+- [Meet the Team](#meet-the-team)
+- [Contributing](#contributing)
+- [License](#license)
+
+> **Quick Jump:** [Algorithmic Testing](#algorithmic-testing-with-jestr) | [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples)
+
+---
+
 ## Algorithmic Testing with Jestr
 
 Jestr is designed from the ground up to support **algorithmic test generation** - the practice of programmatically creating test cases rather than writing them manually. This approach offers several advantages:
@@ -26,6 +71,7 @@ Jestr is designed from the ground up to support **algorithmic test generation** 
 - **Smart Error Handling**: Detailed error messages help debug both your code and your test generation logic
 - **Type Safety**: Built-in type checking prevents common test generation mistakes
 - **Jest Integration**: Seamlessly works with your existing Jest setup and configuration
+
 
 ### Algorithmic Testing Patterns
 
@@ -55,46 +101,7 @@ This systematic approach to test generation makes Jestr particularly powerful fo
 - **API testing** with programmatically generated request/response pairs
 - **Jest workflow enhancement** without disrupting existing test infrastructure
 
-## Table of Contents
 
-- [Algorithmic Testing with Jestr](#algorithmic-testing-with-jestr)
-- [Features](#features)
-- [Quick Start](#quick-start)
-- [API Reference](#api-reference)
-  - [Core Assertions (`expects.toBe`)](#core-assertions-expectstobe)
-    - [`expects.toBe.value()`](#expectstobevaluesubjectalias-subject-targetalias-target-bool)
-    - [`expects.toBe.null()`](#expectstobenullsubjectalias-subject-bool)
-    - [`expects.toBe.number()`](#expectstobenumbersubjectalias-subject-target-bool)
-    - [`expects.toBe.closeToNumber()`](#expectstobeclosetonnumbersubjectalias-subject-target-bool)
-    - [`expects.toBe.truthy()`](#expectstobtruthysubject-bool)
-    - [`expects.toBe.defined()`](#expectstobedefinedsubjectalias-subject-bool)
-    - [`expects.toBe.object()`](#expectstobeobjectsubjectalias-subject-targetalias-target-bool) *(STUB)*
-  - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
-    - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
-    - [`expects.array.toContainEqual()`](#expectsarraytocontainequalsubjectalias-subject-targetalias-target-bool)
-  - [Object Assertions (`expects.object`)](#object-assertions-expectsobject)
-    - [`expects.object.toHaveLength()`](#expectsobjecttohavelengthmsubjectalias-subject-target-bool)
-    - [`expects.object.toHaveProperty()`](#expectsobjecttohavepropertysubject-targetalias-target-bool)
-  - [String Assertions (`expects.string`)](#string-assertions-expectsstring)
-    - [`expects.string.toContain()`](#expectsstringtocontaintarget-subject-bool)
-  - [Error Assertions](#error-assertions)
-    - [`expects.toThrow()`](#expectstothrowfunctionalias-funct-erroralias-error-bool)
-- [Error Types](#error-types)
-- [Type Utilities](#type-utilities)
-  - [`TestableTypesTypescript()`](#testabletypestypescriptexcludetypes)
-  - [`TestableTypesJavascript()`](#testabletypesjavascriptexcludetypes)
-  - [`SubjectTargetAre()`](#subjecttargetaresubject-target-types)
-- [Examples](#examples)
-  - [Basic Testing](#basic-testing)
-  - [Array Testing](#array-testing)
-  - [Error Testing](#error-testing)
-- [Meet the Team](#meet-the-team)
-- [Contributing](#contributing)
-- [License](#license)
-
-> **Quick Jump:** [Algorithmic Testing](#algorithmic-testing-with-jestr) | [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples)
-
----
 
 ---
 
@@ -149,7 +156,74 @@ expects.string.toContain('It was the best of times', 'best')
 expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 ```
 
-> **Next Steps:** Explore the [API Reference](#api-reference) | View [Examples](#examples) | Set up [React Integration](#react-integration)
+> **Next Steps:** Explore the [Concise API](#concise-api) | [API Reference](#api-reference) | View [Examples](#examples)
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
+## Concise API
+
+Jestr provides both **verbose** and **concise** APIs to suit different testing needs:
+
+- **Verbose API**: Descriptive aliases for algorithmic test generation and detailed documentation
+- **Concise API**: Auto-generated aliases for quick manual testing and brevity
+
+### Verbose vs Concise Comparison
+
+```typescript
+// Verbose API - custom descriptive aliases
+expects.toBe.null('user data', userData)           // "1 'user data' is null"
+expects.object.toHaveLength('users array', users, 5)  // "2 'users array' has length 5"
+expects.toBe.defined('config object', config)      // "3 'config object' is defined"
+
+// Concise API - auto-generated 'value' alias
+expects.toBe.isNull(userData)                       // "1 'value' is null"
+expects.object.hasLength(users, 5)                  // "2 'value' has length 5" 
+expects.toBe.isDefined(config)                      // "3 'value' is defined"
+```
+
+### Available Concise Methods
+
+| Concise Method | Verbose Equivalent | Description |
+|---|---|---|
+| `expects.toBe.isNull(subject)` | `expects.toBe.null(alias, subject)` | Tests if value is null |
+| `expects.toBe.isDefined(subject)` | `expects.toBe.defined(alias, subject)` | Tests if value is defined |
+| `expects.object.hasLength(subject, target)` | `expects.object.toHaveLength(alias, subject, target)` | Tests object length |
+
+### When to Use Which API
+
+**Use Verbose API for:**
+- Algorithmic test generation with meaningful descriptions
+- Complex test suites where descriptive names aid debugging
+- When test output readability is crucial
+- Documenting business logic through test descriptions
+
+**Use Concise API for:**
+- Quick manual testing and prototyping  
+- Simple assertions where brevity is preferred
+- When you want Jest-like syntax with Jestr's enhancements
+- Rapid development and iteration
+
+### Example: Algorithmic Testing with Both APIs
+
+```typescript
+// Verbose API - ideal for generated test descriptions
+const userTestCases = [
+  { user: null, description: 'guest user' },
+  { user: { name: 'John' }, description: 'authenticated user' },
+  { user: undefined, description: 'missing user' }
+]
+
+userTestCases.forEach(({ user, description }) => {
+  expects.toBe.null(description, user, false) // "4 'guest user' is NOT null"
+})
+
+// Concise API - ideal for quick checks
+expects.toBe.isNull(guestUser, false)          // "5 'value' is NOT null"
+expects.toBe.isDefined(authenticatedUser)      // "6 'value' is defined"
+expects.object.hasLength(userPermissions, 3)   // "7 'value' has length 3"
+```
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -178,6 +252,15 @@ Tests strict equality between two values, excluding numbers, objects, and null.
 #### `expects.toBe.null(subjectAlias, subject, bool?)`
 Tests if a value is null.
 
+#### `expects.toBe.isNull(subject, bool?)` *(CONCISE)*
+Concise version of `expects.toBe.null()` - automatically uses 'value' as alias.
+
+**Example:**
+```typescript
+expects.toBe.isNull(userData)        // "1 'value' is null"
+expects.toBe.isNull(config, false)   // "2 'value' is NOT null"
+```
+
 #### `expects.toBe.number(subjectAlias, subject, target, bool?)`
 Tests strict equality between two numbers (integers only).
 
@@ -197,6 +280,15 @@ Tests if a value is truthy (evaluates to true in a boolean context).
 
 #### `expects.toBe.defined(subjectAlias, subject, bool?)`
 Tests if a value is defined (not undefined).
+
+#### `expects.toBe.isDefined(subject, bool?)` *(CONCISE)*
+Concise version of `expects.toBe.defined()` - automatically uses 'value' as alias.
+
+**Example:**
+```typescript
+expects.toBe.isDefined(config)       // "1 'value' is defined"
+expects.toBe.isDefined(optional, false)  // "2 'value' is NOT defined"
+```
 
 #### `expects.toBe.object(subjectAlias, subject, targetAlias, target, bool?)`
 **[STUB]** Tests strict equality between two objects *(not yet implemented)*.
@@ -227,6 +319,15 @@ Tests if an array contains an object equal to the given value (deep equality).
 
 #### `expects.object.toHaveLength(subjectAlias, subject, target, bool?)`
 Tests if an object has a specific length property.
+
+#### `expects.object.hasLength(subject, target, bool?)` *(CONCISE)*
+Concise version of `expects.object.toHaveLength()` - automatically uses 'value' as alias.
+
+**Example:**
+```typescript
+expects.object.hasLength(users, 5)      // "1 'value' has length 5"
+expects.object.hasLength(emptyArray, 0) // "2 'value' has length 0"
+```
 
 #### `expects.object.toHaveProperty(subject, targetAlias, target, bool?)`
 Tests if an object has a specific property.
