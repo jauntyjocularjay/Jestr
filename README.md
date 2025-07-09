@@ -24,7 +24,6 @@ A Jest enhancement library that provides human-readable assertion methods and st
     - [`expects.toBe.truthy()`](#expectstobtruthysubject-bool)
     - [`expects.toBe.defined()`](#expectstobedefinedsubjectalias-subject-bool)
     - [`expects.toBe.isDefined()`](#expectstobedefinedsubject-bool) *(CONCISE)*
-    - [`expects.toBe.object()`](#expectstobeobjectsubjectalias-subject-targetalias-target-bool) *(STUB)*
   - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
     - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
     - [`expects.array.toContainEqual()`](#expectsarraytocontainequalsubjectalias-subject-targetalias-target-bool)
@@ -69,7 +68,7 @@ Jestr is designed from the ground up to support **algorithmic test generation** 
 - **Descriptive API**: Human-readable method names make generated tests self-documenting
 - **Consistent Structure**: Uniform parameter patterns across all assertion methods
 - **Smart Error Handling**: Detailed error messages help debug both your code and your test generation logic
-- **Type Safety**: Built-in type checking prevents common test generation mistakes
+- **Type Safety**: Built-in Typescript error checking prevents common test generation mistakes for both Typescript and Javascript
 - **Jest Integration**: Seamlessly works with your existing Jest setup and configuration
 
 
@@ -111,7 +110,7 @@ This systematic approach to test generation makes Jestr particularly powerful fo
 - **Type-specific assertions** - Specialized methods for numbers, objects, arrays, and strings  
 - **Comprehensive error handling** - Detailed error messages with helpful suggestions
 - **Smart type checking** - Automatic validation with clear feedback
-- **Jest Enhancement** - Extends Jest with additional assertion methods and patterns
+- **Jest Enhancement** - Extends Jest with restructured assertion methods and patterns
 - **Algorithmic Testing** - Designed specifically for programmatic test generation
 
 [Back to Table of Contents](#table-of-contents)
@@ -236,15 +235,17 @@ expects.object.hasLength(userPermissions, 3)   // "7 'value' has length 3"
 ---
 ### General Parameter Order
 
-Assertion parameter order goes 
+Assertion parameter order goes:
 - `subject`
 - `target`
-- `boolean`.
+- `boolean`
 
 Most methods require a `subject alias` or `target alias`, but not always. When they appear, they appear in this order:
 
-- `subject alias`, `subject`
-- `target alias`, `target`
+- `subject alias`
+- `subject`
+- `target alias`
+- `target`
 - `boolean`
 
 The `boolean` is `true` by default on all assertion methods and determines if the test is a positive assertion (this is that) or negative (this is not that). You only need to specify when you want to make a negative assertion.
@@ -303,13 +304,6 @@ Concise version of `expects.toBe.defined()` - automatically uses 'value' as alia
 expects.toBe.isDefined(config)       // "1 'value' is defined"
 expects.toBe.isDefined(optional, false)  // "2 'value' is NOT defined"
 ```
-
-#### `expects.toBe.object(subjectAlias, subject, targetAlias, target, bool?)`
-**[STUB]** Tests strict equality between two objects *(not yet implemented)*.
-
-**Throws:** `StubError` - This method is not yet implemented
-
-[Back to API Reference](#api-reference) | [Back to Table of Contents](#table-of-contents)
 
 ---
 
@@ -443,6 +437,15 @@ expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 ```
 
 [Back to Examples](#examples) | [Back to Table of Contents](#table-of-contents)
+
+---
+
+## Limitations & Roadmap
+
+- Some advanced assertion methods (e.g., deep object equality) are planned but not yet implemented.
+- Jestr is a helper library, not a Jest plugin or replacement.
+- Type safety is strongest when used with TypeScript.
+- Contributions are welcome, but all code must be human-written.
 
 ---
 
