@@ -6,17 +6,6 @@ Writing unit tests is a drag. Unit Testing lends itself to some pretty cool stuf
 
 Jestr endeavours to streamline the process, yank out the boring parts so you can do the cool stuff. This streamlined approach makes algorithmic test generation easy and is extremely nifty.
 
-```bash
-git submodule add https://github.com/jauntyjocularjay/Jestr.git /desired/path/to/module
-
-mkdir test
-
-touch test/Name.test.mjs // .js
-```
-
-For now, Jestr only supports ES6. 
-
-
 ## For React
 
 ### Install babel-cli
@@ -79,7 +68,6 @@ Add a compilation command to your scripts
 for easy snipping:
 
 ```json
-
     "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'",
 ```
 
