@@ -4,7 +4,7 @@
 
 A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
-**Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes algorithmic test generation easy and is extremely nifty.
+**Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes [algorithmic test generation](#algorithmic-testing-with-jestr) easy and is extremely nifty.
 
 *Created by @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)*
 
