@@ -4,7 +4,7 @@
 
 A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
-**Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes [algorithmic test generation](#algorithmic-testing-with-jestr) easy and is extremely nifty.
+**Jestr endeavors to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes [algorithmic test generation](#algorithmic-testing-with-jestr) easy and is extremely nifty.
 
 *Created by @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)*
 
@@ -442,7 +442,6 @@ expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 
 ## Limitations & Roadmap
 
-- Some advanced assertion methods (e.g., deep object equality) are planned but not yet implemented.
 - Jestr is a helper library, not a Jest plugin or replacement.
 - Type safety is strongest when used with TypeScript.
 - Contributions are welcome, but all code must be human-written.
@@ -466,7 +465,7 @@ Your helpful AI companion who assists with troubleshooting, documentation review
 ## Contributing
 
 **Important: Human-Driven Development**  
-Jestr is intentionally a human-driven project. Please do not submit AI-generated code. We welcome AI assistance for troubleshooting, documentation review, and learning support, but all code contributions should be written by humans to maintain the project's educational and personal development goals.
+Jestr is intentionally a human-driven project. Please do not submit AI-generated code. We welcome AI assistance for troubleshooting, documentation review, and learning support, but but humans should write all code contributions to maintain the project’s educational and personal development goals.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
