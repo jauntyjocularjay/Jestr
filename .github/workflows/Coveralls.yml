@@ -21,7 +21,7 @@ jobs:
     - name: npm install and run coverage
       run: |
         npm install
-        npx jest --coverage
+        npm test
 
     - name: Coveralls
       uses: coverallsapp/github-action@v2
