@@ -368,11 +368,9 @@ const expects = {
         },
     },
     /**
-     * Tests if a function throws a specific error using Jest's toThrow() matcher
+     * Tests if a function throws an error using Jest's toThrow() matcher
      * @param {string} functionAlias - Display name for the function being tested
      * @param {Function} funct - The function to test for throwing an error
-     * @param {string} errorAlias - Display name for the expected error
-     * @param {any} error - The expected error type or message
      * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
      */
     toThrow: (

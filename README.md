@@ -2,7 +2,10 @@
 
 # Jestr
 
-A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
+A Jest enhancement library that provides human-readable assertion methods and streamlin# Array testing
+expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
+
+# Object testinggorithmic test generation on top of Jest's existing framework.
 
 **Jestr endeavors to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes [algorithmic test generation](#algorithmic-testing-with-jestr) easy and is extremely nifty.
 
@@ -26,7 +29,6 @@ A Jest enhancement library that provides human-readable assertion methods and st
     - [`expects.toBe.isDefined()`](#expectstobedefinedsubject-bool) *(CONCISE)*
   - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
     - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
-    - [`expects.array.toContainEqual()`](#expectsarraytocontainequalsubjectalias-subject-targetalias-target-bool)
   - [Object Assertions (`expects.object`)](#object-assertions-expectsobject)
     - [`expects.object.toHaveLength()`](#expectsobjecttohavelengthmsubjectalias-subject-target-bool)
     - [`expects.object.hasLength()`](#expectsobjecthaslengthsubject-target-bool) *(CONCISE)*
@@ -34,7 +36,7 @@ A Jest enhancement library that provides human-readable assertion methods and st
   - [String Assertions (`expects.string`)](#string-assertions-expectsstring)
     - [`expects.string.toContain()`](#expectsstringtocontaintarget-subject-bool)
   - [Error Assertions](#error-assertions)
-    - [`expects.toThrow()`](#expectstothrowfunctionalias-funct-erroralias-error-bool)
+    - [`expects.toThrow()`](#expectstothrowfunctionalias-funct-bool)
 - [Error Types](#error-types)
 - [Type Utilities](#type-utilities)
   - [`TestableTypesTypescript()`](#testabletypestypescriptexcludetypes)
@@ -142,7 +144,6 @@ expects.toBe.closeToNumber('pi', 3.14159, 3.14)
 
 // Array testing
 expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
-expects.array.toContainEqual('user object', userObj, 'users array', userArray)
 
 // Object testing
 expects.object.toHaveLength('my array', myArray, 5)
@@ -152,7 +153,7 @@ expects.object.toHaveProperty('name', 'user object', userObj)
 expects.string.toContain('It was the best of times', 'best')
 
 // Error testing
-expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
+expects.toThrow('divide by zero', () => divide(1, 0))
 ```
 
 > **Next Steps:** Explore the [Concise API](#concise-api) | [API Reference](#api-reference) | View [Examples](#examples)
@@ -314,11 +315,6 @@ Tests if an array contains a specific value.
 
 **Throws:** `TargetSuitabilityError` when target is not an array
 
-#### `expects.array.toContainEqual(subjectAlias, subject, targetAlias, target, bool?)`
-Tests if an array contains an object equal to the given value (deep equality).
-
-**Throws:** `SubjectTargetSuitabilityError` when target is not an array
-
 [Back to API Reference](#api-reference) | [Back to Table of Contents](#table-of-contents)
 
 ---
@@ -357,15 +353,19 @@ Tests if a string contains a substring.
 
 ### Error Assertions
 
-#### `expects.toThrow(functionAlias, funct, errorAlias, error, bool?)`
-Tests if a function throws a specific error.
+#### `expects.toThrow(functionAlias, funct, bool?)`
+Tests if a function throws an error.
 
 **Parameters:**
 - `functionAlias` *(string)* - Display name for the function being tested
 - `funct` *(Function)* - The function to test for throwing an error
-- `errorAlias` *(string)* - Display name for the expected error
-- `error` *(any)* - The expected error type or message
 - `bool` *(boolean)* - Whether the assertion should pass (default: true)
+
+**Example:**
+```typescript
+expects.toThrow('divide by zero', () => divide(1, 0))           // "1 'divide by zero' throws"
+expects.toThrow('safe operation', () => add(1, 2), false)      // "2 'safe operation' does NOT throw"
+```
 
 [Back to API Reference](#api-reference) | [Back to Table of Contents](#table-of-contents)
 
@@ -419,10 +419,8 @@ expects.toBe.truthy(isLoggedIn)
 ### Array Testing
 ```typescript
 const fruits = ['apple', 'banana', 'orange']
-const users = [{ name: 'John' }, { name: 'Jane' }]
 
 expects.array.toContain('search item', 'apple', 'fruits array', fruits)
-expects.array.toContainEqual('John user object', { name: 'John' }, 'users array', users)
 expects.object.toHaveLength('fruits array', fruits, 3)
 ```
 
@@ -433,7 +431,7 @@ const divide = (a, b) => {
   return a / b
 }
 
-expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
+expects.toThrow('divide by zero', () => divide(1, 0))
 ```
 
 [Back to Examples](#examples) | [Back to Table of Contents](#table-of-contents)

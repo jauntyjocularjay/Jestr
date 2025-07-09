@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752074665759" clover="3.2.0">
-  <project timestamp="1752074665759" name="All files">
+<coverage generated="1752075150141" clover="3.2.0">
+  <project timestamp="1752075150141" name="All files">
     <metrics statements="137" coveredstatements="104" conditionals="120" coveredconditionals="84" methods="59" coveredmethods="41" elements="316" coveredelements="229" complexity="0" loc="137" ncloc="137" packages="3" files="4" classes="4"/>
     <package name="Jestr">
       <metrics statements="102" coveredstatements="83" conditionals="90" coveredconditionals="74" methods="46" coveredmethods="32"/>
@@ -71,46 +71,46 @@
         <line num="357" count="3" type="stmt"/>
         <line num="361" count="3" type="stmt"/>
         <line num="362" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="383" count="8" type="stmt"/>
+        <line num="381" count="8" type="stmt"/>
+        <line num="384" count="8" type="stmt"/>
+        <line num="385" count="8" type="cond" truecount="1" falsecount="1"/>
         <line num="386" count="8" type="stmt"/>
-        <line num="387" count="8" type="cond" truecount="1" falsecount="1"/>
-        <line num="388" count="8" type="stmt"/>
-        <line num="389" count="0" type="stmt"/>
-        <line num="402" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="403" count="0" type="stmt"/>
-        <line num="404" count="0" type="stmt"/>
-        <line num="414" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="415" count="0" type="stmt"/>
-        <line num="416" count="0" type="stmt"/>
-        <line num="425" count="2" type="cond" truecount="0" falsecount="1"/>
-        <line num="426" count="0" type="stmt"/>
-        <line num="427" count="0" type="stmt"/>
-        <line num="442" count="1" type="stmt"/>
-        <line num="453" count="0" type="stmt"/>
-        <line num="465" count="5" type="stmt"/>
-        <line num="482" count="0" type="stmt"/>
-        <line num="493" count="0" type="stmt"/>
-        <line num="509" count="0" type="stmt"/>
-        <line num="518" count="0" type="stmt"/>
-        <line num="519" count="0" type="stmt"/>
-        <line num="531" count="0" type="stmt"/>
-        <line num="541" count="4" type="stmt"/>
-        <line num="547" count="4" type="stmt"/>
-        <line num="552" count="0" type="stmt"/>
-        <line num="563" count="13" type="stmt"/>
-        <line num="564" count="13" type="stmt"/>
-        <line num="565" count="24" type="stmt"/>
-        <line num="567" count="130" type="stmt"/>
-        <line num="576" count="3" type="stmt"/>
-        <line num="587" count="26" type="stmt"/>
-        <line num="590" count="26" type="cond" truecount="4" falsecount="0"/>
-        <line num="593" count="3" type="stmt"/>
-        <line num="596" count="26" type="stmt"/>
-        <line num="598" count="52" type="cond" truecount="4" falsecount="0"/>
-        <line num="599" count="6" type="stmt"/>
-        <line num="600" count="46" type="cond" truecount="3" falsecount="0"/>
-        <line num="603" count="15" type="stmt"/>
-        <line num="607" count="26" type="stmt"/>
+        <line num="387" count="0" type="stmt"/>
+        <line num="400" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="401" count="0" type="stmt"/>
+        <line num="402" count="0" type="stmt"/>
+        <line num="412" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="413" count="0" type="stmt"/>
+        <line num="414" count="0" type="stmt"/>
+        <line num="423" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="424" count="0" type="stmt"/>
+        <line num="425" count="0" type="stmt"/>
+        <line num="440" count="1" type="stmt"/>
+        <line num="451" count="0" type="stmt"/>
+        <line num="463" count="5" type="stmt"/>
+        <line num="480" count="0" type="stmt"/>
+        <line num="491" count="0" type="stmt"/>
+        <line num="507" count="0" type="stmt"/>
+        <line num="516" count="0" type="stmt"/>
+        <line num="517" count="0" type="stmt"/>
+        <line num="529" count="0" type="stmt"/>
+        <line num="539" count="4" type="stmt"/>
+        <line num="545" count="4" type="stmt"/>
+        <line num="550" count="0" type="stmt"/>
+        <line num="561" count="13" type="stmt"/>
+        <line num="562" count="13" type="stmt"/>
+        <line num="563" count="24" type="stmt"/>
+        <line num="565" count="130" type="stmt"/>
+        <line num="574" count="3" type="stmt"/>
+        <line num="585" count="26" type="stmt"/>
+        <line num="588" count="26" type="cond" truecount="4" falsecount="0"/>
+        <line num="591" count="3" type="stmt"/>
+        <line num="594" count="26" type="stmt"/>
+        <line num="596" count="52" type="cond" truecount="4" falsecount="0"/>
+        <line num="597" count="6" type="stmt"/>
+        <line num="598" count="46" type="cond" truecount="3" falsecount="0"/>
+        <line num="601" count="15" type="stmt"/>
+        <line num="605" count="26" type="stmt"/>
       </file>
     </package>
     <package name="Jestr.example">
