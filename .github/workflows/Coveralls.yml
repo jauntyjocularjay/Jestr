@@ -11,10 +11,10 @@ jobs:
 
     - uses: actions/checkout@v4
 
-    - name: Use Node.js 16.x
+    - name: Use Node.js 18.x
       uses: actions/setup-node@v3
       with:
-        node-version: 16.x
+        node-version: 18.x
 
     - name: Update submodules
       run: git submodule update --init --recursive
@@ -24,4 +24,4 @@ jobs:
         npm test
 
     - name: Coveralls
-      uses: coverallsapp/github-action@v2
+      uses: coverallsapp/github-action@v2.3.6
