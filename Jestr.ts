@@ -59,7 +59,7 @@ const expects = {
                 }
 
                 throw new SubjectTargetSuitabilityError(
-                    'expects.valuesToMatch()',
+                    'expects.toBe.Value()',
                     types,
                     subject,
                     target,
@@ -117,7 +117,7 @@ const expects = {
             target: Object,
             bool = true
         ) => {
-            throw new StubError('expects.objectToBe()')
+            throw new StubError('expects.object.ToBe()')
         },
         /**
          * Tests strict equality between two numbers (integers only)
@@ -595,7 +595,7 @@ class IntegerFloatMismatchError extends TypeError {
             `target ${target} ${is(Number.isInteger(target))} an integer. To compare these, ` +
             `convert them both to Integer or Float. Use: \n` + 
             `expects.toBe.number() for integers \n` +
-            `expects.toBeCloseToNumber() for floats \n`
+            `expects.toBe.CloseToNumber() for floats \n`
 
         super(message)
     }
