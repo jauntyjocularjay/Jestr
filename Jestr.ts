@@ -1,5 +1,5 @@
 /**
- * @fileoverview Jestr - A Jest-like testing framework with enhanced assertion methods
+ * @fileoverview Jestr - A Jest enhancement library providing human-readable assertion methods and algorithmic test generation
  * @author Your Name
  * @version 1.0.0
  */
@@ -22,7 +22,9 @@ import { types } from './Constants'
 
 
 /**
- * Main testing expectations object containing all assertion methods
+ * Main testing expectations object containing all assertion methods.
+ * Provides human-readable wrappers around Jest's assertion methods for enhanced developer experience.
+ * All methods ultimately call Jest's native expect() functions with descriptive test names.
  */
 const expects = {
     toBe: {
@@ -208,7 +210,7 @@ const expects = {
         }
     },
     /**
-     * Array-specific testing methods
+     * Array-specific testing methods that enhance Jest's array assertions with descriptive naming
      */
     array: {
         /**
@@ -266,7 +268,7 @@ const expects = {
         },
     },
     /**
-     * Object-specific testing methods
+     * Object-specific testing methods that enhance Jest's object assertions with descriptive naming
      */
     object: {
         /**
@@ -303,7 +305,7 @@ const expects = {
         }
     },
     /**
-     * String-specific testing methods
+     * String-specific testing methods that enhance Jest's string assertions with descriptive naming
      */
     string: {
         /**
@@ -324,7 +326,7 @@ const expects = {
         },
     },
     /**
-     * Tests if a function throws a specific error
+     * Tests if a function throws a specific error using Jest's toThrow() matcher
      * @param {string} functionAlias - Display name for the function being tested
      * @param {Function} funct - The function to test for throwing an error
      * @param {string} errorAlias - Display name for the expected error

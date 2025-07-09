@@ -2,9 +2,11 @@
 
 # Jestr
 
-A Jest-like testing framework with enhanced assertion methods that makes writing unit tests more intuitive and expressive.
+A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
-**Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This streamlined approach makes algorithmic test generation easy and is extremely nifty.
+**Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes algorithmic test generation easy and is extremely nifty.
+
+*Enhanced and documented by @jauntyjocularjay and Chewie (Chewbacca Copilot)*
 
 ## Algorithmic Testing with Jestr
 
@@ -23,6 +25,7 @@ Jestr is designed from the ground up to support **algorithmic test generation** 
 - **Consistent Structure**: Uniform parameter patterns across all assertion methods
 - **Smart Error Handling**: Detailed error messages help debug both your code and your test generation logic
 - **Type Safety**: Built-in type checking prevents common test generation mistakes
+- **Jest Integration**: Seamlessly works with your existing Jest setup and configuration
 
 ### Algorithmic Testing Patterns
 
@@ -50,6 +53,7 @@ This systematic approach to test generation makes Jestr particularly powerful fo
 - **Property-based testing** with generated inputs  
 - **Regression testing** with automatically discovered edge cases
 - **API testing** with programmatically generated request/response pairs
+- **Jest workflow enhancement** without disrupting existing test infrastructure
 
 ## Table of Contents
 
@@ -80,20 +84,15 @@ This systematic approach to test generation makes Jestr particularly powerful fo
   - [`TestableTypesTypescript()`](#testabletypestypescriptexcludetypes)
   - [`TestableTypesJavascript()`](#testabletypesjavascriptexcludetypes)
   - [`SubjectTargetAre()`](#subjecttargetaresubject-target-types)
-- [React Integration](#react-integration)
-  - [1. Install Dependencies](#1-install-dependencies)
-  - [2. Configure Babel](#2-configure-babel-babelrc)
-  - [3. Configure TypeScript](#3-configure-typescript-tsconfigjson)
-  - [4. Set Up Test Environment](#4-set-up-test-environment)
-  - [5. Add Build Scripts](#5-add-build-scripts-packagejson)
 - [Examples](#examples)
   - [Basic Testing](#basic-testing)
   - [Array Testing](#array-testing)
   - [Error Testing](#error-testing)
+- [Meet the Team](#meet-the-team)
 - [Contributing](#contributing)
 - [License](#license)
 
-> **Quick Jump:** [Algorithmic Testing](#algorithmic-testing-with-jestr) | [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples) | [React Setup](#react-integration)
+> **Quick Jump:** [Algorithmic Testing](#algorithmic-testing-with-jestr) | [Get Started](#quick-start) | [Full API](#api-reference) | [Examples](#examples)
 
 ---
 
@@ -101,17 +100,27 @@ This systematic approach to test generation makes Jestr particularly powerful fo
 
 ## Features
 
-- **Intuitive API** - Human-readable test descriptions
+- **Intuitive API** - Human-readable test descriptions that build on Jest's foundation
 - **Type-specific assertions** - Specialized methods for numbers, objects, arrays, and strings  
 - **Comprehensive error handling** - Detailed error messages with helpful suggestions
 - **Smart type checking** - Automatic validation with clear feedback
-- **Enhanced test coverage** - Built on Jest with additional assertion methods
+- **Jest Enhancement** - Extends Jest with additional assertion methods and patterns
+- **Algorithmic Testing** - Designed specifically for programmatic test generation
 
 [Back to Table of Contents](#table-of-contents)
 
 ---
 
 ## Quick Start
+
+**Prerequisites:** Jestr requires Jest to be installed and configured in your project.
+
+```bash
+# If you don't have Jest installed:
+npm install --save-dev jest
+
+# Then use Jestr on top of your existing Jest setup:
+```
 
 ```typescript
 import { expects } from './Jestr'
@@ -126,11 +135,11 @@ expects.toBe.number('count', count, 42)
 expects.toBe.closeToNumber('pi', 3.14159, 3.14)
 
 // Array testing
-expects.array.toContain('item', 'apple', 'fruits', ['apple', 'banana', 'orange'])
-expects.array.toContainEqual('user', userObj, 'users', userArray)
+expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
+expects.array.toContainEqual('user object', userObj, 'users array', userArray)
 
 // Object testing
-expects.object.toHaveLength('array', myArray, 5)
+expects.object.toHaveLength('my array', myArray, 5)
 expects.object.toHaveProperty('name', 'user object', userObj)
 
 // String testing
@@ -148,7 +157,7 @@ expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 
 ## API Reference
 
-> **Quick Navigation:** Jump to [Error Types](#error-types) | [Type Utilities](#type-utilities) | [Examples](#examples) | [React Integration](#react-integration)
+> **Quick Navigation:** Jump to [Error Types](#error-types) | [Type Utilities](#type-utilities) | [Examples](#examples)
 
 ---
 
@@ -286,71 +295,6 @@ Checks if subject or target values match any of the specified types.
 
 ---
 
-## React Integration
-
-Jestr works seamlessly with React projects. Here's how to set it up:
-
-> **Quick Links:** [Dependencies](#1-install-dependencies) | [Babel Config](#2-configure-babel-babelrc) | [TypeScript Config](#3-configure-typescript-tsconfigjson) | [Test Environment](#4-set-up-test-environment) | [Build Scripts](#5-add-build-scripts-packagejson)
-
-### 1. Install Dependencies
-
-```bash
-npm install --save-dev @babel/core @babel/cli @babel/preset-env @babel/preset-react @babel/preset-typescript
-```
-
-### 2. Configure Babel (`.babelrc`)
-
-Add this preset to compile your React code into ES6:
-
-```json
-{
-  "presets": [
-    ["@babel/preset-env", {"modules": false}],
-    "@babel/preset-react",
-    "@babel/preset-typescript"
-  ]
-}
-```
-
-### 3. Configure TypeScript (`tsconfig.json`)
-
-Add JSX support to your compiler options:
-
-```json
-{
-  "compilerOptions": {
-    "jsx": "react"
-  }
-}
-```
-
-### 4. Set Up Test Environment
-
-Your test file needs to specify the test environment:
-
-```javascript
-/**
- * @jest-environment jsdom
- */
-```
-
-### 5. Add Build Scripts (`package.json`)
-
-Add compilation and test commands:
-
-```json
-{
-  "scripts": {
-    "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'",
-    "test": "clear && npm run update-jsx && node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
-  }
-}
-```
-
-[Back to React Integration](#react-integration) | [Back to Table of Contents](#table-of-contents)
-
----
-
 ## Examples
 
 ### Basic Testing
@@ -368,9 +312,9 @@ expects.toBe.truthy(isLoggedIn)
 const fruits = ['apple', 'banana', 'orange']
 const users = [{ name: 'John' }, { name: 'Jane' }]
 
-expects.array.toContain('apple', 'apple', 'fruits', fruits)
-expects.array.toContainEqual('John user', { name: 'John' }, 'users', users)
-expects.object.toHaveLength('fruits', fruits, 3)
+expects.array.toContain('search item', 'apple', 'fruits array', fruits)
+expects.array.toContainEqual('John user object', { name: 'John' }, 'users array', users)
+expects.object.toHaveLength('fruits array', fruits, 3)
 ```
 
 ### Error Testing
@@ -387,7 +331,24 @@ expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 
 ---
 
+## Meet the Team
+
+**@jauntyjocularjay** - Creator & Developer  
+A self-taught developer who created Jestr as a passion project to make JavaScript testing more intuitive and fun. Driven by curiosity and a love for clean, readable code, Jay built this Jest enhancement library to solve real testing challenges encountered while learning and experimenting with test-driven development.
+
+**Chewie (Chewbacca Copilot)** - AI Troubleshooting Assistant  
+Your helpful AI companion who assists with troubleshooting, documentation review, and code analysis. Provides guidance on best practices, helps identify issues, and supports the learning process while respecting that @jauntyjocularjay is the creator and driver of this codebase.
+
+*Together, we're making Jest testing more human-readable and algorithmically powerful!*
+
+[Back to Table of Contents](#table-of-contents)
+
+---
+
 ## Contributing
+
+**Important: Human-Driven Development**  
+Jestr is intentionally a human-driven project. Please do not submit AI-generated code. We welcome AI assistance for troubleshooting, documentation review, and learning support, but all code contributions should be written by humans to maintain the project's educational and personal development goals.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)

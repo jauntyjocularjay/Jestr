@@ -168,10 +168,28 @@ The framework shows excellent promise for becoming a powerful tool for algorithm
 - [ ] Fluent interface design
 - [ ] Method overloading for flexibility
 
-### 15. React Testing Utilities
-- [ ] More React-specific testing helpers
-- [ ] Component testing utilities
-- [ ] Hook testing support
+### 15. React Testing Integration (BLOCKED - Major Design Issue)
+**Status:** Currently not functional due to fundamental design limitation
+**Issue:** Jestr methods call `test()` internally, creating nested tests when used inside Jest's `it()` blocks
+**Blockers:**
+- [ ] **Critical:** Cannot use Jestr assertions inside Jest `it()` or `test()` blocks
+- [ ] **Design Flaw:** Nested test creation violates Jest's testing model
+- [ ] **Architecture:** Need "silent mode" that returns boolean results instead of creating tests
+
+**Potential Solutions:**
+- [ ] Create assertion-only mode that returns boolean results for React component testing
+- [ ] Implement dual-mode API: test-creation mode vs assertion-only mode  
+- [ ] Add React-specific testing helpers that work within Jest blocks
+- [ ] Consider component testing utilities that don't conflict with Jest structure
+
+**React Integration Requirements (Future):**
+- [ ] Babel configuration for TSX compilation (`@babel/preset-react`, `@babel/preset-typescript`)
+- [ ] Jest environment setup (`@jest-environment jsdom`)
+- [ ] React Testing Library integration (`@testing-library/react`)
+- [ ] Component testing utilities that respect Jest's test structure
+- [ ] Hook testing support (when core architecture is fixed)
+
+**Current Workaround:** Use standard Jest assertions for React components, reserve Jestr for non-React logic testing.
 
 ### 16. CLI Tool
 - [ ] Command-line interface for running tests
