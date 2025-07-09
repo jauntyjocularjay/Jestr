@@ -78,13 +78,13 @@ Jestr is designed from the ground up to support **algorithmic test generation** 
 ```typescript
 // Generate tests for multiple inputs programmatically
 const testCases = [
-  { input: 'hello', expected: 'hello', description: 'simple string' },
-  { input: '', expected: '', description: 'empty string' },
-  { input: null, expected: null, description: 'null value' }
+  { input: 'hello', expected: 'hello', input_description: 'simple string' },
+  { input: '', expected: '', input_description: 'empty string' },
+  { input: null, expected: null, input_description: 'null value' }
 ]
 
-testCases.forEach(({ input, expected, description }) => {
-  expects.toBe.value(description, input, 'expected', expected)
+testCases.forEach(({ input, expected, input_description }) => {
+  expects.toBe.value(input_description, input, 'expected', expected)
 })
 
 // Generate boundary tests for numbers
@@ -210,13 +210,13 @@ expects.toBe.isDefined(config)                      // "3 'value' is defined"
 ```typescript
 // Verbose API - ideal for generated test descriptions
 const userTestCases = [
-  { user: null, description: 'guest user' },
-  { user: { name: 'John' }, description: 'authenticated user' },
-  { user: undefined, description: 'missing user' }
+  { user: null, input_description: 'guest user' },
+  { user: { name: 'John' }, input_description: 'authenticated user' },
+  { user: undefined, input_description: 'missing user' }
 ]
 
-userTestCases.forEach(({ user, description }) => {
-  expects.toBe.null(description, user, false) // "4 'guest user' is NOT null"
+userTestCases.forEach(({ user, input_description }) => {
+  expects.toBe.null(input_description, user, false) // "4 'guest user' is NOT null"
 })
 
 // Concise API - ideal for quick checks
