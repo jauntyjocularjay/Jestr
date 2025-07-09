@@ -11,6 +11,7 @@ import {
     matches,
     recognizes
 } from './module/verbs/Verbs'
+import { types } from './Constants'
 
 
 
@@ -34,7 +35,6 @@ const expects = {
             const types = ['number', 'object', 'null']
 
             if(SubjectTargetAre(subject, target, types)){
-
                 // Added recommendation block here because this is the most generalized version of this expectation
                 let append = 'consider using '
                 if(subject === null){
@@ -107,19 +107,19 @@ const expects = {
                 Number.isInteger(target)
             ){
                 const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
-                it(description, () => {
+                test(description, () => {
                     bool
                         ? expect(subject).toBe(target)
                         : expect(subject).not.toBe(target)
                 })
             } else if (
-                SubjectTargetAre(subject,target,testableTypes(['number'])) &&
+                SubjectTargetAre(subject,target,TestableTypesTypescript(['number'])) &&
                 !Number.isInteger(subject) &&
                 !Number.isInteger(target) 
             ) {
                 throw new SubjectTargetSuitabilityError(
                     'expects.toBe.number()',
-                    testableTypes(['number']),
+                    TestableTypesTypescript(['number']),
                     subject, 
                     target, 
                     'use expects.toBe.closeToNumber() instead')
@@ -152,7 +152,7 @@ const expects = {
                 !Number.isInteger(target)
             ){
                 const description = `${getCounter()} ${subjectAlias} ${is(bool)} ${target}`
-                it(description, () => {
+                test(description, () => {
                     bool
                         ? expect(subject).toBeCloseTo(target)
                         : expect(subject).not.toBeCloseTo(target)
@@ -196,7 +196,7 @@ const expects = {
          */
             const description = `${getCounter()} ${subjectAlias} is ${defined(bool)}`
 
-            it(description, () => {
+            test(description, () => {
                 bool
                     ? expect(subject).toBeDefined()
                     : expect(subject).toBeUndefined()
@@ -233,7 +233,7 @@ const expects = {
             } else {
                 throw new SubjectTargetSuitabilityError(
                     'expects.array.toContainEqual()',
-                    testableTypes(['array']),
+                    TestableTypesTypescript(['array']),
                     subject, 
                     target
                 )
@@ -244,7 +244,7 @@ const expects = {
         toHaveLength: (subjectAlias: string, subject: Object, target: number, bool=true) => {
             const description = `${getCounter()} ${subjectAlias} ${has(bool)} length ${target}`
 
-            it(description, () => {
+            test(description, () => {
                 bool
                     ? expect(subject).toHaveLength(target)
                     : expect(subject).not.toHaveLength(target)
@@ -253,7 +253,7 @@ const expects = {
         toHaveProperty: (subject: any, targetAlias: string, target: Object, bool=true) => {
             const description = `${getCounter()} ${targetAlias} ${has(bool)} ${subject} as a property`
 
-            it(description, () => {
+            test(description, () => {
                 bool
                     ? expect(target).toHaveProperty(subject)
                     : expect(target).not.toHaveProperty(subject)
@@ -268,7 +268,7 @@ const expects = {
          *           Expects 'the best of times' toContain 'times' */
             const description = `${getCounter()} '${target}' ${contains(true)} '${subject}'`
 
-            it(description, () => {
+            test(description, () => {
                 bool
                     ? expect(target).toEqual(expect.stringContaining(subject))
                     : expect(target).not.toEqual(expect.stringContaining(subject))
@@ -357,16 +357,16 @@ class IntegerFloatMismatchError extends TypeError {
     }
 }
 
-function testableTypes(array: string[]){
-    const TestableTypes = ['array', 'bigint', 'boolean', 'number', 'object', 'string', 'null', 'symbol', 'undefined']
+function TestableTypesTypescript(excludeTypes: string[]){
+    let excludedTypes: string[] = []
+    excludeTypes.forEach((type) => (
+        excludedTypes.push(type.toLocaleLowerCase())))
 
-    array.forEach(type => {
-        TestableTypes.filter( testableType => {
-            testableType !== type
-        })
-    })
+    return types.jsts.filter((type) => !excludedTypes.includes(type))
+}
 
-    return TestableTypes
+function TestableTypesJavascript(excludeTypes: string[]){
+    return TestableTypesTypescript(excludeTypes)
 }
 
 function SubjectTargetAre(subject: any, target: any, types: string []){
@@ -402,6 +402,8 @@ function SubjectTargetAre(subject: any, target: any, types: string []){
 export {
     // for testing
     SubjectTargetAre,
+    TestableTypesTypescript,
+    TestableTypesJavascript,
     SubjectTargetSuitabilityError,
     TargetSuitabilityError,
     IntegerFloatMismatchError,

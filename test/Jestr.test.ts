@@ -1,26 +1,111 @@
 import {
     expects,
     SubjectTargetAre,
+    TestableTypesTypescript,
+    TestableTypesJavascript,
     SubjectTargetSuitabilityError,
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
 } from '../Jestr'
+import { types } from '../Constants'
 
 
 
-function HelperTests()
+function UtilityTests()
 {
+    describe('SubjectTargetAreTests', () => SubjectTargetAreTests())
+
+    describe('TestableTypesTypescriptTests', () => TestableTypesTypescriptTests())
+}
+
+function SubjectTargetAreTests(){
     let result: boolean
 
     result = SubjectTargetAre(true, false, ['boolean'])
     expects.toBe.value('subject: true, target: false', result, 'boolean', true)
-    
+
     result = SubjectTargetAre(1, 1.2, ['number'])
-    expects.toBe.value('subject: 1, target: 1.2', result, '{type: "number"}', true)
-    
+    expects.toBe.value(
+        'subject: 1, target: 1.2',
+        result,
+        '{type: "number"}',
+        true
+    )
+
     result = SubjectTargetAre('string', 'anotherString', ['number'])
-    expects.toBe.value('subject: "string", target: "another string"', result, '{type: "number"}', true, false)
+    expects.toBe.value(
+        'subject: "string", target: "another string"',
+        result,
+        '{type: "number"}',
+        true,
+        false
+    )
+}
+
+function TestableTypesTypescriptTests() {
+    let testTypes: string[]
+
+    describe('Excluding valid types', () => {
+        testTypes = TestableTypesTypescript(['string']) // expected happy path
+        expects.array.toContain(
+            'type: number',
+            'string',
+            'TestableTypes',
+            testTypes,
+            false
+        )
+    
+    })
+    
+    describe('valid types, invalid case in strings', () => {
+        const invalidCaseTypes = ['Number', 'SYMBOL', 'BOooleAn']
+        invalidCaseTypes.forEach((invalidCase) => {
+            testTypes = TestableTypesJavascript([invalidCase]) // for jsts, all types should be lowercase
+            expects.array.toContain(
+                `type with an invalid case: ${invalidCase}`,
+                invalidCase,
+                'TestableTypes',
+                testTypes,
+                false
+            )
+        })
+    })
+
+    describe('edge case: Excluding empty arrays', () => {
+        testTypes = TestableTypesTypescript([])
+        types.jsts.forEach((type) => {
+            expects.array.toContain(
+                type,
+                type,
+                'all TestableTypes for Typescript',
+                testTypes
+            )
+        })
+    })
+
+    describe('edge case: excluding all types', () => {
+        testTypes = TestableTypesTypescript(types.jsts)
+        expects.object.toHaveLength('typescript types', testTypes, 0)
+    })
+
+    describe('edge case: excluding invalid types', () => {
+        testTypes = ['infinite', 'blackhole']
+        testTypes.forEach(invalidType => {
+            expects.object.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length)
+        })
+
+        testTypes = ['infinite', 'string']
+        expects.array.toContain('typescript types minus string', TestableTypesTypescript(testTypes), 'string', ['string'], false)
+        expects.object.toHaveLength('typescript types', TestableTypesTypescript(testTypes), types.jsts.length - 1)
+    })
+
+    describe('duplicate exclusions', () => {
+        testTypes = ['symbol', 'SYmboL']
+        expects.array.toContain('typescript types minus symbol', TestableTypesTypescript(testTypes), 'symbol', ['symbol'], false)
+    })
+
+
 }
 
 function ToBeTests()
@@ -248,7 +333,7 @@ function ThrowsErrorTests()
 }
 
 describe('Jestr.ts (ES6) expects', () => {
-    describe('Helper functions', () => HelperTests())
+    describe('Helper functions', () => UtilityTests())
     describe('expects.ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())
     describe('array tests', () => ArrayTests())
