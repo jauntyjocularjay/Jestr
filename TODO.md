@@ -16,10 +16,14 @@
 
 ### High Priority
 - [ ] **API Consistency** - Add missing `subjectAlias` parameter to `object.toHaveProperty()`
+
+  This is intended. A property is, by definition, a string (or something renderable as a string), and so does not need a subjectAlias.
+
 - [ ] **Update Error Messages** - Fix references to deprecated method names
 
 ### Future Development  
 - [ ] **Type Safety** - Replace remaining `any` types with specific interfaces
+
 - [ ] **Enhanced Features** - Consider async testing, property-based testing, framework integrations
 
 ---
