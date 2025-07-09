@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752081686626" clover="3.2.0">
-  <project timestamp="1752081686626" name="All files">
-    <metrics statements="102" coveredstatements="83" conditionals="90" coveredconditionals="74" methods="46" coveredmethods="32" elements="238" coveredelements="189" complexity="0" loc="102" ncloc="102" packages="1" files="3" classes="3"/>
+<coverage generated="1752081727864" clover="3.2.0">
+  <project timestamp="1752081727864" name="All files">
+    <metrics statements="102" coveredstatements="83" conditionals="90" coveredconditionals="74" methods="46" coveredmethods="32" elements="238" coveredelements="189" complexity="0" loc="102" ncloc="102" packages="1" files="2" classes="2"/>
     <file name="Constants.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Constants.ts">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
-    </file>
-    <file name="Jestr.d.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Jestr.d.ts">
-      <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
     </file>
     <file name="Jestr.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Jestr.ts">
       <metrics statements="101" coveredstatements="82" conditionals="90" coveredconditionals="74" methods="46" coveredmethods="32"/>
