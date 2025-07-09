@@ -252,9 +252,9 @@ function StringTests()
     const intro = 'It was the best of times'
 
     expects.object.toHaveLength('intro', intro, 24)
-    expects.string.toContain(intro, 'best of times')
-    expects.string.toContain(intro, 'was the', true)
-    expects.string.toContain(intro, 'the worst of times', false)
+    expects.string.toContain('best of times', intro)
+    expects.string.toContain('was the', intro, true)
+    expects.string.toContain('the worst of times', intro, false)
 }
 
 function ThrowsErrorTests()

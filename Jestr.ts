@@ -659,6 +659,7 @@ export {
     SubjectTargetAre,
     TestableTypesTypescript,
     TestableTypesJavascript,
+    SubjectTargetMismatchError,
     SubjectTargetSuitabilityError,
     TargetSuitabilityError,
     IntegerFloatMismatchError,
