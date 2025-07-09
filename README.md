@@ -2,10 +2,7 @@
 
 # Jestr
 
-A Jest enhancement library that provides human-readable assertion methods and streamlin# Array testing
-expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
-
-# Object testinggorithmic test generation on top of Jest's existing framework.
+A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
 **Jestr endeavors to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes [algorithmic test generation](#algorithmic-testing-with-jestr) easy and is extremely nifty.
 
@@ -241,11 +238,11 @@ Assertion parameter order goes:
 - `target`
 - `boolean`
 
-Most methods require a `subject alias` or `target alias`, but not always. When they appear, they appear in this order:
+Most methods require a `subjectAlias` or `targetAlias`, but not always. When they appear, they appear in this order:
 
-- `subject alias`
+- `subjectAlias`
 - `subject`
-- `target alias`
+- `targetAlias`
 - `target`
 - `boolean`
 
