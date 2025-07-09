@@ -45,17 +45,15 @@ const expects = {
             target: any,
             bool = true
         ) => {
-            const types = ['number', 'object', 'null']
+            const types = ['number', 'null']
 
             if (SubjectTargetAre(subject, target, types)) {
                 // Added recommendation block here because this is the most generalized version of this expectation
                 let append = 'consider using '
                 if (subject === null) {
-                    append += 'expects.valueToBeNull()'
+                    append += 'expects.toBeNull()'
                 } else if (typeof subject === 'number') {
-                    append += 'expects.numberToBe()'
-                } else if (typeof subject === 'object') {
-                    append += 'expects.objectToBe()'
+                    append += 'expects.toBe.number()'
                 }
 
                 throw new SubjectTargetSuitabilityError(
