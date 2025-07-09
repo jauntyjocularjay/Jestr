@@ -21,8 +21,11 @@ jobs:
     - name: Install dependencies
       run: npm install
 
+    - name: Build JSX files
+      run: npm run update-jsx
+
     - name: Run tests with coverage
-      run: npm test
+      run: node --experimental-vm-modules node_modules/jest/bin/jest --coverage
       env:
         NODE_OPTIONS: "--experimental-vm-modules"
 
