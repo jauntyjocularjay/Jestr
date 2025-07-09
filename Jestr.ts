@@ -102,24 +102,6 @@ const expects = {
          */
         isNull: (subject: any, bool = true) => {},
         /**
-         * Tests strict equality between two objects (STUB - not yet implemented)
-         * @param {string} subjectAlias - Display name for the subject object
-         * @param {Object} subject - The object being tested
-         * @param {string} targetAlias - Display name for the target object
-         * @param {Object} target - The expected object to compare against
-         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         * @throws {StubError} This method is not yet implemented
-         */
-        object: (
-            subjectAlias: string,
-            subject: Object,
-            targetAlias: string,
-            target: Object,
-            bool = true
-        ) => {
-            throw new StubError('expects.object.ToBe()')
-        },
-        /**
          * Tests strict equality between two numbers (integers only)
          * @param {string} subjectAlias - Display name for the subject number
          * @param {any} subject - The number being tested (must be integer)
@@ -456,6 +438,7 @@ const expects = {
  * @example expects.toBe.isNull(userData) // "1 'value' is null"
  */
 expects.toBe.isNull = (subject: any, bool = true) => {
+    ConciseWarning('expects.toBe.isNull')
     expects.toBe.null('value', subject, bool)
 }
 
@@ -467,6 +450,7 @@ expects.toBe.isNull = (subject: any, bool = true) => {
  * @example expects.object.hasLength(users, 5) // "2 'value' has length 5"
  */
 expects.object.hasLength = (subject: Object, target: number, bool = true) => {
+    ConciseWarning('expects.object.hasLength')
     expects.object.toHaveLength( 'value', subject, target, bool )
 }
 
@@ -477,6 +461,7 @@ expects.object.hasLength = (subject: Object, target: number, bool = true) => {
  * @example expects.toBe.isDefined(config) // "3 'value' is defined"
  */
 expects.toBe.isDefined = (subject: any, bool = true) => {
+    ConciseWarning('expects.toBe.isDefined')
     expects.toBe.defined('value', subject, bool)
 }
 
@@ -599,6 +584,12 @@ class IntegerFloatMismatchError extends TypeError {
 
         super(message)
     }
+}
+
+function ConciseWarning(methodName: string) {
+    console.warn(
+        `[Jestr] Warning: using concise method ${methodName}. Consider using the verbose version before finalizing your suites.`
+    )
 }
 
 /**
