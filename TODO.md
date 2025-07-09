@@ -6,7 +6,7 @@
 
 ## Project Status
 
-✅ **All tests passing!** (79/79) - Production-ready with strong architecture.
+✅ **All tests passing!** (70/70) - Production-ready with strong architecture.
 
 **Recent Wins**: Fixed string method parameter order, resolved test failures, validated core functionality.
 
@@ -19,8 +19,6 @@
 
   This is intended. A property is, by definition, a string (or something renderable as a string), and so does not need a subjectAlias.
 
-- [ ] **Update Error Messages** - Fix references to deprecated method names
-
 ### Future Development  
 - [ ] **Type Safety** - Replace remaining `any` types with specific interfaces
 
@@ -31,7 +29,7 @@
 ## Project Strengths
 
 - **Dual API Design** - Verbose and concise APIs fully implemented
-- **Comprehensive Testing** - 79 tests with good coverage
+- **Comprehensive Testing** - 70 tests with good coverage
 - **Professional Documentation** - Clear README, JSDoc, examples  
 - **Strong Architecture** - Custom error classes, type safety, algorithmic testing focus
 - **Human-Driven Development** - Clear AI assistant boundaries
@@ -43,8 +41,10 @@
 - ✅ **Concise Method Bodies** - Implemented `isNull`, `isDefined`, `hasLength` 
 - ✅ **All Error Exports** - All error classes properly exported
 - ✅ **String Methods** - Fixed parameter order in `toContain()` 
-- ✅ **Test Suite** - All 79 tests passing with good coverage
+- ✅ **Test Suite** - All 70 tests passing with good coverage
 - ✅ **Code Quality** - Production-ready architecture and documentation
+- ✅ **API Refactoring** - Removed `array.toContainEqual` and simplified `expects.toThrow` API
+- ✅ **Documentation Updates** - Updated README.md to reflect simplified API changes
 
 ---
 
