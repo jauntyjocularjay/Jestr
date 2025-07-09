@@ -3,6 +3,11 @@
 ![Jester's Cap](docs/readme/JestersCap.png)
 
 [![Coverage Status](https://coveralls.io/repos/github/jauntyjocularjay/Jestr/badge.svg?branch=dev-coveralls)](https://coveralls.io/github/jauntyjocularjay/Jestr?branch=dev-coveralls)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue.svg)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/YOUR_USERNAME/Jestr/graphs/commit-activity)
+[![Code Style: Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
