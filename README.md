@@ -1,6 +1,8 @@
+# Jestr
+
 ![Jester's Cap](docs/readme/JestersCap.png)
 
-# Jestr
+[![Coverage Status](https://coveralls.io/repos/github/jauntyjocularjay/Jestr/badge.svg?branch=dev-coveralls)](https://coveralls.io/github/jauntyjocularjay/Jestr?branch=dev-coveralls)
 
 A Jest enhancement library that provides human-readable assertion methods and streamlined algorithmic test generation on top of Jest's existing framework.
 
