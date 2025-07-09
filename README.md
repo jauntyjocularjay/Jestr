@@ -6,7 +6,7 @@ A Jest enhancement library that provides human-readable assertion methods and st
 
 **Jestr endeavours to streamline the testing process** - yanking out the boring parts so you can focus on the cool stuff. This enhancement layer makes algorithmic test generation easy and is extremely nifty.
 
-*Enhanced and documented by @jauntyjocularjay and Chewie (Chewbacca Copilot)*
+*Created by @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)*
 
 ## Algorithmic Testing with Jestr
 
@@ -336,7 +336,7 @@ expects.toThrow('divide by zero', () => divide(1, 0), 'Error', Error)
 **@jauntyjocularjay** - Creator & Developer  
 A self-taught developer who created Jestr as a passion project to make JavaScript testing more intuitive and fun. Driven by curiosity and a love for clean, readable code, Jay built this Jest enhancement library to solve real testing challenges encountered while learning and experimenting with test-driven development.
 
-**Chewie (Chewbacca Copilot)** - AI Troubleshooting Assistant  
+**Chewie (AI Copilot)** - AI Troubleshooting Assistant  
 Your helpful AI companion who assists with troubleshooting, documentation review, and code analysis. Provides guidance on best practices, helps identify issues, and supports the learning process while respecting that @jauntyjocularjay is the creator and driver of this codebase.
 
 *Together, we're making Jest testing more human-readable and algorithmically powerful!*

@@ -1,6 +1,6 @@
 /**
  * @fileoverview Jestr - A Jest enhancement library providing human-readable assertion methods and algorithmic test generation
- * @author Your Name
+ * @author @jauntyjocularjay with documentation assistance from Chewie (AI Copilot)
  * @version 1.0.0
  */
 
