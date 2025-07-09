@@ -8,7 +8,8 @@
         "test--trace-warnings": "clear && node --experimental-vm-modules --trace-warnings node_modules/jest/bin/jest.js --coverage",
         "dev": "git submodule update --init --recursive",
         "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'",
-        "clear-babel-cache": "rm -rf node_modules/.cache/babel-loader"
+        "clear-babel-cache": "rm -rf node_modules/.cache/babel-loader",
+        "coverage": "jest --coverage"
     },
     "author": "jauntyjocularjay",
     "license": "MIT",
