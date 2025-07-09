@@ -211,39 +211,6 @@ function ArrayTests()
         expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false)
     })
 
-    describe('.toContainEqual()', () => {
-        let myBeverages1 = [
-            {
-                delicious: true,
-                sour: false,
-                salty: false
-            },
-            {
-                delicious: true,
-                sour: true,
-                salty: true
-            }
-        ]
-        
-        const myBeverage = {
-          delicious: true,
-          sour: false
-        }
-    
-        let myBeverages2 = [
-            {
-                delicious: true,
-                sour: false
-            },
-            {
-                delicious: true,
-                sour: true,
-                salty: true
-            }
-        ]
-        
-    })
-
     describe('.toHaveLength()', () => {
         expects.object.toHaveLength('Nevermind discography', albumsArray, 3)
         expects.object.toHaveLength('Nevermind discography', albumsArray, 8, false)
