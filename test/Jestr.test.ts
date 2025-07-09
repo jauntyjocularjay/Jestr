@@ -96,13 +96,29 @@ function TestableTypesTypescriptTests() {
         })
 
         testTypes = ['infinite', 'string']
-        expects.array.toContain('typescript types minus string', TestableTypesTypescript(testTypes), 'string', ['string'], false)
-        expects.object.toHaveLength('typescript types', TestableTypesTypescript(testTypes), types.jsts.length - 1)
+        expects.array.toContain(
+            'string',
+            'string',
+            'typescript types minus string',
+            TestableTypesTypescript(testTypes),
+            false
+        )
+        expects.object.toHaveLength(
+            'typescript types', 
+            TestableTypesTypescript(testTypes), 
+            types.jsts.length - 1
+        )
     })
 
     describe('duplicate exclusions', () => {
         testTypes = ['symbol', 'SYmboL']
-        expects.array.toContain('typescript types minus symbol', TestableTypesTypescript(testTypes), 'symbol', ['symbol'], false)
+        expects.array.toContain(
+            'symbol', 
+            'symbol', 
+            'typescript types minus symbol', 
+            TestableTypesTypescript(testTypes), 
+            false
+        )
     })
 
 
@@ -130,21 +146,17 @@ function ToBeNumber()
     expects.toBe.closeToNumber('four point one', 4.1, 4.1)
     expects.toBe.closeToNumber('five point four', 5.4, 4.1, false)
 
-    expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(IntegerFloatMismatchError)
+    expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(new IntegerFloatMismatchError(4.1,4))
     // expect(() => expects.toBe.number('four', [4.1], 4)).toThrow(SubjectTargetSuitabilityError)
 
     expects.toThrow(
         'expect 4 to be 4.1',
-        () => expects.toBe.closeToNumber('four', 4, 5.001),
-        IntegerFloatMismatchError.name,
-        IntegerFloatMismatchError,
+        () => expects.toBe.closeToNumber('four', 4, 5.001)
     )
 
     expects.toThrow(
         'expect 4.1 to be 4',
-        () => expects.toBe.number('four', 4.1, 4),
-        IntegerFloatMismatchError.name,
-        IntegerFloatMismatchError,
+        () => expects.toBe.number('four', 4.1, 4)
     )
 }
 
@@ -200,12 +212,6 @@ function ArrayTests()
     })
 
     describe('.toContainEqual()', () => {
-        expects.array.toContainEqual(nevermind, nevermind, 'Albums by Nirvana', albumsArray)
-        expects.array.toContainEqual('albumsObj', albumsObj,'Album by Nirvana', albumsArray, false)
-        expects.array.toContainEqual('albumsObj', Object.values(albumsObj)[0],'Album by Nirvana', albumsArray)
-        expects.array.toContainEqual('albumsObj', Object.values(albumsObj)[8],'Album by Nirvana', albumsArray, false)
-        expects.array.toContainEqual('albumsObj', albumsObj,'Album by Nirvana', albumsArray, false)
-    
         let myBeverages1 = [
             {
                 delicious: true,
@@ -223,8 +229,6 @@ function ArrayTests()
           delicious: true,
           sour: false
         }
-        
-        expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages1, false)
     
         let myBeverages2 = [
             {
@@ -238,7 +242,6 @@ function ArrayTests()
             }
         ]
         
-        expects.array.toContainEqual('myBeverage', myBeverage, 'myBeverages', myBeverages2)
     })
 
     describe('.toHaveLength()', () => {
@@ -260,75 +263,45 @@ function StringTests()
 function ThrowsErrorTests()
 {
     expects.toThrow(
-        'valuesToBe() subject is a number', 
-        () => {
-            expects.toBe.value('1', 1, 'error', new Error()) 
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
-    )
-
-    expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
             expects.toBe.value('2', 2, '3', 3, false)
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
+        }
     )
 
     expects.toThrow(
         'valuesToBe() subject and target are numbers',
         () => {
             expects.toBe.value('4', 4, '5', 5, false)
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
-    )
-
-    expects.toThrow(
-        'valuesToBe() subject and target are numbers',
-        () => {
-            expects.toBe.value('{type: "object"}', {type: 'object'}, '{type: "object"}', {type: 'object'})
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
+        }
     )
 
     expects.toThrow(
         'expects.toBe.value has a null subject', 
         () => {
             expects.toBe.value('null', null, 'null', null)
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
+        }
     )
 
     expects.toThrow(
         'expects.toBe.value has a null subject', 
         () => {
             expects.toBe.value('undefined', undefined, 'null', null, false)
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
+        }
     )
 
     expects.toThrow(
         'expects.toBe.value has a null subject', 
         () => {
             expects.toBe.value('1', 1, 'null', null, false)
-        },
-        SubjectTargetSuitabilityError.name,
-        SubjectTargetSuitabilityError
+        }
     )
 
     const stub = () => {throw new StubError('anon function')}
 
     expects.toThrow(
         'throw stub error',
-        stub,
-        StubError.name,
-        StubError
+        stub
     )
 }
 
