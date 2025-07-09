@@ -265,9 +265,9 @@ const expects = {
             bool = true
         ) => {
             if (Array.isArray(target)) {
-                const description = `${getCounter()} the array ${subjectAlias} ${does(
+                const description = `${getCounter()} the array ${targetAlias} ${does(
                     bool
-                )} contain ${targetAlias}`
+                )} contain ${subjectAlias}`
 
                 test(description, () => {
                     bool
@@ -278,41 +278,6 @@ const expects = {
                 throw new TargetSuitabilityError(
                     'expects.array.toContain()',
                     ['array'],
-                    target
-                )
-            }
-        },
-        /**
-         * Tests if an array contains an object equal to the given value
-         * @param {string} subjectAlias - Display name for the value being searched for
-         * @param {any} subject - The value to search for in the array (deep equality)
-         * @param {string} targetAlias - Display name for the array
-         * @param {any[]} target - The array to search in
-         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         * @throws {SubjectTargetSuitabilityError} When target is not an array
-         */
-        toContainEqual: <T>(
-            subjectAlias: string,
-            subject: T,
-            targetAlias: string,
-            target: T[],
-            bool = true
-        ) => {
-            if (Array.isArray(target)) {
-                const description = `${getCounter()} the array ${targetAlias} ${does(
-                    bool
-                )} contain ${subjectAlias}`
-
-                test(description, () => {
-                    bool
-                        ? expect(target).toContainEqual(subject)
-                        : expect(target).not.toContainEqual(subject)
-                })
-            } else {
-                throw new SubjectTargetSuitabilityError(
-                    'expects.array.toContainEqual()',
-                    TestableTypesTypescript(['array']),
-                    subject,
                     target
                 )
             }
@@ -413,17 +378,15 @@ const expects = {
     toThrow: (
         functionAlias: string,
         funct: Function,
-        errorAlias: string,
-        error: Error,
         bool = true
     ) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
             bool
-        )}: '${errorAlias}'`
+        )}`
         test(description, () => {
             bool
-                ? expect(() => funct()).toThrow(error)
-                : expect(() => funct()).not.toThrow(error)
+                ? expect(() => funct()).toThrow()
+                : expect(() => funct()).not.toThrow()
         })
     },
 }
