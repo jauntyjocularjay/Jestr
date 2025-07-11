@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752271286839" clover="3.2.0">
-  <project timestamp="1752271286839" name="All files">
-    <metrics statements="111" coveredstatements="85" conditionals="99" coveredconditionals="74" methods="51" coveredmethods="32" elements="261" coveredelements="191" complexity="0" loc="111" ncloc="111" packages="1" files="3" classes="3"/>
-    <file name="CannedTests.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/CannedTests.ts">
-      <metrics statements="4" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <line num="10" count="0" type="stmt"/>
-      <line num="21" count="0" type="stmt"/>
-      <line num="22" count="0" type="stmt"/>
-      <line num="23" count="0" type="stmt"/>
-    </file>
+<coverage generated="1752275606489" clover="3.2.0">
+  <project timestamp="1752275606489" name="All files">
+    <metrics statements="123" coveredstatements="85" conditionals="100" coveredconditionals="74" methods="51" coveredmethods="32" elements="274" coveredelements="191" complexity="0" loc="123" ncloc="123" packages="1" files="5" classes="5"/>
     <file name="Constants.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Constants.ts">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <line num="1" count="1" type="stmt"/>
@@ -121,6 +114,31 @@
       <line num="608" count="45" type="cond" truecount="3" falsecount="0"/>
       <line num="611" count="14" type="stmt"/>
       <line num="615" count="25" type="stmt"/>
+    </file>
+    <file name="default.env.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/default.env.ts">
+      <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="6" count="0" type="stmt"/>
+      <line num="7" count="0" type="stmt"/>
+      <line num="10" count="0" type="stmt"/>
+    </file>
+    <file name="env.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/env.ts">
+      <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="5" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="6" count="0" type="stmt"/>
+      <line num="7" count="0" type="stmt"/>
+      <line num="10" count="0" type="stmt"/>
+    </file>
+    <file name="jest.config.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/jest.config.ts">
+      <metrics statements="8" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <line num="3" count="0" type="stmt"/>
+      <line num="37" count="0" type="stmt"/>
+      <line num="71" count="0" type="stmt"/>
+      <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="75" count="0" type="stmt"/>
+      <line num="76" count="0" type="stmt"/>
+      <line num="78" count="0" type="stmt"/>
+      <line num="79" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>
