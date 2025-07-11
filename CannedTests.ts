@@ -20,7 +20,7 @@ function emailAddressValidation(
 
     describe('email formatting', () => {
         for(const [scenario, value] of Object.entries(emailInput)){
-            expects.string.contains(scenario, value, '@ symbol', '@')
+            expects.string.contains('email address', value, '@ symbol', '@')
         }
     })
 
