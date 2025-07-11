@@ -352,11 +352,11 @@ const expects = {
 
             test(description, () => {
                 bool
-                    ? expect(subject).toEqual(
-                        expect.stringContaining(target)
+                    ? expect(target).toEqual(
+                        expect.stringContaining(subject)
                     )
-                    : expect(subject).not.toEqual(
-                        expect.stringContaining(target)
+                    : expect(target).not.toEqual(
+                        expect.stringContaining(subject)
                     )
             })
         },
