@@ -13,6 +13,16 @@ const types = {
     ]
 }
 
+const edgecases = {
+    numbers: [
+        -1,
+        0,
+        999,
+        NaN,
+        999999999999999999
+    ]
+}
+
 
 
 export {

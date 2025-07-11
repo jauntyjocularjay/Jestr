@@ -90,7 +90,11 @@ function TestableTypesTypescriptTests() {
     })
 
     describe('edge case: excluding invalid types', () => {
-        testTypes = ['infinite', 'blackhole']
+        testTypes = [
+            'infinite',
+            'blackhole'
+        ]
+        
         testTypes.forEach(invalidType => {
             expects.object.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length)
         })
