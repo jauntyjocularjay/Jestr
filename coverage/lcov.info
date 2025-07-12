@@ -315,3 +315,13 @@ BRDA:608,56,1,0
 BRF:94
 BRH:0
 end_of_record
+TN:
+SF:module/verbs/jest.config.ts
+FNF:0
+FNH:0
+DA:1,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+end_of_record
