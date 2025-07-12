@@ -1,40 +1,5 @@
-import {project_config, Framework} from './env'
 
-const Vanilla_Config = {
-    testEnvironment: 'node',
-    bail: 1,
-    verbose: true,
-    moduleNameMapper: {
-        '^(\\.{1,2}/.*)\\.js$': '$1',
-    },
-    extensionsToTreatAsEsm: ['.ts', '.mts'],
-    testMatch: [
-        '**/__tests__/**/mjs',
-        '**/?(*.)+(spec|test).mjs',
-        '**/__tests__/**/ts',
-        '**/?(*.)+(spec|test).ts',
-    ],
-    collectCoverageFrom: [
-        '**/*.{mjs,ts}',
-        '!**/*.d.ts',
-        '!**/node_modules/**',
-        '!**/Verbs.ts',
-        '!**/coverage/**',
-        '!**/test/**',
-        '!**/*.test.{mjs,ts}',
-        '!**/*.spec.{mjs,ts}',
-    ],
-    transform: {
-        '^.+.ts?$': [
-            'ts-jest',
-            {
-                useESM: true,
-            },
-        ],
-    },
-}
-
-const React_Config = {
+const config = {
     testEnvironment: 'node',
     bail: 1,
     verbose: true,
@@ -66,17 +31,6 @@ const React_Config = {
             },
         ],
     },
-}
-
-let config = {}
-
-switch(project_config.framework){
-    case Framework.vanilla:
-        config = Vanilla_Config
-        break
-    case Framework.react:
-        config = React_Config
-        break
 }
 
 export default config; 
