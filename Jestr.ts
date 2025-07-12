@@ -242,7 +242,7 @@ const expects = {
          * @param {any} subject - The value being tested for definition
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        isDefined: <T>(subject: T, bool = true) => {}
+        isDefined: <T>(subject: T, bool = true) => {},
     },
     /**
      * Array-specific testing methods that enhance Jest's array assertions with descriptive naming
@@ -347,25 +347,20 @@ const expects = {
      * String-specific testing methods that enhance Jest's string assertions with descriptive naming
      */
     string: {
-        /**
-         * Tests if a string contains a substring
-         * @param {string} target - The string to search in
-         * @param {string} subject - The substring to search for
-         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         */
-        toContain: (subject: string, target: string, bool = true) => {
-            const description = `${getCounter()} '${target}' ${contains(
-                true
-            )} '${subject}'`
+        contains: (subjectAlias: string, subject: string, targetAlias: string, target: string, bool = true) => {
+            const description = `${getCounter()} ${subjectAlias} ${contains(bool)} '${targetAlias}'`
 
             test(description, () => {
                 bool
-                    ? expect(target).toEqual(expect.stringContaining(subject))
+                    ? expect(target).toEqual(
+                        expect.stringContaining(subject)
+                    )
                     : expect(target).not.toEqual(
-                          expect.stringContaining(subject)
-                      )
+                        expect.stringContaining(subject)
+                    )
             })
         },
+        toContain: (subject: string, target: string, bool = true) => {},
     },
     /**
      * Tests if a function throws an error using Jest's toThrow() matcher
@@ -373,11 +368,7 @@ const expects = {
      * @param {Function} funct - The function to test for throwing an error
      * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
      */
-    toThrow: (
-        functionAlias: string,
-        funct: Function,
-        bool = true
-    ) => {
+    toThrow: (functionAlias: string, funct: Function, bool = true) => {
         const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
             bool
         )}`
@@ -425,6 +416,25 @@ expects.toBe.isDefined = (subject: any, bool = true) => {
     expects.toBe.defined('value', subject, bool)
 }
 
+/**
+ * Tests if a string contains a substring
+ * @param {string} target - The string to search in
+ * @param {string} subject - The substring to search for
+ * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+ */
+expects.string.toContain = (subject: string, target: string, bool = true) => {
+    const description = `${getCounter()} '${target}' ${contains(
+        true
+    )} '${subject}'`
+
+    test(description, () => {
+        bool
+            ? expect(target).toEqual(expect.stringContaining(subject))
+            : expect(target).not.toEqual(
+                  expect.stringContaining(subject)
+              )
+    })
+}
 
 /**
  * Error thrown when a function or method is not yet implemented (stub)
