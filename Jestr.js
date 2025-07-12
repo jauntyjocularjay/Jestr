@@ -1,4 +1,4 @@
-import { getCounter, throwsAnError, contains, defined, does, has, is } from './module/verbs/Verbs.mjs';
+import { getCounter, throwsAnError, contains, defined, does, has, is } from 'assertion-verbs';
 import { types } from './Constants';
 const expects = {
     toBe: {
