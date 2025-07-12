@@ -73,7 +73,7 @@ Jestr is designed from the ground up to support **algorithmic test generation** 
 **Jestr's Solution:**
 - **Descriptive API**: Human-readable method names make generated tests self-documenting
 - **Consistent Structure**: Uniform parameter patterns across all assertion methods
-- **Smart Error Handling**: Detailed error messages help debug both your code and your test generation logic
+- **Clear Error Messages**: Detailed error messages help debug both your code and your test generation logic
 - **Type Safety**: Built-in Typescript error checking prevents common test generation mistakes for both Typescript and Javascript
 - **Jest Integration**: Seamlessly works with your existing Jest setup and configuration
 
@@ -114,8 +114,8 @@ This systematic approach to test generation makes Jestr particularly powerful fo
 
 - **Intuitive API** - Human-readable test descriptions that build on Jest's foundation
 - **Type-specific assertions** - Specialized methods for numbers, objects, arrays, and strings  
-- **Comprehensive error handling** - Detailed error messages with helpful suggestions
-- **Smart type checking** - Automatic validation with clear feedback
+- **Clear error messages** - Detailed error messages with helpful context
+- **Type checking via Typescript** - Leverages strong typing for Javascript and Typescript alike
 - **Jest Enhancement** - Extends Jest with restructured assertion methods and patterns
 - **Algorithmic Testing** - Designed specifically for programmatic test generation
 
