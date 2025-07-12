@@ -1,0 +1,153 @@
+import { expects, SubjectTargetAre, TestableTypesTypescript, TestableTypesJavascript, IntegerFloatMismatchError, StubError, } from '../Jestr';
+import { types } from '../Constants';
+function UtilityTests() {
+    describe('SubjectTargetAreTests', () => SubjectTargetAreTests());
+    describe('TestableTypesTypescriptTests', () => TestableTypesTypescriptTests());
+}
+function SubjectTargetAreTests() {
+    let result;
+    result = SubjectTargetAre(true, false, ['boolean']);
+    expects.toBe.value('subject: true, target: false', result, 'boolean', true);
+    result = SubjectTargetAre(1, 1.2, ['number']);
+    expects.toBe.value('subject: 1, target: 1.2', result, '{type: "number"}', true);
+    result = SubjectTargetAre('string', 'anotherString', ['number']);
+    expects.toBe.value('subject: "string", target: "another string"', result, '{type: "number"}', true, false);
+}
+function TestableTypesTypescriptTests() {
+    let testTypes;
+    describe('Excluding valid types', () => {
+        testTypes = TestableTypesTypescript(['string']);
+        expects.array.toContain('type: number', 'string', 'TestableTypes', testTypes, false);
+    });
+    describe('valid types, invalid case in strings', () => {
+        const invalidCaseTypes = ['Number', 'SYMBOL', 'BOooleAn'];
+        invalidCaseTypes.forEach((invalidCase) => {
+            testTypes = TestableTypesJavascript([invalidCase]);
+            expects.array.toContain(`type with an invalid case: ${invalidCase}`, invalidCase, 'TestableTypes', testTypes, false);
+        });
+    });
+    describe('edge case: Excluding empty arrays', () => {
+        testTypes = TestableTypesTypescript([]);
+        types.jsts.forEach((type) => {
+            expects.array.toContain(type, type, 'all TestableTypes for Typescript', testTypes);
+        });
+    });
+    describe('edge case: excluding all types', () => {
+        testTypes = TestableTypesTypescript(types.jsts);
+        expects.object.toHaveLength('typescript types', testTypes, 0);
+    });
+    describe('edge case: excluding invalid types', () => {
+        testTypes = [
+            'infinite',
+            'blackhole'
+        ];
+        testTypes.forEach(invalidType => {
+            expects.object.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length);
+        });
+        testTypes = ['infinite', 'string'];
+        expects.array.toContain('string', 'string', 'typescript types minus string', TestableTypesTypescript(testTypes), false);
+        expects.object.toHaveLength('typescript types', TestableTypesTypescript(testTypes), types.jsts.length - 1);
+    });
+    describe('duplicate exclusions', () => {
+        testTypes = ['symbol', 'SYmboL'];
+        expects.array.toContain('symbol', 'symbol', 'typescript types minus symbol', TestableTypesTypescript(testTypes), false);
+    });
+}
+function ToBeTests() {
+    describe('value()', () => ToBeValueTests());
+    describe('toBeNumber()', () => ToBeNumber());
+    describe('null()', () => ToBeNullTests());
+    describe('truthy()', () => ToBeTruthyTests());
+    describe('defined()', () => ToBeDefinedTests());
+}
+function ToBeValueTests() {
+    expects.toBe.value('true', true, 'true', true);
+    expects.toBe.value('true', true, 'false', false, false);
+}
+function ToBeNumber() {
+    expects.toBe.number('four', 4, 4);
+    expects.toBe.number('five', 5, 4, false);
+    expects.toBe.closeToNumber('four point one', 4.1, 4.1);
+    expects.toBe.closeToNumber('five point four', 5.4, 4.1, false);
+    expect(() => expects.toBe.number('four', 4.1, 4)).toThrow(new IntegerFloatMismatchError(4.1, 4));
+    expects.toThrow('expect 4 to be 4.1', () => expects.toBe.closeToNumber('four', 4, 5.001));
+    expects.toThrow('expect 4.1 to be 4', () => expects.toBe.number('four', 4.1, 4));
+}
+function ToBeNullTests() {
+    const nulled = null;
+    const notNulled = true;
+    expects.toBe.null('null', null);
+    expects.toBe.null('true', true, false);
+    expects.toBe.null('Nulled variable', nulled);
+    expects.toBe.null('Not Nulled variable', notNulled, false);
+}
+function ToBeTruthyTests() {
+    const truthy = [true, {}, { alias: 'value' }, [0], []];
+    const falsy = [undefined, null, false, NaN, 0, -0, 0, 0.0, ''];
+    truthy.forEach(value => { expects.toBe.truthy(value); });
+    falsy.forEach(value => { expects.toBe.truthy(value, false); });
+}
+function ToBeDefinedTests() {
+    expects.toBe.defined('aaa', 'aaa');
+    expects.toBe.defined('bbb', 'bbb', true);
+    expects.toBe.defined('undefined', undefined, false);
+}
+function ObjectTests() {
+    const goat = {
+        Nirvana: 'Come as you are',
+        Megadeth: 'Tornado of Souls',
+        Metallica: 'Four Horsemen'
+    };
+    describe('object.toHaveProperty', () => {
+        expects.object.toHaveProperty('Metallica', 'goat', goat);
+    });
+}
+function ArrayTests() {
+    const albumsArray = ['Bleach', 'Nevermind', 'In Utero'];
+    const albumsObj = { 0: 'Bleach', 1: 'Nevermind', 2: 'In Utero' };
+    const nevermind = 'Nevermind';
+    const unplugged = 'Unplugged in New York';
+    describe('.toContain()', () => {
+        expects.array.toContain(nevermind, nevermind, 'Album by Nirvana', albumsArray);
+        expects.array.toContain(unplugged, unplugged, 'Album by Nirvana', albumsArray, false);
+    });
+    describe('.toHaveLength()', () => {
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 3);
+        expects.object.toHaveLength('Nevermind discography', albumsArray, 8, false);
+    });
+}
+function StringTests() {
+    const intro = 'It was the best of times';
+    expects.object.toHaveLength('intro', intro, 24);
+    expects.string.toContain('best of times', intro);
+    expects.string.toContain('was the', intro, true);
+    expects.string.toContain('the worst of times', intro, false);
+}
+function ThrowsErrorTests() {
+    expects.toThrow('valuesToBe() subject and target are numbers', () => {
+        expects.toBe.value('2', 2, '3', 3, false);
+    });
+    expects.toThrow('valuesToBe() subject and target are numbers', () => {
+        expects.toBe.value('4', 4, '5', 5, false);
+    });
+    expects.toThrow('expects.toBe.value has a null subject', () => {
+        expects.toBe.value('null', null, 'null', null);
+    });
+    expects.toThrow('expects.toBe.value has a null subject', () => {
+        expects.toBe.value('undefined', undefined, 'null', null, false);
+    });
+    expects.toThrow('expects.toBe.value has a null subject', () => {
+        expects.toBe.value('1', 1, 'null', null, false);
+    });
+    const stub = () => { throw new StubError('anon function'); };
+    expects.toThrow('throw stub error', stub);
+}
+describe('Jestr.ts (ES6) expects', () => {
+    describe('Helper functions', () => UtilityTests());
+    describe('expects.ToBe or !ToBe...', () => ToBeTests());
+    describe('object tests', () => ObjectTests());
+    describe('array tests', () => ArrayTests());
+    describe('string tests', () => StringTests());
+    describe('expects.toThrowError', () => ThrowsErrorTests());
+});
+//# sourceMappingURL=Jestr.test.js.map

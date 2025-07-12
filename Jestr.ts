@@ -17,7 +17,7 @@ import {
     is,
     matches,
     recognizes
-} from './module/verbs/Verbs'
+} from 'assertion-verbs'
 import { types } from './Constants'
 
 

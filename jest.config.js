@@ -1,4 +1,3 @@
-
 const config = {
     testEnvironment: 'node',
     bail: 1,
@@ -31,6 +30,6 @@ const config = {
             },
         ],
     },
-}
-
-export default config; 
+};
+export default config;
+//# sourceMappingURL=jest.config.js.map
