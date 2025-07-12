@@ -1,3 +1,0 @@
-[submodule "module/verbs"]
-	path = module/verbs
-	url = https://github.com/jauntyjocularjay/verbsjs.git
