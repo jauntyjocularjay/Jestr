@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752348148648" clover="3.2.0">
-  <project timestamp="1752348148648" name="All files">
+<coverage generated="1752350668370" clover="3.2.0">
+  <project timestamp="1752350668370" name="All files">
     <metrics statements="108" coveredstatements="83" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32" elements="251" coveredelements="189" complexity="0" loc="108" ncloc="108" packages="2" files="3" classes="3"/>
-    <package name="Jestr">
+    <package name="jestr">
       <metrics statements="107" coveredstatements="83" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32"/>
-      <file name="Constants.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Constants.ts">
+      <file name="Constants.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/JestrDemo/jsmaths/src/module/jestr/Constants.ts">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
-      <file name="Jestr.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Jestr.ts">
+      <file name="Jestr.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/JestrDemo/jsmaths/src/module/jestr/Jestr.ts">
         <metrics statements="105" coveredstatements="83" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32"/>
         <line num="30" count="1" type="stmt"/>
         <line num="48" count="10" type="stmt"/>
@@ -118,9 +118,9 @@
         <line num="615" count="25" type="stmt"/>
       </file>
     </package>
-    <package name="Jestr.module.verbs">
+    <package name="jestr.module.verbs">
       <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="jest.config.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/module/verbs/jest.config.ts">
+      <file name="jest.config.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/JestrDemo/jsmaths/src/module/jestr/module/verbs/jest.config.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
       </file>
