@@ -288,6 +288,29 @@ const expects = {
      */
     object: {
         /**
+         * Tests if an object has a specific length property
+         * @param {string} subjectAlias - Display name for the object
+         * @param {Object} subject - The object to test for length
+         * @param {number} target - The expected length value
+         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+         */
+        toHaveLength: (
+            subjectAlias: string,
+            subject: Object,
+            target: number,
+            bool = true
+        ) => {
+            const description = `${getCounter()} ${subjectAlias} ${has(
+                bool
+            )} length ${target}`
+
+            test(description, () => {
+                bool
+                    ? expect(subject).toHaveLength(target)
+                    : expect(subject).not.toHaveLength(target)
+            })
+        },
+        /**
          * Concise version of expects.object.toHaveLength() - Tests if an object has a specific length using auto-generated alias
          * These are defined separately below to avoid recursion and self-referencing problems.
          * @param {Object} subject - The object to test for length
@@ -368,6 +391,18 @@ const expects = {
 expects.toBe.isNull = (subject: any, bool = true) => {
     ConciseWarning('expects.toBe.isNull')
     expects.toBe.null('value', subject, bool)
+}
+
+/**
+ * Concise length test - automatically uses 'value' as alias
+ * @param {Object} subject - The object to test for length
+ * @param {number} target - The expected length value
+ * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
+ * @example expects.object.hasLength(users, 5) // "2 'value' has length 5"
+ */
+expects.object.hasLength = (subject: Object, target: number, bool = true) => {
+    ConciseWarning('expects.object.hasLength')
+    expects.object.toHaveLength( 'value', subject, target, bool )
 }
 
 /**
