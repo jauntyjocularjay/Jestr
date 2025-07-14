@@ -282,42 +282,20 @@ const expects = {
                 )
             }
         },
+        toHaveLength: <T>(subjectAlias: string, subject: T[], expectedLength: number, bool = true) => {
+            const description = `The array ${subjectAlias} ${has(bool)} have ${expectedLength}`
+
+            test(description, () => {
+                bool
+                    ? expect(subject).toHaveLength(expectedLength)
+                    : expect(subject).not.toHaveLength(expectedLength)
+            })
+        },
     },
     /**
      * Object-specific testing methods that enhance Jest's object assertions with descriptive naming
      */
     object: {
-        /**
-         * Tests if an object has a specific length property
-         * @param {string} subjectAlias - Display name for the object
-         * @param {Object} subject - The object to test for length
-         * @param {number} target - The expected length value
-         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         */
-        toHaveLength: (
-            subjectAlias: string,
-            subject: Object,
-            target: number,
-            bool = true
-        ) => {
-            const description = `${getCounter()} ${subjectAlias} ${has(
-                bool
-            )} length ${target}`
-
-            test(description, () => {
-                bool
-                    ? expect(subject).toHaveLength(target)
-                    : expect(subject).not.toHaveLength(target)
-            })
-        },
-        /**
-         * Concise version of expects.object.toHaveLength() - Tests if an object has a specific length using auto-generated alias
-         * These are defined separately below to avoid recursion and self-referencing problems.
-         * @param {Object} subject - The object to test for length
-         * @param {number} target - The expected length value
-         * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
-         */
-        hasLength: (subject: Object, target: number, bool = true) => {},
         /**
          * Tests if an object has a specific property
          * @param {any} subject - The property name to check for
@@ -361,6 +339,15 @@ const expects = {
             })
         },
         toContain: (subject: string, target: string, bool = true) => {},
+        toHaveLength: (subject: string, expectedLength: number, bool = true) => {
+            const description = `The array ${subject} ${has(bool)} have ${expectedLength}`
+
+            test(description, () => {
+                bool
+                    ? expect(subject).toHaveLength(expectedLength)
+                    : expect(subject).not.toHaveLength(expectedLength)
+            })
+        },
     },
     /**
      * Tests if a function throws an error using Jest's toThrow() matcher
@@ -400,10 +387,10 @@ expects.toBe.isNull = (subject: any, bool = true) => {
  * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
  * @example expects.object.hasLength(users, 5) // "2 'value' has length 5"
  */
-expects.object.hasLength = (subject: Object, target: number, bool = true) => {
-    ConciseWarning('expects.object.hasLength')
-    expects.object.toHaveLength( 'value', subject, target, bool )
-}
+// expects.object.hasLength = (subject: Object, target: number, bool = true) => {
+//     ConciseWarning('expects.object.hasLength')
+//     expects.object.toHaveLength( 'value', subject, target, bool )
+// }
 
 /**
  * Concise defined test - automatically uses 'value' as alias

@@ -157,7 +157,7 @@ function TestableTypesTypescriptTests() {
 
     describe('edge case: excluding all types', () => {
         testTypes = TestableTypesTypescript(types.jsts)
-        expects.object.toHaveLength('typescript types', testTypes, 0)
+        expects.array.toHaveLength('typescript types', testTypes, 0)
     })
 
     describe('edge case: excluding invalid types', () => {
@@ -167,7 +167,7 @@ function TestableTypesTypescriptTests() {
         ]
 
         testTypes.forEach(invalidType => {
-            expects.object.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length)
+            expects.array.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length)
         })
 
         testTypes = ['infinite', 'string']
@@ -178,7 +178,7 @@ function TestableTypesTypescriptTests() {
             TestableTypesTypescript(testTypes),
             false
         )
-        expects.object.toHaveLength(
+        expects.array.toHaveLength(
             'typescript types',
             TestableTypesTypescript(testTypes),
             types.jsts.length - 1
@@ -290,8 +290,8 @@ function ArrayTests()
     })
 
     describe('.toHaveLength()', () => {
-        expects.object.toHaveLength('Nevermind discography', albumsArray, 3)
-        expects.object.toHaveLength('Nevermind discography', albumsArray, 8, false)
+        expects.array.toHaveLength('Nevermind discography', albumsArray, 3)
+        expects.array.toHaveLength('Nevermind discography', albumsArray, 8, false)
     })
 }
 
@@ -299,7 +299,7 @@ function StringTests()
 {
     const intro = 'It was the best of times'
 
-    expects.object.toHaveLength('intro', intro, 24)
+    expects.string.toHaveLength(intro, 24)
     expects.string.toContain('best of times', intro)
     expects.string.toContain('was the', intro, true)
     expects.string.toContain('the worst of times', intro, false)
