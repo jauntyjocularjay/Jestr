@@ -179,7 +179,6 @@ expects.toBe.defined('config object', config)      // "3 'config object' is defi
 
 // Concise API - auto-generated 'value' alias
 expects.toBe.isNull(userData)                       // "1 'value' is null"
-expects.object.hasLength(users, 5)                  // "2 'value' has length 5" 
 expects.toBe.isDefined(config)                      // "3 'value' is defined"
 ```
 
@@ -221,7 +220,6 @@ userTestCases.forEach(({ user, input_description }) => {
 // Concise API - ideal for quick checks
 expects.toBe.isNull(guestUser, false)          // "5 'value' is NOT null"
 expects.toBe.isDefined(authenticatedUser)      // "6 'value' is defined"
-expects.object.hasLength(userPermissions, 3)   // "7 'value' has length 3"
 ```
 
 [Back to Table of Contents](#table-of-contents)
