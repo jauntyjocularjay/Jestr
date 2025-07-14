@@ -34,8 +34,6 @@ A Jest enhancement library that provides human-readable assertion methods and st
   - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
     - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
   - [Object Assertions (`expects.object`)](#object-assertions-expectsobject)
-    - [`expects.object.toHaveLength()`](#expectsobjecttohavelengthmsubjectalias-subject-target-bool)
-    - [`expects.object.hasLength()`](#expectsobjecthaslengthsubject-target-bool) *(CONCISE)*
     - [`expects.object.toHaveProperty()`](#expectsobjecttohavepropertysubject-targetalias-target-bool)
   - [String Assertions (`expects.string`)](#string-assertions-expectsstring)
     - [`expects.string.toContain()`](#expectsstringtocontaintarget-subject-bool)
@@ -324,18 +322,6 @@ Tests if an array contains a specific value.
 ---
 
 ### Object Assertions (`expects.object`)
-
-#### `expects.object.toHaveLength(subjectAlias, subject, target, bool?)`
-Tests if an object has a specific length property.
-
-#### `expects.object.hasLength(subject, target, bool?)` *(CONCISE)*
-Concise version of `expects.object.toHaveLength()` - automatically uses 'value' as alias.
-
-**Example:**
-```typescript
-expects.object.hasLength(users, 5)      // "1 'value' has length 5"
-expects.object.hasLength(emptyArray, 0) // "2 'value' has length 0"
-```
 
 #### `expects.object.toHaveProperty(subject, targetAlias, target, bool?)`
 Tests if an object has a specific property.
