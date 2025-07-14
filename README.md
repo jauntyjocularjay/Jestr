@@ -34,8 +34,6 @@ A Jest enhancement library that provides human-readable assertion methods and st
   - [Array Assertions (`expects.array`)](#array-assertions-expectsarray)
     - [`expects.array.toContain()`](#expectsarraytocontainsubjectalias-subject-targetalias-target-bool)
   - [Object Assertions (`expects.object`)](#object-assertions-expectsobject)
-    - [`expects.object.toHaveLength()`](#expectsobjecttohavelengthmsubjectalias-subject-target-bool)
-    - [`expects.object.hasLength()`](#expectsobjecthaslengthsubject-target-bool) *(CONCISE)*
     - [`expects.object.toHaveProperty()`](#expectsobjecttohavepropertysubject-targetalias-target-bool)
   - [String Assertions (`expects.string`)](#string-assertions-expectsstring)
     - [`expects.string.toContain()`](#expectsstringtocontaintarget-subject-bool)
@@ -150,7 +148,6 @@ expects.toBe.closeToNumber('pi', 3.14159, 3.14)
 expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
 
 // Object testing
-expects.object.toHaveLength('my array', myArray, 5)
 expects.object.toHaveProperty('name', 'user object', userObj)
 
 // String testing
@@ -178,7 +175,6 @@ Jestr provides both **verbose** and **concise** APIs to suit different testing n
 ```typescript
 // Verbose API - custom descriptive aliases
 expects.toBe.null('user data', userData)           // "1 'user data' is null"
-expects.object.toHaveLength('users array', users, 5)  // "2 'users array' has length 5"
 expects.toBe.defined('config object', config)      // "3 'config object' is defined"
 
 // Concise API - auto-generated 'value' alias
@@ -193,7 +189,6 @@ expects.toBe.isDefined(config)                      // "3 'value' is defined"
 |---|---|---|
 | `expects.toBe.isNull(subject)` | `expects.toBe.null(alias, subject)` | Tests if value is null |
 | `expects.toBe.isDefined(subject)` | `expects.toBe.defined(alias, subject)` | Tests if value is defined |
-| `expects.object.hasLength(subject, target)` | `expects.object.toHaveLength(alias, subject, target)` | Tests object length |
 
 ### When to Use Which API
 
@@ -325,18 +320,6 @@ Tests if an array contains a specific value.
 
 ### Object Assertions (`expects.object`)
 
-#### `expects.object.toHaveLength(subjectAlias, subject, target, bool?)`
-Tests if an object has a specific length property.
-
-#### `expects.object.hasLength(subject, target, bool?)` *(CONCISE)*
-Concise version of `expects.object.toHaveLength()` - automatically uses 'value' as alias.
-
-**Example:**
-```typescript
-expects.object.hasLength(users, 5)      // "1 'value' has length 5"
-expects.object.hasLength(emptyArray, 0) // "2 'value' has length 0"
-```
-
 #### `expects.object.toHaveProperty(subject, targetAlias, target, bool?)`
 Tests if an object has a specific property.
 
@@ -425,7 +408,6 @@ expects.toBe.truthy(isLoggedIn)
 const fruits = ['apple', 'banana', 'orange']
 
 expects.array.toContain('search item', 'apple', 'fruits array', fruits)
-expects.object.toHaveLength('fruits array', fruits, 3)
 ```
 
 ### Error Testing
