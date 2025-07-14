@@ -8,12 +8,83 @@ import {
     IntegerFloatMismatchError,
     StubError,
 } from '../Jestr'
-import { types } from '../Constants'
+import { types, edge_cases } from '../Constants'
 
 
 
-function UtilityTests()
-{
+function ConstantsTests(){
+    describe('Language-specific Primitive types', () => {
+        describe('Javascript/Typescript', () => {
+            describe(`Primitive types found in Javascript/Typescript`, () => {
+                const jstsType = [
+                    'array',
+                    'bigint',
+                    'boolean',
+                    'function',
+                    'null',
+                    'number',
+                    'object',
+                    'string',
+                    'symbol',
+                    'undefined',
+                ]
+
+                jstsType.forEach(type => {
+                    expects.array.toContain(`type: ${type}`, type, 'Javascript/Typescript primitives', types.jsts)
+                })
+            })
+
+            describe('Types not found in Javascript/Typescript', () => {
+                const not_jstsType = ['char','float','short','long','double','float','tuple','dictionary','complex','range','void','bytes']
+
+                not_jstsType.forEach((type) => {
+                    expects.array.toContain(
+                        `type: ${type}`,
+                        type,
+                        'Javascript/Typescript primitives',
+                        types.jsts,
+                        false
+                    )
+                })
+            })
+        })
+    })
+
+    describe('Common Edge cases', () => {
+        describe('Numbers:', () => {
+            const numbers: number[] = [
+                -1,
+                0,
+                1,
+                999,
+                NaN,
+                Number.MAX_SAFE_INTEGER,
+                Number.MIN_SAFE_INTEGER,
+                Number.MAX_VALUE,
+                Number.MIN_VALUE,
+            ]
+
+            numbers.forEach(edgeCase => {
+                if(Number.isNaN(edgeCase))
+                    expects.toBe.value(
+                        'NaN',
+                        Number.isNaN(edgeCase),
+                        'the array of built in numerical edge case NaN',
+                        Number.isNaN(NaN)
+                    )
+                else
+                    expects.array.toContain(
+                        `Number Edge Value: ${edgeCase}`,
+                        edgeCase,
+                        'built in numerical edges case',
+                        edge_cases.numbers
+                    )
+            })
+        })
+    })
+}
+
+function UtilityTests(){
     describe('SubjectTargetAreTests', () => SubjectTargetAreTests())
 
     describe('TestableTypesTypescriptTests', () => TestableTypesTypescriptTests())
@@ -55,9 +126,9 @@ function TestableTypesTypescriptTests() {
             testTypes,
             false
         )
-    
+
     })
-    
+
     describe('valid types, invalid case in strings', () => {
         const invalidCaseTypes = ['Number', 'SYMBOL', 'BOooleAn']
         invalidCaseTypes.forEach((invalidCase) => {
@@ -94,7 +165,7 @@ function TestableTypesTypescriptTests() {
             'infinite',
             'blackhole'
         ]
-        
+
         testTypes.forEach(invalidType => {
             expects.object.toHaveLength('ignoring invalid types', TestableTypesTypescript([invalidType]), types.jsts.length)
         })
@@ -108,8 +179,8 @@ function TestableTypesTypescriptTests() {
             false
         )
         expects.object.toHaveLength(
-            'typescript types', 
-            TestableTypesTypescript(testTypes), 
+            'typescript types',
+            TestableTypesTypescript(testTypes),
             types.jsts.length - 1
         )
     })
@@ -117,10 +188,10 @@ function TestableTypesTypescriptTests() {
     describe('duplicate exclusions', () => {
         testTypes = ['symbol', 'SYmboL']
         expects.array.toContain(
-            'symbol', 
-            'symbol', 
-            'typescript types minus symbol', 
-            TestableTypesTypescript(testTypes), 
+            'symbol',
+            'symbol',
+            'typescript types minus symbol',
+            TestableTypesTypescript(testTypes),
             false
         )
     })
@@ -248,21 +319,21 @@ function ThrowsErrorTests()
     )
 
     expects.toThrow(
-        'expects.toBe.value has a null subject', 
+        'expects.toBe.value has a null subject',
         () => {
             expects.toBe.value('null', null, 'null', null)
         }
     )
 
     expects.toThrow(
-        'expects.toBe.value has a null subject', 
+        'expects.toBe.value has a null subject',
         () => {
             expects.toBe.value('undefined', undefined, 'null', null, false)
         }
     )
 
     expects.toThrow(
-        'expects.toBe.value has a null subject', 
+        'expects.toBe.value has a null subject',
         () => {
             expects.toBe.value('1', 1, 'null', null, false)
         }
@@ -277,8 +348,9 @@ function ThrowsErrorTests()
 }
 
 describe('Jestr.ts (ES6) expects', () => {
+    describe('Constant reference values', () => ConstantsTests())
     describe('Helper functions', () => UtilityTests())
-    describe('expects.ToBe or !ToBe...', () => ToBeTests())
+    describe('expects ToBe or !ToBe...', () => ToBeTests())
     describe('object tests', () => ObjectTests())
     describe('array tests', () => ArrayTests())
     describe('string tests', () => StringTests())

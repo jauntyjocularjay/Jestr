@@ -32,4 +32,3 @@ const config = {
     },
 };
 export default config;
-//# sourceMappingURL=jest.config.js.map

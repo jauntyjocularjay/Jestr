@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for Jestr/Jestr.ts</title>
+    <title>Code coverage report for jestr/Jestr.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../index.html">All files</a> / <a href="index.html">Jestr</a> Jestr.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">jestr</a> Jestr.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -741,9 +741,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -760,12 +760,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -960,13 +960,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1288,27 +1288,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">51x</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-yes">47x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1524,14 +1524,14 @@ const expects = {
          * @param {any} subject - The value being tested for truthiness
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        truthy: &lt;T&gt;(subject: T, bool = true) =&gt; {
+        truthy: (subject: any, bool = true) =&gt; {
             let alias = ''
             if (subject === undefined) {
                 alias = 'undefined'
             } else if (subject === null) {
                 alias = 'null'
             } else if (subject === '') {
-                alias = '""'
+                alias = 'an empty character'
             } else if (Array.isArray(subject)) {
                 alias = `[ ${subject} ]`
             } else {
@@ -1721,7 +1721,7 @@ expects.toBe.isNull = <span class="fstat-no" title="function not covered" >(s</s
 }
 &nbsp;
 /**
- * Concise length test - automatically uses 'value' as alias  
+ * Concise length test - automatically uses 'value' as alias
  * @param {Object} subject - The object to test for length
  * @param {number} target - The expected length value
  * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
@@ -1798,10 +1798,10 @@ class SubjectTargetSuitabilityError extends TypeError {
      */
     constructor(testName: string, types: string[], subject: any, target: any, append=<span class="branch-0 cbranch-no" title="branch not covered" >'')</span>{
         super(
-            `${testName} does not accept accept subject/targets of ` + 
-            `these types: [${types}] \n` + 
+            `${testName} does not accept accept subject/targets of ` +
+            `these types: [${types}] \n` +
             `typeof Subject: ${typeof subject} \n` +
-            `typeof Target: ${typeof target} \n` + 
+            `typeof Target: ${typeof target} \n` +
             append
         )
     }
@@ -1835,7 +1835,7 @@ class TargetSuitabilityError extends TypeError {
 &nbsp;
 /**
  * Error thrown when subject and target values cannot be compared
- * @class SubjectTargetMismatchError  
+ * @class SubjectTargetMismatchError
  * @extends TypeError
  */
 class SubjectTargetMismatchError extends TypeError {
@@ -1872,10 +1872,10 @@ class IntegerFloatMismatchError extends TypeError {
      * @param {number} target - The target number (integer or float)
      */
     constructor(subject: number, target: number){
-        let message = 
+        let message =
             `Your subject ${subject} ${is(Number.isInteger(subject))} an integer, but your ` +
             `target ${target} ${is(Number.isInteger(target))} an integer. To compare these, ` +
-            `convert them both to Integer or Float. Use: \n` + 
+            `convert them both to Integer or Float. Use: \n` +
             `expects.toBe.number() for integers \n` +
             `expects.toBe.CloseToNumber() for floats \n`
 &nbsp;
@@ -1963,7 +1963,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-07-12T19:22:28.639Z
+                at 2025-07-14T07:50:08.476Z
             </div>
         <script src="../prettify.js"></script>
         <script>

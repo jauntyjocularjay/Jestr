@@ -1,38 +1,46 @@
 const types = {
     jsts: [
-        'array', 
-        'bigint', 
-        'boolean', 
+        'array',
+        'bigint',
+        'boolean',
         'function',
-        'null', 
-        'number', 
-        'object', 
+        'null',
+        'number',
+        'object',
         'string',
         'symbol',
         'undefined'
     ]
 }
 
-const edgecases = {
+const edge_cases = {
     numbers: [
         -1,
         0,
+        1,
         999,
         NaN,
-        undefined,
-        null,
-        999999999999999999
+        Number.MAX_SAFE_INTEGER,
+        Number.MIN_SAFE_INTEGER,
+        Number.MAX_VALUE,
+        Number.MIN_VALUE
     ],
-    string: [
-        '\n',
-        ' ',
-        ' something ',
-        ''
-    ]
+    /** @todo enable and write tests for these */
+    // string: [
+    //     '\n',
+    //     ' ',
+    //     ' something ',
+    //     ''
+    // ],
+    // empty: [
+    //     undefined,
+    //     null
+    // ]
 }
 
 
 
 export {
-    types
+    types,
+    edge_cases
 };

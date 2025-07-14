@@ -197,14 +197,14 @@ const expects = {
          * @param {any} subject - The value being tested for truthiness
          * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
          */
-        truthy: <T>(subject: T, bool = true) => {
+        truthy: (subject: any, bool = true) => {
             let alias = ''
             if (subject === undefined) {
                 alias = 'undefined'
             } else if (subject === null) {
                 alias = 'null'
             } else if (subject === '') {
-                alias = '""'
+                alias = 'an empty character'
             } else if (Array.isArray(subject)) {
                 alias = `[ ${subject} ]`
             } else {
@@ -394,7 +394,7 @@ expects.toBe.isNull = (subject: any, bool = true) => {
 }
 
 /**
- * Concise length test - automatically uses 'value' as alias  
+ * Concise length test - automatically uses 'value' as alias
  * @param {Object} subject - The object to test for length
  * @param {number} target - The expected length value
  * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
@@ -471,10 +471,10 @@ class SubjectTargetSuitabilityError extends TypeError {
      */
     constructor(testName: string, types: string[], subject: any, target: any, append=''){
         super(
-            `${testName} does not accept accept subject/targets of ` + 
-            `these types: [${types}] \n` + 
+            `${testName} does not accept accept subject/targets of ` +
+            `these types: [${types}] \n` +
             `typeof Subject: ${typeof subject} \n` +
-            `typeof Target: ${typeof target} \n` + 
+            `typeof Target: ${typeof target} \n` +
             append
         )
     }
@@ -508,7 +508,7 @@ class TargetSuitabilityError extends TypeError {
 
 /**
  * Error thrown when subject and target values cannot be compared
- * @class SubjectTargetMismatchError  
+ * @class SubjectTargetMismatchError
  * @extends TypeError
  */
 class SubjectTargetMismatchError extends TypeError {
@@ -545,10 +545,10 @@ class IntegerFloatMismatchError extends TypeError {
      * @param {number} target - The target number (integer or float)
      */
     constructor(subject: number, target: number){
-        let message = 
+        let message =
             `Your subject ${subject} ${is(Number.isInteger(subject))} an integer, but your ` +
             `target ${target} ${is(Number.isInteger(target))} an integer. To compare these, ` +
-            `convert them both to Integer or Float. Use: \n` + 
+            `convert them both to Integer or Float. Use: \n` +
             `expects.toBe.number() for integers \n` +
             `expects.toBe.CloseToNumber() for floats \n`
 
