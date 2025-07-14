@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752502328439" clover="3.2.0">
-  <project timestamp="1752502328439" name="All files">
+<coverage generated="1752502523103" clover="3.2.0">
+  <project timestamp="1752502523103" name="All files">
     <metrics statements="110" coveredstatements="85" conditionals="97" coveredconditionals="77" methods="50" coveredmethods="32" elements="257" coveredelements="194" complexity="0" loc="110" ncloc="110" packages="3" files="4" classes="4"/>
     <package name="Jestr">
       <metrics statements="107" coveredstatements="85" conditionals="97" coveredconditionals="77" methods="49" coveredmethods="32"/>
@@ -63,9 +63,9 @@
         <line num="272" count="48" type="stmt"/>
         <line num="273" count="48" type="cond" truecount="2" falsecount="0"/>
         <line num="278" count="0" type="stmt"/>
-        <line num="303" count="7" type="stmt"/>
-        <line num="307" count="7" type="stmt"/>
-        <line num="308" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="303" count="8" type="stmt"/>
+        <line num="307" count="8" type="stmt"/>
+        <line num="308" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="335" count="1" type="stmt"/>
         <line num="339" count="1" type="stmt"/>
         <line num="340" count="1" type="cond" truecount="1" falsecount="1"/>
