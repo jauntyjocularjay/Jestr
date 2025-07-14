@@ -148,7 +148,6 @@ expects.toBe.closeToNumber('pi', 3.14159, 3.14)
 expects.array.toContain('search item', 'apple', 'fruits array', ['apple', 'banana', 'orange'])
 
 // Object testing
-expects.object.toHaveLength('my array', myArray, 5)
 expects.object.toHaveProperty('name', 'user object', userObj)
 
 // String testing
@@ -176,7 +175,6 @@ Jestr provides both **verbose** and **concise** APIs to suit different testing n
 ```typescript
 // Verbose API - custom descriptive aliases
 expects.toBe.null('user data', userData)           // "1 'user data' is null"
-expects.object.toHaveLength('users array', users, 5)  // "2 'users array' has length 5"
 expects.toBe.defined('config object', config)      // "3 'config object' is defined"
 
 // Concise API - auto-generated 'value' alias
@@ -191,7 +189,6 @@ expects.toBe.isDefined(config)                      // "3 'value' is defined"
 |---|---|---|
 | `expects.toBe.isNull(subject)` | `expects.toBe.null(alias, subject)` | Tests if value is null |
 | `expects.toBe.isDefined(subject)` | `expects.toBe.defined(alias, subject)` | Tests if value is defined |
-| `expects.object.hasLength(subject, target)` | `expects.object.toHaveLength(alias, subject, target)` | Tests object length |
 
 ### When to Use Which API
 
@@ -411,7 +408,6 @@ expects.toBe.truthy(isLoggedIn)
 const fruits = ['apple', 'banana', 'orange']
 
 expects.array.toContain('search item', 'apple', 'fruits array', fruits)
-expects.object.toHaveLength('fruits array', fruits, 3)
 ```
 
 ### Error Testing
