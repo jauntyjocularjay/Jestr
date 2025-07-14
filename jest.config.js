@@ -18,9 +18,9 @@ const config = {
         '!**/node_modules/**',
         '!**/Verbs.ts',
         '!**/coverage/**',
-        '!**/test/**',
-        '!**/*.test.{mjs,ts}',
-        '!**/*.spec.{mjs,ts}',
+        // '!**/test/**',
+        // '!**/*.test.{mjs,ts}',
+        // '!**/*.spec.{mjs,ts}',
     ],
     transform: {
         '^.+.tsx?$': [

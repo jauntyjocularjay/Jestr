@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1752499839911" clover="3.2.0">
-  <project timestamp="1752499839911" name="All files">
-    <metrics statements="108" coveredstatements="85" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32" elements="251" coveredelements="191" complexity="0" loc="108" ncloc="108" packages="2" files="3" classes="3"/>
+<coverage generated="1752502328439" clover="3.2.0">
+  <project timestamp="1752502328439" name="All files">
+    <metrics statements="110" coveredstatements="85" conditionals="97" coveredconditionals="77" methods="50" coveredmethods="32" elements="257" coveredelements="194" complexity="0" loc="110" ncloc="110" packages="3" files="4" classes="4"/>
     <package name="Jestr">
-      <metrics statements="107" coveredstatements="85" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32"/>
+      <metrics statements="107" coveredstatements="85" conditionals="97" coveredconditionals="77" methods="49" coveredmethods="32"/>
       <file name="Constants.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Constants.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
       <file name="Jestr.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/Jestr.ts">
-        <metrics statements="105" coveredstatements="83" conditionals="94" coveredconditionals="74" methods="49" coveredmethods="32"/>
+        <metrics statements="105" coveredstatements="83" conditionals="97" coveredconditionals="77" methods="49" coveredmethods="32"/>
         <line num="30" count="1" type="stmt"/>
         <line num="48" count="11" type="stmt"/>
         <line num="50" count="11" type="cond" truecount="2" falsecount="0"/>
         <line num="52" count="5" type="stmt"/>
         <line num="53" count="5" type="cond" truecount="2" falsecount="0"/>
         <line num="54" count="1" type="stmt"/>
-        <line num="55" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="55" count="4" type="cond" truecount="2" falsecount="0"/>
         <line num="56" count="3" type="stmt"/>
         <line num="59" count="5" type="stmt"/>
         <line num="67" count="6" type="stmt"/>
@@ -108,12 +108,12 @@
         <line num="575" count="130" type="stmt"/>
         <line num="584" count="3" type="stmt"/>
         <line num="595" count="26" type="stmt"/>
-        <line num="598" count="26" type="cond" truecount="4" falsecount="0"/>
+        <line num="598" count="26" type="cond" truecount="5" falsecount="0"/>
         <line num="601" count="3" type="stmt"/>
         <line num="604" count="26" type="stmt"/>
         <line num="606" count="53" type="cond" truecount="4" falsecount="0"/>
         <line num="607" count="6" type="stmt"/>
-        <line num="608" count="47" type="cond" truecount="3" falsecount="0"/>
+        <line num="608" count="47" type="cond" truecount="4" falsecount="0"/>
         <line num="611" count="14" type="stmt"/>
         <line num="615" count="26" type="stmt"/>
       </file>
@@ -123,6 +123,14 @@
       <file name="jest.config.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/module/verbs/jest.config.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="Jestr.test">
+      <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="ReactNative.tests.ts" path="/Users/george.schafer/Library/Mobile Documents/com~apple~CloudDocs/Workspace/React/Jestr/test/ReactNative.tests.ts">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
       </file>
     </package>
   </project>
