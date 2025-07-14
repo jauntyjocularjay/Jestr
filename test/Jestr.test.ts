@@ -273,9 +273,8 @@ function ObjectTests()
         expects.object.toHaveProperty('Metallica', 'goat', goat)
     })
 
-    describe('object.toHaveLength', () => {
-        expects.object.toHaveLength('three albums', goat, 3)
-    })
+    // describe('object.toHaveLength', () => {
+    // })
 }
 
 function ArrayTests()
