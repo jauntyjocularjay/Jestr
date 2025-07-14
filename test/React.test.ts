@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react'
 import {
     MyApp,
     MyButton
-} from '../example/React.js'
+} from '../example/React/React.js'
 
 describe('React Integration with Jest (Standard)', () => {
     it('Tests React components using standard Jest assertions', () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import RNativeApp from '../example/ReactNative'
+import RNativeApp from '../example/ReactNative/ReactNative'
 import { expects } from '../Jestr'
 
 
