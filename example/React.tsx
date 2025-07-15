@@ -21,9 +21,9 @@ const MyApp = () => {
 }
 
 const STATUS = {
-  HOVERED: 'hovered',
-  NORMAL: 'normal',
-};
+    HOVERED: 'hovered',
+    NORMAL: 'normal',
+}
 
 const CheckboxWithLabel = ({labelOn = true, labelOff = false, labelText = ''}) => {
     const [isChecked, setIsChecked] = useState(false);
