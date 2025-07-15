@@ -1,18 +1,13 @@
 /**
  * @jest-environment jsdom
  */
+import { MyApp, MyButton, STATUS, CheckboxWithLabel } from '../example/React'
 import { expects } from '../Jestr'
 import { render, screen } from '@testing-library/react'
-import {
-    MyApp,
-    MyButton,
-    STATUS,
-    CheckboxWithLabel,
-    Link,
-} from '../example/React.js'
 
 
-// render(<CheckboxWithLabel  />)
+// CheckboxWithLabel({labelText: 'label'})
+// render(<CheckboxWithLabel />)
 // const checkboxWithLabel = screen.getByLabelText('CheckboxWithLabel')
 // const link: Link
 
@@ -21,12 +16,12 @@ const TypeTests = () => {
     const components = {
         div: MyApp(),
         button: MyButton(),
-        // CheckboxWithLabel: checkboxWithLabel,
+        label: CheckboxWithLabel(),
         // Link: link,
     }
 
-    for(const [type, element] of Object.entries(components)){
-        expects.string.contains(element.type, element.type, type, type)
+    for(const [typeStr, element] of Object.entries(components)){
+        expects.string.contains(element.type, element.type, typeStr, typeStr)
         expects.toBe.truthy(element.props)
         expects.object.toHaveProperty('children', 'props', element.props)
     }

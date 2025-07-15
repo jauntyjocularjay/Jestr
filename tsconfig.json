@@ -6,10 +6,10 @@
         "module": "ES6",
         "removeComments": true,
         "preserveConstEnums": true,
-        "noEmit": false,
+        "noEmit": true, // Swapped to true to accommodate React.tsx
         "sourceMap": true,
         "moduleResolution": "Bundler",
-        "allowImportingTsExtensions": false,
+        "allowImportingTsExtensions": true, // Swapped to true to accommodate React.tsx
     },
     "moduleFileExtensions": [
         "js",

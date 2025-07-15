@@ -25,21 +25,10 @@ const STATUS = {
     NORMAL: 'normal',
 }
 
-const CheckboxWithLabel = ({labelOn = true, labelOff = false, labelText = ''}) => {
-    const [isChecked, setIsChecked] = useState(false);
-
-    const onChange = () => {
-        setIsChecked(!isChecked);
-    }
-
+const CheckboxWithLabel = () => {
     return (
-        <label> {labelText}
-            <input type="checkbox" checked={isChecked} onChange={onChange} />
-            {
-                isChecked 
-                    ? labelOn 
-                    : labelOff
-            }
+        <label> 'a label'
+            <input type="checkbox" />
         </label>
     )
 }

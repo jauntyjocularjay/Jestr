@@ -9,19 +9,10 @@ const STATUS = {
   HOVERED: 'hovered',
   NORMAL: 'normal'
 };
-const CheckboxWithLabel = ({
-  labelOn = true,
-  labelOff = false
-}) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const onChange = () => {
-    setIsChecked(!isChecked);
-  };
-  return /*#__PURE__*/React.createElement("label", null, /*#__PURE__*/React.createElement("input", {
-    type: "checkbox",
-    checked: isChecked,
-    onChange: onChange
-  }), isChecked ? labelOn : labelOff);
+const CheckboxWithLabel = () => {
+  return /*#__PURE__*/React.createElement("label", null, " 'a label'", /*#__PURE__*/React.createElement("input", {
+    type: "checkbox"
+  }));
 };
 const Link = ({
   URL = ''
