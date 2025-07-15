@@ -1,44 +1,61 @@
 /**
  * @jest-environment jsdom
  */
-
+import { expects } from '../Jestr'
 import { render, screen } from '@testing-library/react'
 import {
     MyApp,
-    MyButton
+    MyButton,
+    STATUS,
+    CheckboxWithLabel,
+    Link,
 } from '../example/React.js'
 
-describe('React Integration with Jest (Standard)', () => {
-    it('Tests React components using standard Jest assertions', () => {
-        // Test component creation
-        const myApp = MyApp()
-        const myButton = MyButton()
-        
-        // Use standard Jest assertions for React testing
-        expect(myApp.type).toBe('div')
-        expect(myButton.type).toBe('button')
-        expect(myApp.props).toBeTruthy()
-        expect(myButton.props).toBeTruthy()
-        expect(myApp.props).toHaveProperty('children')
-    })
+
+
+const TypeTests = () => {
+    // Test component creation
+    const components = {
+        'div': MyApp(),
+        'button': MyButton()
+    }
+
+    for(const [type, element] of Object.entries(components)){
+        expects.string.contains(element.type, element.type, type, type)
+        expects.toBe.truthy(element.props)
+        expects.object.toHaveProperty('children', 'props', element.props)
+    }
+}
+
+const TextContentTests = () => {
+    // Render the component to virtual DOM
+    render(MyApp())
     
-    it('Tests rendered React components with DOM testing', () => {
-        // Render the component to virtual DOM
-        render(MyApp())
-        
-        // Test that elements are in the document
-        const heading = screen.getByRole('heading', { name: /welcome to my app/i })
-        const button = screen.getByRole('button', { name: /i'm a button/i })
-        
-        // Use standard Jest assertions
-        expect(heading).toBeTruthy()
-        expect(button).toBeTruthy()
-        expect(heading.textContent).toBe('Welcome to my app')
-        expect(button.textContent).toBe("I'm a button")
-    })
+    // Test that elements are in the document
+    const HTMLElements = {
+        "Welcome to my app": screen.getByRole('heading', { name: /welcome to my app/i }), 
+        "I'm a button": screen.getByRole('button', { name: /I'm a button/i })
+    }
+
+    for(const [result, element] of Object.entries(HTMLElements)) {
+        expects.toBe.truthy(element)
+        expects.toBe.value('The textContent', element.textContent, result, result )
+    }
+}
+
+const CheckboxWithLabelTests = () => {
+
+    expects.string.contains( STATUS.HOVERED, STATUS.HOVERED, 'hovered', 'hovered' )
+    expects.string.contains( STATUS.NORMAL, STATUS.NORMAL, 'normal', 'normal' )
+
+}
+
+describe('React Integration with Jest (Standard)', () => {
+
+    describe('Tests React components using standard Jest assertions', () => { TypeTests() })
+    describe('Tests rendered React components with DOM testing', () => { TextContentTests() })
+    describe('Checkbox with label', () => { CheckboxWithLabelTests() })
+
 })
-
-
-
 
 

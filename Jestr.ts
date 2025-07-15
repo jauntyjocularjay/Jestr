@@ -380,17 +380,6 @@ expects.toBe.isNull = (subject: any, bool = true) => {
     expects.toBe.null('value', subject, bool)
 }
 
-/**
- * Concise length test - automatically uses 'value' as alias
- * @param {Object} subject - The object to test for length
- * @param {number} target - The expected length value
- * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
- * @example expects.object.hasLength(users, 5) // "2 'value' has length 5"
- */
-// expects.object.hasLength = (subject: Object, target: number, bool = true) => {
-//     ConciseWarning('expects.object.hasLength')
-//     expects.object.toHaveLength( 'value', subject, target, bool )
-// }
 
 /**
  * Concise defined test - automatically uses 'value' as alias
