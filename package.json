@@ -20,6 +20,7 @@
         "@react-navigation/stack": "^7.4.2",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
+        "@types/react": "^19.1.8",
         "react-native-safe-area-context": "^5.5.2"
     },
     "devDependencies": {
@@ -32,7 +33,6 @@
         "@testing-library/react": "^16.0.0",
         "@tsconfig/recommended": "^1.0.8",
         "@types/jest": "^30.0.0",
-        "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
         "babel-cli": "^6.26.0",
         "babel-jest": "^30.0.1",
