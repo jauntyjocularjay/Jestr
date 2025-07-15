@@ -12,12 +12,17 @@ import {
 } from '../example/React.js'
 
 
+// render(<CheckboxWithLabel  />)
+// const checkboxWithLabel = screen.getByLabelText('CheckboxWithLabel')
+// const link: Link
 
 const TypeTests = () => {
     // Test component creation
     const components = {
-        'div': MyApp(),
-        'button': MyButton()
+        div: MyApp(),
+        button: MyButton(),
+        // CheckboxWithLabel: checkboxWithLabel,
+        // Link: link,
     }
 
     for(const [type, element] of Object.entries(components)){
