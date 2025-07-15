@@ -10,7 +10,8 @@
         "dev": "git submodule update --init --recursive",
         "update-jsx": "npx babel ./example/React.tsx --out-file example/React.js --extensions '.ts, .tsx'",
         "clear-babel-cache": "rm -rf node_modules/.cache/babel-loader",
-        "coverage": "jest --coverage"
+        "coverage": "jest --coverage",
+        "drop": "git stash && git stash drop"
     },
     "author": "jauntyjocularjay",
     "license": "MIT",
