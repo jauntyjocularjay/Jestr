@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { MyApp, MyButton, STATUS, CheckboxWithLabel } from '../example/React'
+import { MyApp, MyButton, STATUS, CheckboxWithLabel, Link } from '../example/React'
 import { expects } from '../Jestr'
 import { render, screen } from '@testing-library/react'
 
@@ -17,13 +17,15 @@ const TypeTests = () => {
         div: MyApp(),
         button: MyButton(),
         label: CheckboxWithLabel(),
-        // Link: link,
+        a: Link(),
     }
 
     for(const [typeStr, element] of Object.entries(components)){
         expects.string.contains(element.type, element.type, typeStr, typeStr)
         expects.toBe.truthy(element.props)
-        expects.object.toHaveProperty('children', 'props', element.props)
+
+        if(element.type != 'a') // the 'a' element does not allow the 'props' element
+            expects.object.toHaveProperty('children', 'props', element.props)
     }
 }
 
@@ -37,9 +39,9 @@ const TextContentTests = () => {
         "I'm a button": screen.getByRole('button', { name: /I'm a button/i })
     }
 
-    for(const [result, element] of Object.entries(HTMLElements)) {
+    for(const [textContent, element] of Object.entries(HTMLElements)) {
         expects.toBe.truthy(element)
-        expects.toBe.value('The textContent', element.textContent, result, result )
+        expects.toBe.value('The textContent', element.textContent, textContent, textContent )
     }
 }
 

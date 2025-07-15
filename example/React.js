@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 const MyButton = () => {
   return /*#__PURE__*/React.createElement("button", null, "I'm a button");
 };
@@ -14,21 +14,12 @@ const CheckboxWithLabel = () => {
     type: "checkbox"
   }));
 };
-const Link = ({
-  URL = ''
-}) => {
-  const [status, setStatus] = useState(STATUS.NORMAL);
-  const onMouseEnter = () => {
-    setStatus(STATUS.HOVERED);
-  };
-  const onMouseLeave = () => {
-    setStatus(STATUS.NORMAL);
-  };
+const Link = () => {
   return /*#__PURE__*/React.createElement("a", {
-    className: status,
-    href: URL || '#',
-    onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave
+    className: "link",
+    href: "https://github.com"
+    // onMouseEnter={onMouseEnter}
+    // onMouseLeave={onMouseLeave}
   });
 };
 export { MyApp, MyButton, STATUS, CheckboxWithLabel, Link };

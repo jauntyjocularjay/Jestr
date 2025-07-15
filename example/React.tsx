@@ -33,19 +33,13 @@ const CheckboxWithLabel = () => {
     )
 }
 
-const Link = ({URL = ''}) => {
-    const [status, setStatus] = useState(STATUS.NORMAL)
-
-    const onMouseEnter = () => {  setStatus(STATUS.HOVERED) };
-
-    const onMouseLeave = () => { setStatus(STATUS.NORMAL) };
-
+const Link = () => {
     return (
         <a
-            className={status}
-            href={URL || '#'}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
+            className='link'
+            href='https://github.com'
+            // onMouseEnter={onMouseEnter}
+            // onMouseLeave={onMouseLeave}
         >
         </a>
     )
