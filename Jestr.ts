@@ -355,15 +355,26 @@ const expects = {
      * @param {Function} funct - The function to test for throwing an error
      * @param {boolean} bool - Whether the assertion should pass (true) or fail (false)
      */
-    toThrow: (functionAlias: string, funct: Function, bool = true) => {
-        const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
-            bool
-        )}`
-        test(description, () => {
-            bool
-                ? expect(() => funct()).toThrow()
-                : expect(() => funct()).not.toThrow()
-        })
+    toThrow: {
+        error: (functionAlias: string, funct: Function, bool = true) => {
+            const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
+                bool
+            )}`
+            test(description, () => {
+                bool
+                    ? expect(() => funct()).toThrow()
+                    : expect(() => funct()).not.toThrow()
+            })
+        },
+        thisError: (functionAlias: string, funct: Function, error: Error, bool = true) => {
+            const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}`
+
+            test(description, () => {
+                bool
+                    ? expect(() => funct()).toThrow(error)
+                    : expect(() => funct()).not.toThrow(error)
+            })
+        }
     },
 }
 
