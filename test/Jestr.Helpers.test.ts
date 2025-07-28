@@ -7,6 +7,7 @@ import {
     TargetSuitabilityError,
     IntegerFloatMismatchError,
     StubError,
+    SubjectTargetMismatchError,
 } from '../Jestr'
 import { types, edge_cases } from '../Constants'
 
@@ -216,24 +217,38 @@ function TestableTypesTypescriptTests() {
 }
 
 function ErrorTests() {
+    GeneralErrorTests()
     TargetSuitabilityErrorTests()
+    SubjectTargetMismatchErrorTests()
     IntegerFloatMismatchErrorTests()
     IntegerFloatMismatchErrorTests()
     StubErrorTests()
 }
 
-function TargetSuitabilityErrorTests() {
+function GeneralErrorTests() {
+    describe('General Error-throwing Tests', () => {
         const not_null = 'Nodnol'
         const is_null = null
         const nodnol = 'Nodnol'
         const reddwarf = 'Red Dwarf'
 
-        // expects.toThrow.error('expects.toBe.null()', () => expects.toBe.null('a null value', is_null), true)
-        // expects.toThrow.error('isNull() throws TargetSuitabilityError', () => expects.toBe.null('a not null value', not_null))
+        expects.toThrow.error('expects.toBe.null()', () => { expect(is_null).toEqual(null) }, false);
+        expects.toThrow.error('isNull() throws TargetSuitabilityError', () => expect(not_null).toEqual(null));
+    })
+}
 
-        // expects.toThrow.error('TargetSuitabilityError', () => expects.toBe.value('A certain string', nodnol, 'the exact same string', nodnol, false))
-        // expects.toThrow.error('TargetSuitabilityError', () => expects.toBe.value( 'A certain string', nodnol, 'the wrong string', reddwarf))
-        // expects.toThrow('TargetSuitabilityError', () => {})
+function TargetSuitabilityErrorTests() {
+    describe('TargetSuitabilityError Tests', () => {
+        const error = 'Target Suitability Error'
+        expects.toThrow.thisError(error, () => {expects.array.toHaveLength('an int', [2], 2)}, TargetSuitabilityError.Default(), false)
+        expects.toThrow.thisError(error, () => {expects.array.toHaveLength('an int', ['2'], 2)}, TargetSuitabilityError.Default())
+    })
+}
+
+function SubjectTargetMismatchErrorTests() {
+    describe('SubjectTargetMismatchError Tests', () => {
+        expects.toThrow.thisError('subject-target mismatch error', () => {}, SubjectTargetMismatchError.Default(), false)
+    })
 }
 
 function IntegerFloatMismatchErrorTests() {

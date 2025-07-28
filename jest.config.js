@@ -17,10 +17,8 @@ const config = {
         '!**/*.d.ts',
         '!**/node_modules/**',
         '!**/Verbs.ts',
-        '!**/coverage/**',
-        // '!**/test/**',
-        // '!**/*.test.{mjs,ts}',
-        // '!**/*.spec.{mjs,ts}',
+        '!**/jest.config.ts',
+        '!**/coverage/**'
     ],
     transform: {
         '^.+.tsx?$': [

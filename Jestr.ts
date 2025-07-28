@@ -360,7 +360,7 @@ const expects = {
             const description = `${getCounter()} '${functionAlias}' ${throwsAnError(
                 bool
             )}`
-            test(description, () => {
+            describe(description, () => {
                 bool
                     ? expect(() => funct()).toThrow()
                     : expect(() => funct()).not.toThrow()
@@ -369,7 +369,7 @@ const expects = {
         thisError: (functionAlias: string, funct: Function, error: Error, bool = true) => {
             const description = `${getCounter()} '${functionAlias}' ${throwsAnError(bool)}`
 
-            test(description, () => {
+            describe(description, () => {
                 bool
                     ? expect(() => funct()).toThrow(error)
                     : expect(() => funct()).not.toThrow(error)
@@ -491,6 +491,10 @@ class TargetSuitabilityError extends TypeError {
             append
         )
     }
+
+    public static Default() {
+        return new TargetSuitabilityError('a test', ['string'], 'a target');
+    }
 }
 
 /**
@@ -512,6 +516,11 @@ class SubjectTargetMismatchError extends TypeError {
     constructor(subject: any, target: any){
         const message = `Subject: ${subject} and Target: ${target} are not comparable.`
         super(message)
+    }
+
+    public static Default()
+    {
+        return new SubjectTargetMismatchError('subject', 'target');
     }
 }
 
